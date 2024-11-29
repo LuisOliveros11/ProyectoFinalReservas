@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva en Restaurante</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 
 </head>
@@ -23,17 +20,14 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="">
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><a class="dropdown-item" href="">cerrar sesion</a></li>
+                    <li><a class="dropdown-item" href="">Cerrar sesión</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
+    
     <div id="layoutSidenav">
-
-
+        <!-- Sidebar -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
@@ -66,39 +60,41 @@
                 </div>
             </nav>
         </div>
-        <div class="text" style=" margin-left: 250px; margin-top: 60px;">
-            <h1 style="font-size: 2.5rem; color: #000;">Mesas Reservadas</h1>
-        </div>
-
-
-        <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-primary" style="position: absolute; top: 100px; right: 100px;">Crear</a>
-        </div>
-
-
-        <div class="card" style="width: 18rem; margin-left: 250px; margin-top: 30px;">
-            <img src="https://loredomuebles.com/wp-content/uploads/2017/11/MESAS-e1509988380708.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <!-- este seria el numero de mesa
-                                -->
-                <h5 class="card-title">Mesa 1</h5>
-                <!-- aqui que cuando se vean las caracteristicas de la mesa
-                                -->
-                <p class="card-text">cantidad de sillas: </p>
-                <p class="card-text">categoria": </p>
-                <p class="card-text">ubicacion: </p>
-                <p class="card-text">disponibilidad: </p>
-
-                <a href="#" class="btn btn-primary">Editar</a>
-                <a href="#" class="btn btn-primary">Eliminar</a>
+        <div id="layoutSidenav_content">
+            <div class="container mt-5">
+                <h2 class="text-center">Crear Nueva Reserva</h2>
+                <form action="" method="">
+                    <div class="mb-3">
+                        <label for="Mesa" class="form-label">Numero de Mesa</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="sillas" class="form-label">cantidad de sillas</label>
+                        <input type="number" class="form-control" id="" name="" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoria" class="form-label">categoria</label>
+                        <input type="time" class="form-control" id="" name="" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ubicacion" class="form-label">ubicacion</label>
+                        <input type="text" class="form-control" id="" name="" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="disponibilidad" class="form-label">disponibilidad</label>
+                        <input type="text" class="form-control" id="" name="" required>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Guardar Mesa</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="assets/demo/chart-area-demo.js"></script>
-        <script src="assets/demo/chart-bar-demo.js"></script>
-        <script src="assets/demo/chart-pie-demo.js"></script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>
