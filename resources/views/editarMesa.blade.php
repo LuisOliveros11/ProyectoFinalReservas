@@ -13,9 +13,7 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="">Registrar</a>
-        <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-10 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -27,7 +25,6 @@
     </nav>
     
     <div id="layoutSidenav">
-        <!-- Sidebar -->
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
