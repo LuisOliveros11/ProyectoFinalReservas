@@ -27,13 +27,15 @@
                                     <h3 class="text-center font-weight-light my-4">acceder</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="post" action="{{ route('login') }}">
+                                        @csrf
+                                        @method('POST')
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="" type="email" placeholder="name@example.com" />
+                                            <input class="form-control" id="" type="email" placeholder="name@example.com" name="correo_electronico"/>
                                             <label for="">Correo electronico</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="" type="password" placeholder="Contraseña" />
+                                            <input class="form-control" id="" type="password" placeholder="Contraseña" name="contrasena"/>
                                             <label for="">Contraseña</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-6 mb-0">
