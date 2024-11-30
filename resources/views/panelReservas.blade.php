@@ -15,7 +15,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand ps-3" href="">Registrar</a>
         <ul class="navbar-nav ms-auto ms-md-10 me-3 me-lg-4">
             <li class="nav-item dropdown">
@@ -24,7 +24,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="">cerrar sesion</a></li>
+                    <li><button class="dropdown-item" href="">cerrar sesion</button></li>
                 </ul>
             </li>
         </ul>
@@ -63,13 +63,14 @@
                 </div>
             </nav>
         </div>
-        <div class="d-flex justify-content-end">
-            <a href="" class="btn btn-primary" style="position: absolute; top: 80px; right: 85px;">Crear</a>
-        </div>
+
 
         <div id="layoutSidenav_content">
             <main class="container mt-4">
                 <h2 class="text-center">Lista de Reservas</h2>
+                <div class="d-flex justify-content-end">
+                    <button href="" class="btn btn-primary" >Crear Reserva</button>
+                </div>
                 <table class="table table-striped mt-3">
                     <thead>
                         <tr>
@@ -79,6 +80,8 @@
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Mesa</th>
+                            <th>Acciones</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -89,12 +92,23 @@
                             <td>2024-11-28</td>
                             <td>19:00</td>
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="" class="btn btn-danger btn-sm">Eliminar</a>
+                                <button href="" class="btn btn-warning btn-sm">Editar</button>
+                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </main>
         </div>
     </div>

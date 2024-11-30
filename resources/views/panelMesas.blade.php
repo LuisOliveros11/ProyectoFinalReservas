@@ -24,7 +24,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="">cerrar sesion</a></li>
+                    <li><button class="dropdown-item" href="">cerrar sesion</button></li>
                 </ul>
             </li>
         </ul>
@@ -64,32 +64,51 @@
                 </div>
             </nav>
         </div>
-        <div class="text" style=" margin-left: 250px; margin-top: 60px;">
-            <h1 style="font-size: 2.5rem; color: #000;">Mesas Reservadas</h1>
-        </div>
 
+        <div id="layoutSidenav_content">
+            <main class="container mt-4">
+                <h2 class="text-center">Lista de mesa</h2>
+                <div class="d-flex justify-content-end">
+                    <button href="" class="btn btn-primary" >Crear mesa</button>
+                </div>
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Numero de mesa</th>
+                            <th>Cantidad de sillas</th>
+                            <th>categoria</th>
+                            <th>Ubicacion</th>
+                            <th>Disponibilidad</th>
+                            <th>Acciones</th>
 
-        <div class="d-flex justify-content-end">
-            <a href="#" class="btn btn-primary" style="position: absolute; top: 100px; right: 100px;">Crear</a>
-        </div>
-
-
-        <div class="card" style="width: 18rem; margin-left: 250px; margin-top: 30px;">
-            <img src="https://loredomuebles.com/wp-content/uploads/2017/11/MESAS-e1509988380708.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <!-- este seria el numero de mesa
-                                -->
-                <h5 class="card-title">Mesa 1</h5>
-                <!-- aqui que cuando se vean las caracteristicas de la mesa
-                                -->
-                <p class="card-text">cantidad de sillas: </p>
-                <p class="card-text">categoria": </p>
-                <p class="card-text">ubicacion: </p>
-                <p class="card-text">disponibilidad: </p>
-
-                <a href="#" class="btn btn-primary">Editar</a>
-                <a href="#" class="btn btn-primary">Eliminar</a>
-            </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>4</td>
+                            <td>Vip</td>
+                            <td>Interior</td>
+                            <td>Ocupado</td>
+                            <td>
+                                <button href="" class="btn btn-warning btn-sm">Editar</button>
+                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </main>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>

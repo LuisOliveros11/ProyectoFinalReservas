@@ -24,7 +24,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                    <li><button class="dropdown-item" href="#">Cerrar sesión</button></li>
                 </ul>
             </li>
         </ul>
@@ -89,8 +89,12 @@
                         <input type="date" class="form-control" id="" name="" required>
                     </div>
                     <div class="mb-3">
-                        <label for="rol" class="form-label">Rol</label>
-                        <input type="text" class="form-control" id="" name="" required>
+                        <label for="Rol" class="form-label">Rol</label>
+                        <select class="form-select" id="" name="" required>
+                            <option value="">Selecciona un Rol</option>
+                            <option value="">Administrador</option>
+                            <option value="">Empleado</option>
+                        </select>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Registrar Usuario</button>

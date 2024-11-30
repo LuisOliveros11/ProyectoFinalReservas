@@ -15,7 +15,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand ps-3" href="">Registrar</a>
         <ul class="navbar-nav ms-auto ms-md-10 me-3 me-lg-4">
             <li class="nav-item dropdown">
@@ -24,7 +24,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="">cerrar sesion</a></li>
+                    <li><button class="dropdown-item" href="">cerrar sesion</button></li>
                 </ul>
             </li>
         </ul>
@@ -65,28 +65,33 @@
         </div>
         <div id="layoutSidenav_content">
             <div class="container mt-5">
-                <h2 class="text-center">Crear Nueva Reserva</h2>
+                <h2 class="text-center">Crear una Nueva Mesa</h2>
                 <form action="" method="">
                     <div class="mb-3">
                         <label for="Mesa" class="form-label">Numero de Mesa</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="sillas" class="form-label">cantidad de sillas</label>
                         <input type="number" class="form-control" id="" name="" required>
                     </div>
                     <div class="mb-3">
-                        <label for="categoria" class="form-label">categoria</label>
-                        <input type="time" class="form-control" id="" name="" required>
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="" name="" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="">Normal</option>
+                            <option value="">VIP</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="ubicacion" class="form-label">ubicacion</label>
-                        <input type="text" class="form-control" id="" name="" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="disponibilidad" class="form-label">disponibilidad</label>
-                        <input type="text" class="form-control" id="" name="" required>
+                        <label for="ubicacion" class="form-label">Ubicación</label>
+                        <select class="form-select" id="" name="" required>
+                            <option value="">Selecciona una ubicación</option>
+                            <option value="">Interior</option>
+                            <option value="">Exterior</option>
+                            <option value="">Privada</option>
+                        </select>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Crear Mesa</button>

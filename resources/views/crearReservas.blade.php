@@ -18,7 +18,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="">
-                    <li><a class="dropdown-item" href="">Cerrar sesión</a></li>
+                    <li><button class="dropdown-item" href="">Cerrar sesión</button></li>
                 </ul>
             </li>
         </ul>
@@ -61,7 +61,7 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container mt-5">
-                    <h1 class="text-center mb-4">Reservas</h1>
+                    <h1 class="text-center mb-4">Crear una Reservas</h1>
 
                     <form action="" method="">
                         <div class="mb-3">

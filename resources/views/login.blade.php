@@ -36,9 +36,8 @@
                                             <input class="form-control" id="" type="password" placeholder="Contraseña" />
                                             <label for="">Contraseña</label>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="">¿Has olvidado tu contraseña?</a>
-                                            <a class="btn btn-primary" href="">acceder</a>
+                                        <div class="d-flex align-items-center justify-content-between mt-6 mb-0">
+                                            <button class="btn btn-primary" href="">Acceder</button>
                                         </div>
                                     </form>
                                 </div>

@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 
 </head>
+
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand ps-3" href="">Registrar</a>
@@ -23,7 +24,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                    <li><button class="dropdown-item" href="#">Cerrar sesión</button></li>
                 </ul>
             </li>
         </ul>
@@ -68,7 +69,7 @@
                 <h2 class="text-center">Panel de Clientes</h2>
 
                 <div class="d-flex justify-content-end mb-3">
-                    <a href="" class="btn btn-primary">Crear Cliente</a>
+                    <button href="" class="btn btn-primary">Crear Cliente</button>
                 </div>
 
                 <table class="table table-striped">
@@ -92,12 +93,23 @@
                             <td>6121001001</td>
                             <td>oscar@gmail.com</td>
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">Editar</a>
-                                <a href="" class="btn btn-danger btn-sm">Eliminar</a>
+                                <button href="" class="btn btn-warning btn-sm">Editar</button>
+                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-end">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                        </ul>
+                    </nav>
+                </div>
             </main>
         </div>
     </div>

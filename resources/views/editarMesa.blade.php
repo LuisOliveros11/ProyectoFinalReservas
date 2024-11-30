@@ -18,12 +18,12 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="">
-                    <li><a class="dropdown-item" href="">Cerrar sesión</a></li>
+                    <li><button class="dropdown-item" href="">Cerrar sesión</button></li>
                 </ul>
             </li>
         </ul>
     </nav>
-    
+
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
@@ -65,22 +65,27 @@
                         <label for="Mesa" class="form-label">Numero de Mesa</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="sillas" class="form-label">cantidad de sillas</label>
                         <input type="number" class="form-control" id="" name="" required>
                     </div>
                     <div class="mb-3">
-                        <label for="categoria" class="form-label">categoria</label>
-                        <input type="time" class="form-control" id="" name="" required>
+                        <label for="categoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="" name="" required>
+                            <option value="">Selecciona una categoría</option>
+                            <option value="">Normal</option>
+                            <option value="">VIP</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="ubicacion" class="form-label">ubicacion</label>
-                        <input type="text" class="form-control" id="" name="" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="disponibilidad" class="form-label">disponibilidad</label>
-                        <input type="text" class="form-control" id="" name="" required>
+                        <label for="ubicacion" class="form-label">Ubicación</label>
+                        <select class="form-select" id="" name="" required>
+                            <option value="">Selecciona una ubicación</option>
+                            <option value="">Interior</option>
+                            <option value="">Exterior</option>
+                            <option value="">Privada</option>
+                        </select>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Guardar Mesa</button>
