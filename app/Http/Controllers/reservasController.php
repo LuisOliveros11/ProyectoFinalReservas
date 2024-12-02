@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class reservasController extends Controller
 {
     public function index(){
-        return view("panelReservas");
+        return view("dashboard");
     }
 }

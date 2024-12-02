@@ -45,7 +45,7 @@ class AuthController extends Controller
                     curl_close($curl);
 
                     if (isset($response->user) && is_object($response->user)) {
-                        $_SESSION['user'] = $response;
+                        session(['user' => $response]);
                         return redirect()->route('index');
                     } else {
                         return redirect()->back()->with('error', 'Error. Credenciales Incorrectas');
@@ -55,6 +55,37 @@ class AuthController extends Controller
                 }
         }else{
             return redirect()->back()->with('error', 'Error. No se permiten campos vacios');
+        }
+    }
+
+    public function logout(){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/usuarios/logout',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Bearer " . session('user')->token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $response = json_decode($response);
+
+        curl_close($curl);
+
+        if (isset($response->message)) {
+            session()->flush();
+            return redirect()->route('inicio');
+        } else {
+            echo "Error al eliminar sesion";
         }
     }
 }
