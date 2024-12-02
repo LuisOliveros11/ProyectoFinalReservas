@@ -46,15 +46,15 @@ class AuthController extends Controller
 
                     if (isset($response->user) && is_object($response->user)) {
                         $_SESSION['user'] = $response;
-                        return view("panelReservas");
+                        return redirect()->route('index');
                     } else {
-                        echo "Error. Credenciales Incorrectas";
+                        return redirect()->back()->with('error', 'Error. Credenciales Incorrectas');
                     }
                 }else{
-                    echo "Error. Ingresa un formato valido de correo";
+                    return redirect()->back()->with('error', 'Error. Ingrese un formato valido de correo');
                 }
         }else{
-            echo "Error. No se permiten campos vacios";
+            return redirect()->back()->with('error', 'Error. No se permiten campos vacios');
         }
     }
 }
