@@ -36,6 +36,10 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <a class="nav-link" href="">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
                         <div class="sb-sidenav-menu-heading">Panel de mesas</div>
 
                         <a class="nav-link" href="">
@@ -90,6 +94,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="" name="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Confirmar Contraseña</label>
                         <input type="password" class="form-control" id="" name="">
                     </div>
                     <div class="text-center">

@@ -29,6 +29,10 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <a class="nav-link" href="">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
                         <div class="sb-sidenav-menu-heading">Panel de mesas</div>
 
                         <a class="nav-link" href="">
@@ -68,12 +72,9 @@
                             <label for="fecha" class="form-label">Fecha de la Reserva</label>
                             <input type="date" class="form-control" id="" name="" required>
                         </div>
-                        <!-- aqui para avisar que no entendi bien por que para reservar se nesesita algo para reconocer al cliente y es el id_cliente pero no
-                         creo que se vea bien poner eso si no algo mas relacionado
-                         -->
                         <div class="mb-3">
-                            <label for="Numero" class="form-label">Numero del cliente</label>
-                            <input type="text" class="form-control" id="" name="" required>
+                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="" name="">
                         </div>
                         <div class="mb-3">
                             <label for="inicio" class="form-label">Hora de inicio</label>

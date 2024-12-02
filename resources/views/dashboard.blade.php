@@ -68,55 +68,86 @@
             </nav>
         </div>
 
-
         <div id="layoutSidenav_content">
             <main class="container mt-4">
-                <h2 class="text-center">Lista de Reservas</h2>
-                <div class="d-flex justify-content-end">
-                    <button href="" class="btn btn-primary">Crear Reserva</button>
-                </div>
-                <table class="table table-striped mt-3">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Cliente</th>
-                            <th>Número de Personas</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Mesa</th>
-                            <th>Acciones</th>
+                <div class="d-flex flex-row justify-content-between align-items-stretch">
+                    <div class="card shadow mx-2" style="flex: 1; min-width: 200px;">
+                        <div class="card-body text-center">
+                            <div class="h6 fw-normal text-gray mb-2">Cantidad de Clientes Nuevos</div>
+                            <h2 class="h3">452</h2>
+                            <div class="small mt-2 text-success">
+                                <span class="fas fa-angle-up"></span> +18.2%
+                            </div>
+                        </div>
+                    </div>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>oscar</td>
-                            <td>4</td>
-                            <td>2024-11-28</td>
-                            <td>19:00</td>
-                            <td>1</td>
+                    <div class="card shadow mx-2" style="flex: 1; min-width: 200px;">
+                        <div class="card-body text-center">
+                            <div class="h6 fw-normal text-gray mb-2">Mesas</div>
+                            <h2 class="h3">30</h2>
+                            <div class="small mt-2 text-info">
+                                <span class="fas fa-chart-line"></span> En uso: 20
+                            </div>
+                        </div>
+                    </div>
 
-                            <td>
-                                <button href="" class="btn btn-warning btn-sm">Editar</button>
-                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-end">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
-                        </ul>
-                    </nav>
+                    <div class="card shadow mx-2" style="flex: 1; min-width: 200px;">
+                        <div class="card-body text-center">
+                            <div class="h6 fw-normal text-gray mb-2">Usuarios</div>
+                            <h2 class="h3">150</h2>
+                            <div class="small mt-2 text-warning">
+                                <span class="fas fa-user"></span> Activos: 140
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card shadow mx-2" style="flex: 1; min-width: 200px;">
+                        <div class="card-body text-center">
+                            <div class="h6 fw-normal text-gray mb-2">Reservas</div>
+                            <h2 class="h3">85</h2>
+                            <div class="small mt-2 text-danger">
+                                <span class="fas fa-calendar-alt"></span> Canceladas: 5
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <br>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <h2 class="text-center">Clientes mas Recientes</h2>
+
+                        <table class="table table-striped mt-6">
+
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Fecha de Registro</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oscar</td>
+                                    <td>Aguilar</td>
+                                    <td>2024-11-28</td>
+                                    <td>oscar@gmail.com</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
             </main>
         </div>
+
+
     </div>
 
     <!-- Scripts -->

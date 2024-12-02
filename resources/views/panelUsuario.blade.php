@@ -35,6 +35,10 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <a class="nav-link" href="">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
                         <div class="sb-sidenav-menu-heading">Panel de mesas</div>
 
                         <a class="nav-link" href="">

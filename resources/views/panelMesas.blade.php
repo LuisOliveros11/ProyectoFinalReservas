@@ -36,6 +36,10 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        <a class="nav-link" href="">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                            Dashboard
+                        </a>
                         <div class="sb-sidenav-menu-heading">Panel de mesas</div>
 
                         <a class="nav-link" href="">
@@ -69,7 +73,7 @@
             <main class="container mt-4">
                 <h2 class="text-center">Lista de mesa</h2>
                 <div class="d-flex justify-content-end">
-                    <button href="" class="btn btn-primary" >Crear mesa</button>
+                    <button href="" class="btn btn-primary">Crear mesa</button>
                 </div>
                 <table class="table table-striped mt-3">
                     <thead>
