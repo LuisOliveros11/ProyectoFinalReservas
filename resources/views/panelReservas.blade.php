@@ -15,66 +15,62 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="">Registrar</a>
-        <ul class="navbar-nav ms-auto ms-md-10 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="">
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><button class="dropdown-item" href="">cerrar sesion</button></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    @include('layouts.navbar')
+
 
     <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                            Dashboard
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de mesas</div>
+        @include('layouts.sidevar')
 
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
-                            Mesas
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de reservas</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
-                            Reservas
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de clientes</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Clientes
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de usuarios</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Usuarios
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
 
 
         <div id="layoutSidenav_content">
             <main class="container mt-4">
                 <h2 class="text-center">Lista de Reservas</h2>
-                <div class="d-flex justify-content-end">
-                    <button href="" class="btn btn-primary">Crear Reserva</button>
+                <div class="text-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservarModal">
+                        Crear
+                    </button>
                 </div>
+
+                <div class="modal fade" id="reservarModal" tabindex="-1" aria-labelledby="reservarModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="reservarModalLabel">Crear una Reserva</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="">
+                                    <div class="mb-3">
+                                        <label for="fecha" class="form-label">Fecha de la Reserva</label>
+                                        <input type="date" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inicio" class="form-label">Hora de inicio</label>
+                                        <input type="time" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="final" class="form-label">Hora final</label>
+                                        <input type="time" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mesa" class="form-label">Número de mesa</label>
+                                        <input type="number" class="form-control" id="" name="" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Crear Reserva</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <table class="table table-striped mt-3">
                     <thead>
                         <tr>
@@ -98,12 +94,53 @@
                             <td>1</td>
 
                             <td>
-                                <button href="" class="btn btn-warning btn-sm">Editar</button>
-                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarReservaModal">
+                                    Editar
+                                </button> <button href="" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="modal fade" id="editarReservaModal" tabindex="-1" aria-labelledby="editarReservaModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="editarReservaModalLabel">Editar una Reserva</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="">
+                                    <div class="mb-3">
+                                        <label for="fecha" class="form-label">Fecha de la Reserva</label>
+                                        <input type="date" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="inicio" class="form-label">Hora de inicio</label>
+                                        <input type="time" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="final" class="form-label">Hora final</label>
+                                        <input type="time" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="mesa" class="form-label">Número de mesa</label>
+                                        <input type="number" class="form-control" id="" name="" required>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-end">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">

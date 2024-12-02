@@ -15,65 +15,69 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand ps-3" href="">Registrar</a>
-        <ul class="navbar-nav ms-auto ms-md-10 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-                    <li><button class="dropdown-item" href="#">Cerrar sesión</button></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+    @include('layouts.navbar')
+
 
     <div id="layoutSidenav">
 
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                            Dashboard
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de mesas</div>
+        @include('layouts.sidevar')
 
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
-                            Mesas
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de reservas</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-alt"></i></div>
-                            Reservas
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de clientes</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Clientes
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Panel de usuarios</div>
-
-                        <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                            Usuarios
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
         <div id="layoutSidenav_content">
             <main class="container mt-4">
                 <h2 class="text-center">Panel de Clientes</h2>
 
-                <div class="d-flex justify-content-end mb-3">
-                    <button href="" class="btn btn-primary">Crear Cliente</button>
+                <div class="text-end">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Crear
+                    </button>
+                </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Crear un Nuevo Cliente</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="">
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="apellidos" class="form-label">Apellidos</label>
+                                        <input type="text" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
+                                        <input type="date" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="numero_telefonico" class="form-label">Número Telefónico</label>
+                                        <input type="text" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contrasena" class="form-label">Confirmar Contraseña</label>
+                                        <input type="password" class="form-control" id="" name="">
+                                    </div>
+                        
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Crear Cliente</button>
+                            </div>                           
+                        </div>
+                    </div>
                 </div>
 
                 <table class="table table-striped">
@@ -97,12 +101,64 @@
                             <td>6121001001</td>
                             <td>oscar@gmail.com</td>
                             <td>
-                                <button href="" class="btn btn-warning btn-sm">Editar</button>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarClienteModal">
+                                    Editar
+                                </button> 
+                                
                                 <button href="" class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="modal fade" id="editarClienteModal" tabindex="-1" aria-labelledby="editarClienteLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editarClienteLabel">Editar un Cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="">
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" id="" name="" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="apellidos" class="form-label">Apellidos</label>
+                                        <input type="text" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
+                                        <input type="date" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="numero_telefonico" class="form-label">Número Telefónico</label>
+                                        <input type="text" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                        <input type="email" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="password" class="form-control" id="" name="">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmar_contrasena" class="form-label">Confirmar Contraseña</label>
+                                        <input type="password" class="form-control" id="" name="">
+                                    </div>
+                                     
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+
                 <div class="d-flex justify-content-end">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
