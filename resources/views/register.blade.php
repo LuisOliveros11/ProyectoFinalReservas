@@ -13,88 +13,262 @@
 </head>
 
 <body class="bg-primary">
-    <div id="layoutAuthentication">
-        <div id="layoutAuthentication_content">
-            <main>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-7">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Crear una cuenta</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="" type="text" placeholder="Nombres" />
-                                                    <label for="">Nombres</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating">
-                                                    <input class="form-control" id="" type="text" placeholder="Apellidos" />
-                                                    <label for="">Apellidos</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" id="" type="email" placeholder="name@example.com" />
-                                            <label for="">correo electrónico</label>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="" type="password" placeholder="crea una Contraseña" />
-                                                    <label for="">Contraseña</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input class="form-control" id="" type="password" placeholder="confirmar Contraseña" />
-                                                    <label for="">confirmar Contraseña</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
-                                                    <input type="date" class="form-control" id="" name="" required>
-                                                    <label for="fecha">Fecha de Registro</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-floating mb-3 mb-md-0">
- 
-                                                    <select class="form-select" id="" name="" required>
-                                                        <option value="">Selecciona un Rol</option>
-                                                        <option value="">Administrador</option>
-                                                        <option value="">Empleado</option>
-                                                    </select>
-                                                    <label for="rol">Rol</label>
+    <div id="app">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header">
+                                        <h3 class="text-center font-weight-light my-4">Crear una cuenta</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="POST" action="{{route(name: 'añadirUsuario')}}"
+                                            @submit.prevent="funcion_agregar_usuario" id="agregar_usuario">
+                                            @csrf
+                                            @method('POST')
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="" type="text"
+                                                            placeholder="Nombres" v-model="nombres" name="nombres" />
+                                                        <label for="">Nombres</label>
+                                                    </div>
+                                                    <label v-if="boolean_nombres" class="form-label" style="color: red;"
+                                                        v-text="error_nombres"></label>
 
                                                 </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating">
+                                                        <input class="form-control" id="" type="text"
+                                                            placeholder="Apellidos" name="apellidos"
+                                                            v-model="apellidos" />
+                                                        <label for="">Apellidos</label>
+                                                    </div>
+                                                    <label v-if="boolean_apellidos" class="form-label"
+                                                        style="color: red;" v-text="error_apellidos"></label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mt-4 mb-0">
-                                            <div class="d-grid"><a class="btn btn-primary btn-block" href="">Crear una cuenta</a></div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="">¿Tienes una cuenta? inicia sesión</a></div>
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="" type="text"
+                                                    placeholder="name@example.com" name="correo_electronico"
+                                                    v-model="correo_electronico" />
+                                                <label for="">correo electrónico</label>  
+                                            </div>
+                                            <label v-if="boolean_correo_electronico" class="form-label"
+                                            style="color: red;" v-text="error_correo_electronico"></label>
+
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="" type="password"
+                                                            placeholder="crea una Contraseña" name="contrasena"
+                                                            v-model="contrasena" />
+                                                        <label for="">Contraseña</label>
+                                                    </div>
+                                                    <label v-if="boolean_contrasena" class="form-label"
+                                                    style="color: red;" v-text="error_contrasena"></label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="" type="password"
+                                                            placeholder="confirmar Contraseña"
+                                                            name="confirmar_contrasena"
+                                                            v-model="confirmar_contrasena" />
+                                                        <label for="">confirmar Contraseña</label>
+                                                    </div>
+                                                    <label v-if="boolean_confirmar_contrasena" class="form-label"
+                                                    style="color: red;" v-text="error_confirmar_contrasena"></label>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input type="date" class="form-control" id=""
+                                                            name="fecha_registro" v-model="fecha_registro">
+                                                        <label for="fecha">Fecha de Registro</label>
+                                                    </div>
+                                                    <label v-if="boolean_fecha_registro" class="form-label"
+                                                    style="color: red;" v-text="error_fecha_registro"></label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+
+                                                        <select class="form-select" id="" name="rol" v-model="rol">
+                                                            <option value="" disabled selected>Selecciona un Rol</option>
+                                                            <option value="Administrador">Administrador</option>
+                                                            <option value="Empleado">Empleado</option>
+                                                        </select>
+                                                        <label for="rol">Rol</label>
+
+                                                    </div>
+                                                    <label v-if="boolean_rol" class="form-label"
+                                                    style="color: red;" v-text="error_rol"></label>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid"><button class="btn btn-primary btn-block"
+                                                        type="submit">Crear una cuenta</>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="{{route(name: 'inicio')}}">¿Tienes una cuenta? inicia sesión</a></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </main>
+            </div>
+
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script>
+        const { createApp, ref } = Vue
+
+        createApp({
+            setup() {
+
+                let nombres = ref("")
+                let apellidos = ref("")
+                let correo_electronico = ref("")
+                let contrasena = ref("")
+                let confirmar_contrasena = ref("")
+                let rol = ref("")
+                let fecha_registro = ref("")
+
+                let boolean_nombres = ref(false)
+                let boolean_apellidos = ref(false)
+                let boolean_correo_electronico = ref(false)
+                let boolean_contrasena = ref(false)
+                let boolean_confirmar_contrasena = ref(false)
+                let boolean_rol = ref(false)
+                let boolean_fecha_registro = ref(false)
+
+                let error_campos = ref("")
+                let error_correo_electronico = ref("")
+
+                return {
+                    nombres, boolean_nombres, error_campos,
+                    apellidos, boolean_apellidos,
+                    correo_electronico, boolean_correo_electronico, error_correo_electronico,
+                    contrasena, boolean_contrasena,
+                    confirmar_contrasena, boolean_confirmar_contrasena,
+                    rol, boolean_rol,
+                    fecha_registro, boolean_fecha_registro
+                }
+            },
+            methods: {
+
+                funcion_agregar_usuario() {
+                    //VALIDAR FORMULARIO AGREGAR USUARIO
+
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+                    const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
+                    const contrasenaRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+
+
+
+                    this.boolean_nombres = false;
+                    this.boolean_apellidos = false;
+                    this.boolean_correo_electronico = false;
+                    this.boolean_contrasena = false;
+                    this.boolean_confirmar_contrasena = false;
+                    this.boolean_rol = false;
+                    this.boolean_fecha_registro = false;
+
+
+                    let email_valido = emailRegex.test(this.correo_electronico);
+                    let name_valido = nameRegex.test(this.nombres);
+                    let lastname_valido = nameRegex.test(this.apellidos);
+                    let password_valido = contrasenaRegex.test(this.contrasena);
+                    let confirmar_contrasena =contrasenaRegex.test(this.confirmar_contrasena)
+                    let rol_valido = this.rol !=="";
+                    let fecha_valida = this.fecha_registro !=="";
+                    
+
+
+
+
+
+                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido && fecha_valida) {
+                        swal({
+                            title: "Cuenta registrada!",
+                            text: "La cuenta ha sido creada correctamente!",
+                            icon: "success",
+                            button: "Aceptar",
+                        }).then(() => {
+                            document.getElementById('agregar_usuario').submit();
+                        });
+
+
+                    }
+                    else {
+                        this.boolean_correo_electronico = !email_valido;
+                        this.boolean_nombres = !name_valido;
+                        this.boolean_apellidos = !lastname_valido;
+                        this.boolean_contrasena = !password_valido;
+                        this.boolean_confirmar_contrasena = !confirmar_contrasena;
+                        this.boolean_rol =!rol_valido;
+                        this.boolean_fecha_registro = !fecha_valida;
+                    }
+                    if (this.nombres.length == 0) {
+                        this.error_nombres = "El campo es obligatorio";
+
+                    } else {
+                        this.error_nombres = "Los nombres solo pueden contener letras"
+                    }
+                    if (this.apellidos.length == 0) {
+                        this.error_apellidos = "El campo es obligatorio";
+
+                    } else {
+                        this.error_apellidos = "Los apellidos solo pueden contener letras"
+                    }
+                    if (this.correo_electronico.length == 0) {
+                        this.error_correo_electronico = "El campo es obligatorio";
+
+                    } else {
+                        this.error_correo_electronico = "El correo debe tener una estructura válida"
+                    }
+                    if(this.contrasena.length < 8){
+                        this.error_contrasena = "La contraseña debe contener al menos 8 carácteres"
+                    } else{
+                        this.error_contrasena = "La contrasena debe contener al menos una mayúscula y un simbolo"
+                    }
+                    if (this.contrasena != this.confirmar_contrasena) {
+                        this.error_confirmar_contrasena = "Las contraseñas no coinciden"
+                    }
+                    if(!rol_valido){
+                        this.error_rol = "El usuario debe poseer un rol"
+                    }
+                    if(!fecha_valida){
+                        this.error_fecha_registro = "Debes seleccionar una fecha"
+                    }
+                   
+                },
+
+            },
+            mounted() {
+
+            }
+
+        }).mount('#app')
+    </script>
 </body>
 
 </html>
