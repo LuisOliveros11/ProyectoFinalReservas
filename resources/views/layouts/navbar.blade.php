@@ -7,7 +7,11 @@
                 <li>
                     <hr class="dropdown-divider" />
                 </li>
-                <li><button class="dropdown-item" href="">cerrar sesion</button></li>
+                <form method="POST" action="{{route(name: 'logout')}}">
+                    @csrf
+                    @method('POST')
+                    <li><button class="dropdown-item" type="submit">cerrar sesion</button></li>
+                </form>
             </ul>
         </li>
     </ul>
