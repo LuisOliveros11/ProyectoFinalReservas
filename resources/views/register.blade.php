@@ -32,7 +32,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="" type="text"
+                                                        <input class="form-control" id="nombres" type="text"
                                                             placeholder="Nombres" v-model="nombres" name="nombres" />
                                                         <label for="">Nombres</label>
                                                     </div>
@@ -42,7 +42,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="" type="text"
+                                                        <input class="form-control" id="apellidos" type="text"
                                                             placeholder="Apellidos" name="apellidos"
                                                             v-model="apellidos" />
                                                         <label for="">Apellidos</label>
@@ -55,32 +55,32 @@
                                                 <input class="form-control" id="" type="text"
                                                     placeholder="name@example.com" name="correo_electronico"
                                                     v-model="correo_electronico" />
-                                                <label for="">correo electrónico</label>  
+                                                <label for="">correo electrónico</label>
                                             </div>
                                             <label v-if="boolean_correo_electronico" class="form-label"
-                                            style="color: red;" v-text="error_correo_electronico"></label>
+                                                style="color: red;" v-text="error_correo_electronico"></label>
 
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="" type="password"
+                                                        <input class="form-control" id="contrasena" type="password"
                                                             placeholder="crea una Contraseña" name="contrasena"
                                                             v-model="contrasena" />
                                                         <label for="">Contraseña</label>
                                                     </div>
                                                     <label v-if="boolean_contrasena" class="form-label"
-                                                    style="color: red;" v-text="error_contrasena"></label>
+                                                        style="color: red;" v-text="error_contrasena"></label>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="" type="password"
+                                                        <input class="form-control" id="confirmar_contrasena" type="password"
                                                             placeholder="confirmar Contraseña"
                                                             name="confirmar_contrasena"
                                                             v-model="confirmar_contrasena" />
                                                         <label for="">confirmar Contraseña</label>
                                                     </div>
                                                     <label v-if="boolean_confirmar_contrasena" class="form-label"
-                                                    style="color: red;" v-text="error_confirmar_contrasena"></label>
+                                                        style="color: red;" v-text="error_confirmar_contrasena"></label>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -91,21 +91,22 @@
                                                         <label for="fecha">Fecha de Registro</label>
                                                     </div>
                                                     <label v-if="boolean_fecha_registro" class="form-label"
-                                                    style="color: red;" v-text="error_fecha_registro"></label>
+                                                        style="color: red;" v-text="error_fecha_registro"></label>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
 
                                                         <select class="form-select" id="" name="rol" v-model="rol">
-                                                            <option value="" disabled selected>Selecciona un Rol</option>
+                                                            <option value="" disabled selected>Selecciona un Rol
+                                                            </option>
                                                             <option value="Administrador">Administrador</option>
                                                             <option value="Empleado">Empleado</option>
                                                         </select>
                                                         <label for="rol">Rol</label>
 
                                                     </div>
-                                                    <label v-if="boolean_rol" class="form-label"
-                                                    style="color: red;" v-text="error_rol"></label>
+                                                    <label v-if="boolean_rol" class="form-label" style="color: red;"
+                                                        v-text="error_rol"></label>
                                                 </div>
                                             </div>
                                             <div class="mt-4 mb-0">
@@ -116,7 +117,8 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="{{route(name: 'inicio')}}">¿Tienes una cuenta? inicia sesión</a></div>
+                                        <div class="small"><a href="{{route(name: 'inicio')}}">¿Tienes una cuenta?
+                                                inicia sesión</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -197,10 +199,10 @@
                     let name_valido = nameRegex.test(this.nombres);
                     let lastname_valido = nameRegex.test(this.apellidos);
                     let password_valido = contrasenaRegex.test(this.contrasena);
-                    let confirmar_contrasena =contrasenaRegex.test(this.confirmar_contrasena)
-                    let rol_valido = this.rol !=="";
-                    let fecha_valida = this.fecha_registro !=="";
-                    
+                    let confirmar_contrasena = this.contrasena === this.confirmar_contrasena;
+                    let rol_valido = this.rol !== "";
+                    let fecha_valida = this.fecha_registro !== "";
+
 
 
 
@@ -224,7 +226,7 @@
                         this.boolean_apellidos = !lastname_valido;
                         this.boolean_contrasena = !password_valido;
                         this.boolean_confirmar_contrasena = !confirmar_contrasena;
-                        this.boolean_rol =!rol_valido;
+                        this.boolean_rol = !rol_valido;
                         this.boolean_fecha_registro = !fecha_valida;
                     }
                     if (this.nombres.length == 0) {
@@ -245,21 +247,21 @@
                     } else {
                         this.error_correo_electronico = "El correo debe tener una estructura válida"
                     }
-                    if(this.contrasena.length < 8){
+                    if (this.contrasena.length < 8) {
                         this.error_contrasena = "La contraseña debe contener al menos 8 carácteres"
-                    } else{
+                    } else {
                         this.error_contrasena = "La contrasena debe contener al menos una mayúscula y un simbolo"
                     }
-                    if (this.contrasena != this.confirmar_contrasena) {
+                    if (this.confirmar_contrasena != this.contrasena) {
                         this.error_confirmar_contrasena = "Las contraseñas no coinciden"
                     }
-                    if(!rol_valido){
+                    if (!rol_valido) {
                         this.error_rol = "El usuario debe poseer un rol"
                     }
-                    if(!fecha_valida){
+                    if (!fecha_valida) {
                         this.error_fecha_registro = "Debes seleccionar una fecha"
                     }
-                   
+
                 },
 
             },
@@ -268,6 +270,50 @@
             }
 
         }).mount('#app')
+    </script>
+
+    <script>
+        const nombres_input = document.getElementById("nombres");
+        const apellidos_input = document.getElementById("apellidos");
+        const contrasena_input = document.getElementById("contrasena");
+        const confirmar_contrasena_input = document.getElementById("confirmar_contrasena");
+
+        //VALIDAR LONGITUD Y CARACTERES INGRESADOS A LOS CAMPOS
+        function validar_nombres_apellidos(e) {
+            const regex = /[^A-Za-zÑñ\s]/g;
+            if (regex.test(e.key)) {
+                e.preventDefault();
+            }
+            const input = e.target;
+            if (input.value.length >= 60 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+            }
+        }
+
+        function validar_contrasena(e) {
+            const regex = /\s/;  
+
+            if (regex.test(e.key)) {
+                e.preventDefault(); 
+            }
+            const input = e.target;
+            if (input.value.length >= 64 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.preventDefault();
+            }
+            
+        }
+        nombres_input.addEventListener("keydown", validar_nombres_apellidos);
+        apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
+        contrasena_input.addEventListener("keydown", validar_contrasena);
+        
+        //EVITAR PEGAR TEXTO EN LOS CAMPOS DE CONTRASEÑAS
+        contrasena_input.addEventListener("paste", function(e) {
+            e.preventDefault();
+        });
+        confirmar_contrasena_input.addEventListener("paste", function(e) {
+            e.preventDefault();
+        });
+
     </script>
 </body>
 
