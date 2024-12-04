@@ -30,7 +30,7 @@
 
                 <div class="text-end">
                     <button type="button" class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#crearMesaModal">
-                        Crear
+                        Crear Mesa
                     </button>
                 </div>
 

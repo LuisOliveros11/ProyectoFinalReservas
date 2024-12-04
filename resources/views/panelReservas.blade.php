@@ -28,7 +28,7 @@
                 <h2 class="text-center">Lista de Reservas</h2>
                 <div class="text-end">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservarModal">
-                        Crear
+                        Crear Reserva
                     </button>
                 </div>
 

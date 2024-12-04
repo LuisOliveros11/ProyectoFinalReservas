@@ -32,5 +32,15 @@
                 </a>
             </div>
         </div>
+        <div class="sb-sidenav-footer">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-user-circle fa-2x text-muted circle-icon"></i>
+                <div class="ms-2">
+                    <div class="small text-truncate" title="Kevin Alberto">Nombre de Usuario</div>
+                    <div class="small text-truncate" title="Kevin@gmail.com">Ejemplo@gmail.com</div>
+                </div>
+            </div>
+        </div>
+
     </nav>
 </div>

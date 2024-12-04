@@ -51,14 +51,34 @@
                                                         style="color: red;" v-text="error_apellidos"></label>
                                                 </div>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="" type="text"
-                                                    placeholder="name@example.com" name="correo_electronico"
-                                                    v-model="correo_electronico" />
-                                                <label for="">correo electrónico</label>
+                                            <div class="row mb-3">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+
+                                                        <select class="form-select" id="" name="rol" v-model="rol">
+                                                            <option value="" disabled selected>Selecciona un Rol
+                                                            </option>
+                                                            <option value="Administrador">Administrador</option>
+                                                            <option value="Empleado">Empleado</option>
+                                                        </select>
+                                                        <label for="rol">Rol</label>
+
+                                                    </div>
+                                                    <label v-if="boolean_rol" class="form-label" style="color: red;"
+                                                        v-text="error_rol"></label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="" type="text"
+                                                            placeholder="name@example.com" name="correo_electronico"
+                                                            v-model="correo_electronico" />
+                                                        <label for="">correo electrónico</label>
+                                                    </div>
+                                                    <label v-if="boolean_correo_electronico" class="form-label"
+                                                        style="color: red;" v-text="error_correo_electronico"></label>
+                                                </div>
                                             </div>
-                                            <label v-if="boolean_correo_electronico" class="form-label"
-                                                style="color: red;" v-text="error_correo_electronico"></label>
+
 
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
@@ -83,32 +103,7 @@
                                                         style="color: red;" v-text="error_confirmar_contrasena"></label>
                                                 </div>
                                             </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
-                                                        <input type="date" class="form-control" id=""
-                                                            name="fecha_registro" v-model="fecha_registro">
-                                                        <label for="fecha">Fecha de Registro</label>
-                                                    </div>
-                                                    <label v-if="boolean_fecha_registro" class="form-label"
-                                                        style="color: red;" v-text="error_fecha_registro"></label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-floating mb-3 mb-md-0">
 
-                                                        <select class="form-select" id="" name="rol" v-model="rol">
-                                                            <option value="" disabled selected>Selecciona un Rol
-                                                            </option>
-                                                            <option value="Administrador">Administrador</option>
-                                                            <option value="Empleado">Empleado</option>
-                                                        </select>
-                                                        <label for="rol">Rol</label>
-
-                                                    </div>
-                                                    <label v-if="boolean_rol" class="form-label" style="color: red;"
-                                                        v-text="error_rol"></label>
-                                                </div>
-                                            </div>
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block"
                                                         type="submit">Crear una cuenta</>
@@ -140,7 +135,10 @@
 
 
     <script>
-        const { createApp, ref } = Vue
+        const {
+            createApp,
+            ref
+        } = Vue
 
         createApp({
             setup() {
@@ -165,13 +163,22 @@
                 let error_correo_electronico = ref("")
 
                 return {
-                    nombres, boolean_nombres, error_campos,
-                    apellidos, boolean_apellidos,
-                    correo_electronico, boolean_correo_electronico, error_correo_electronico,
-                    contrasena, boolean_contrasena,
-                    confirmar_contrasena, boolean_confirmar_contrasena,
-                    rol, boolean_rol,
-                    fecha_registro, boolean_fecha_registro
+                    nombres,
+                    boolean_nombres,
+                    error_campos,
+                    apellidos,
+                    boolean_apellidos,
+                    correo_electronico,
+                    boolean_correo_electronico,
+                    error_correo_electronico,
+                    contrasena,
+                    boolean_contrasena,
+                    confirmar_contrasena,
+                    boolean_confirmar_contrasena,
+                    rol,
+                    boolean_rol,
+                    fecha_registro,
+                    boolean_fecha_registro
                 }
             },
             methods: {
@@ -219,8 +226,7 @@
                         });
 
 
-                    }
-                    else {
+                    } else {
                         this.boolean_correo_electronico = !email_valido;
                         this.boolean_nombres = !name_valido;
                         this.boolean_apellidos = !lastname_valido;
@@ -291,21 +297,21 @@
         }
 
         function validar_contrasena(e) {
-            const regex = /\s/;  
+            const regex = /\s/;
 
             if (regex.test(e.key)) {
-                e.preventDefault(); 
+                e.preventDefault();
             }
             const input = e.target;
             if (input.value.length >= 64 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
                 e.preventDefault();
             }
-            
+
         }
         nombres_input.addEventListener("keydown", validar_nombres_apellidos);
         apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
         contrasena_input.addEventListener("keydown", validar_contrasena);
-        
+
         //EVITAR PEGAR TEXTO EN LOS CAMPOS DE CONTRASEÑAS
         contrasena_input.addEventListener("paste", function(e) {
             e.preventDefault();
@@ -313,7 +319,6 @@
         confirmar_contrasena_input.addEventListener("paste", function(e) {
             e.preventDefault();
         });
-
     </script>
 </body>
 
