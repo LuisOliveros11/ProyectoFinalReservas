@@ -50,10 +50,6 @@
                                         <input type="text" class="form-control" id="" name="" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
-                                        <input type="date" class="form-control" id="" name="" required>
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="numero_telefonico" class="form-label">Número Telefónico</label>
                                         <input type="text" class="form-control" id="" name="">
                                     </div>
@@ -86,7 +82,6 @@
                             <th>#</th>
                             <th>Nombre</th>
                             <th>Apellidos</th>
-                            <th>Fecha de Registro</th>
                             <th>Teléfono</th>
                             <th>Email</th>
                             <th>Acciones</th>
@@ -97,7 +92,6 @@
                             <td>1</td>
                             <td>Oscar</td>
                             <td>Aguilar</td>
-                            <td>2024-11-28</td>
                             <td>6121001001</td>
                             <td>oscar@gmail.com</td>
                             <td>
@@ -127,10 +121,6 @@
                                     <div class="mb-3">
                                         <label for="apellidos" class="form-label">Apellidos</label>
                                         <input type="text" class="form-control" id="" name="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
-                                        <input type="date" class="form-control" id="" name="">
                                     </div>
                                     <div class="mb-3">
                                         <label for="numero_telefonico" class="form-label">Número Telefónico</label>

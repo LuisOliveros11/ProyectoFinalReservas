@@ -61,10 +61,6 @@
                                         <input type="password" class="form-control" id="" name="">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
-                                        <input type="date" class="form-control" id="" name="" required>
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="rol" class="form-label">Rol</label>
                                         <select class="form-select" id="" name="" required>
                                             <option value="">Selecciona un Rol</option>
@@ -90,7 +86,6 @@
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Email</th>
-                            <th>Fecha de Registro</th>
                             <th>Rol</th>
                             <th>Acciones</th>
                         </tr>
@@ -101,7 +96,6 @@
                             <td>Oscar</td>
                             <td>Aguilar</td>
                             <td>oscar@gmail.com</td>
-                            <td>2024-11-28</td>
                             <td>Administrador </td>
 
                             <td>
@@ -143,10 +137,7 @@
                                         <label for="contrasena_confirmada" class="form-label">Confirmar Contraseña</label>
                                         <input type="password" class="form-control" id="" name="">
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="fecha_registro" class="form-label">Fecha de Registro</label>
-                                        <input type="date" class="form-control" id="" name="" required>
-                                    </div>
+                                    
                                     <div class="mb-3">
                                         <label for="rol" class="form-label">Rol</label>
                                         <select class="form-select" id="" name="" required>
