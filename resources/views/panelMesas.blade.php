@@ -36,13 +36,13 @@
 
                 <div class="modal fade" id="crearMesaModal" tabindex="-1" aria-labelledby="crearMesaModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="crearMesaModalLabel">Crear una Nueva Mesa</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="">
+                        <form action="" method="">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="crearMesaModalLabel">Crear una Nueva Mesa</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="Mesa" class="form-label">Número de Mesa</label>
                                         <input type="text" class="form-control" id="" name="" required>
@@ -69,14 +69,15 @@
                                             <option value="Privada">Privada</option>
                                         </select>
                                     </div>
-                                     
-                                </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Crear Mesa</button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Crear Mesa</button>
-                            </div>  
-                        </div>
+                        </form>
+
                     </div>
                 </div>
 
@@ -112,13 +113,13 @@
 
                 <div class="modal fade" id="editarMesaModal" tabindex="-1" aria-labelledby="editarMesaLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editarMesaModal">Editar Mesa</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="" method="">
+                        <form action="" method="">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editarMesaModal">Editar Mesa</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="Mesa" class="form-label">Número de Mesa</label>
                                         <input type="text" class="form-control" id="" name="" required>
@@ -145,14 +146,15 @@
                                             <option value="Privada">Privada</option>
                                         </select>
                                     </div>
-                                     
-                                </form>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                            </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
 
