@@ -135,10 +135,7 @@
 
 
     <script>
-        const {
-            createApp,
-            ref
-        } = Vue
+        const { createApp, ref } = Vue
 
         createApp({
             setup() {
@@ -163,22 +160,13 @@
                 let error_correo_electronico = ref("")
 
                 return {
-                    nombres,
-                    boolean_nombres,
-                    error_campos,
-                    apellidos,
-                    boolean_apellidos,
-                    correo_electronico,
-                    boolean_correo_electronico,
-                    error_correo_electronico,
-                    contrasena,
-                    boolean_contrasena,
-                    confirmar_contrasena,
-                    boolean_confirmar_contrasena,
-                    rol,
-                    boolean_rol,
-                    fecha_registro,
-                    boolean_fecha_registro
+                    nombres, boolean_nombres, error_campos,
+                    apellidos, boolean_apellidos,
+                    correo_electronico, boolean_correo_electronico, error_correo_electronico,
+                    contrasena, boolean_contrasena,
+                    confirmar_contrasena, boolean_confirmar_contrasena,
+                    rol, boolean_rol,
+                    fecha_registro, boolean_fecha_registro
                 }
             },
             methods: {
@@ -215,7 +203,7 @@
 
 
 
-                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido && fecha_valida) {
+                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido) {
                         swal({
                             title: "Cuenta registrada!",
                             text: "La cuenta ha sido creada correctamente!",
@@ -226,14 +214,14 @@
                         });
 
 
-                    } else {
+                    }
+                    else {
                         this.boolean_correo_electronico = !email_valido;
                         this.boolean_nombres = !name_valido;
                         this.boolean_apellidos = !lastname_valido;
                         this.boolean_contrasena = !password_valido;
                         this.boolean_confirmar_contrasena = !confirmar_contrasena;
                         this.boolean_rol = !rol_valido;
-                        this.boolean_fecha_registro = !fecha_valida;
                     }
                     if (this.nombres.length == 0) {
                         this.error_nombres = "El campo es obligatorio";
