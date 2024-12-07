@@ -101,9 +101,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
                                 <td>1</td>
-                                <td>Oscar</td>
+                                <td v-text="usuario.nombre"></td>
                                 <td>Aguilar</td>
                                 <td>oscar@gmail.com</td>
                                 <td>Administrador </td>
@@ -206,10 +206,15 @@
 
 
     <script>
+    const obtener_usuarios = @json($users);
+    </script>
+
+    <script>
         const { createApp, ref } = Vue
 
         createApp({
             setup() {
+                let usuarios = ref(obtener_usuarios.usuarios);
 
                 let nombres = ref("")
                 let apellidos = ref("")
@@ -237,7 +242,7 @@
                     nombres, apellidos, correo_electronico, contrasena, confirmar_contrasena, rol, fecha_registro,
                     boolean_nombres, boolean_apellidos, boolean_correo_electronico, boolean_contrasena, boolean_confirmar_contrasena,
                     boolean_rol, boolean_fecha_registro, error_campos, error_correo_electronico, 
-                    title, text
+                    title, text,usuarios
                 }
             },
             methods: {
@@ -382,6 +387,8 @@
                 modal_editar.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
+
+                console.log(this.usuarios)
 
             }
 
