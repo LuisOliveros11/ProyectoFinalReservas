@@ -102,14 +102,14 @@
                         </thead>
                         <tbody>
                             <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
-                            <td v-text="usuario.id"></td>
+                                <td v-text="usuario.id"></td>
                                 <td v-text="usuario.nombre"></td>
                                 <td v-text="usuario.apellidos"></td>
                                 <td v-text="usuario.correo_electronico"></td>
                                 <td v-text="usuario.rol"></td>
 
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
+                                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarUsuarioModal' + usuario.id" @click="cargarUsuario(usuario)"                                    >
                                         Editar
                                     </button>
                                     <button href="" class="btn btn-danger btn-sm">Eliminar</button>
@@ -118,61 +118,65 @@
                         </tbody>
                     </table>
 
-                    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form method="POST" action="" @submit.prevent="funcion_validar_usuario($event)" id="editar_usuario">
-                                @csrf
-                                @method('POST')
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="editarUsuarioModalLabel">Editar un Usuario</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div v-for="(usuario, index) in usuarios" :key="usuario.id">
+                        <div class="modal fade" :id="'editarUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form method="POST" action="" @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario'+usuario.id">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="editarUsuarioModalLabel">Editar un Usuario</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="nombre" class="form-label">Nombre</label>
+                                                <input type="text" class="form-control" :id="'editar_nombres'+usuario.id" name="editar_nombres" v-model="nombres" >
+                                                <label v-if="boolean_nombres" class="form-label" style="color: red;" v-text="error_nombres"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="apellidos" class="form-label">Apellidos</label>
+                                                <input type="text" class="form-control" :id="'editar_apellidos'+usuario.id" name="editar_apellidos" v-model="apellidos" >
+                                                <label v-if="boolean_apellidos" class="form-label" style="color: red;" v-text="error_apellidos"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                                <input type="text" class="form-control" :id="'editar_correo_electronico'+usuario.id" name="editar_correo_electronico" v-model="correo_electronico">
+                                                <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="contrasena" class="form-label">Contraseña</label>
+                                                <input type="password" class="form-control" :id="'editar_contrasena'+usuario.id" name="editar_contrasena" v-model="contrasena">
+                                                <label v-if="boolean_contrasena" class="form-label" style="color: red;" v-text="error_contrasena"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="contrasena_confirmada" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" class="form-control" :id="'editar_confirmar_contrasena'+usuario.id" name="editar_confirmar_contrasena" v-model="confirmar_contrasena">
+                                                <label v-if="boolean_confirmar_contrasena" class="form-label" style="color: red;" v-text="error_confirmar_contrasena"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="rol" class="form-label">Rol</label>
+                                              
+                                                <select class="form-select" :id="'editar_rol'+usuario.id" name="editar_rol" v-model="rol">
+                                                    <option value="Administrador" :selected="rol === 'Administrador'">Administrador</option>
+                                                    <option value="Empleado" :selected="rol === 'Empleado'">Empleado</option>
+                                                </select>
+                                                <label v-if="boolean_rol" class="form-label" style="color: red;" v-text="error_rol"></label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="editar_nombres" name="editar_nombres" v-model="nombres">
-                                            <label v-if="boolean_nombres" class="form-label" style="color: red;" v-text="error_nombres"></label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="apellidos" class="form-label">Apellidos</label>
-                                            <input type="text" class="form-control" id="editar_apellidos" name="editar_apellidos" v-model="apellidos" >
-                                            <label v-if="boolean_apellidos" class="form-label" style="color: red;" v-text="error_apellidos"></label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="text" class="form-control" id="editar_correo_electronico" name="editar_correo_electronico" v-model="correo_electronico">
-                                            <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" id="editar_contrasena" name="editar_contrasena" v-model="contrasena">
-                                            <label v-if="boolean_contrasena" class="form-label" style="color: red;" v-text="error_contrasena"></label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="contrasena_confirmada" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password" class="form-control" id="editar_confirmar_contrasena" name="editar_confirmar_contrasena" v-model="confirmar_contrasena">
-                                            <label v-if="boolean_confirmar_contrasena" class="form-label" style="color: red;" v-text="error_confirmar_contrasena"></label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="rol" class="form-label">Rol</label>
-                                            <select class="form-select" id="editar_rol" name="editar_rol" v-model="rol" >
-                                                <option value="" disabled selected>Selecciona un Rol</option>
-                                                <option value="Administador">Administrador</option>
-                                                <option value="Empleado">Empleado</option>
-                                            </select>
-                                            <label v-if="boolean_rol" class="form-label" style="color: red;" v-text="error_rol"></label>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
                     </div>
+
+                    
 
 
                     <div class="d-flex justify-content-end">
@@ -256,11 +260,12 @@
                         this.validar_usuario('agregar_usuario');
                         
                         console.log('agregar');
-                    } else if (formId === 'editar_usuario') {
+                    } else if (formId.startsWith('editar_usuario')) {
                         this.title = "La cuenta ha sido editada!";
                         this.text = "Cuenta editada correctamente!";
-                        this.validar_usuario('editar_usuario');
-                        console.log('editar')
+                        const usuarioId = formId.replace('editar_usuario', '');
+                        this.validar_usuario('editar_usuario', usuarioId);
+                        console.log('editar id: ' + usuarioId)
                     }
                 },
 
@@ -351,7 +356,16 @@
 
                 },
 
-                reiniciar_campos() { //Reiniciar los campos al cerrarr el modal
+                cargarUsuario(usuario) {
+                    this.nombres = usuario.nombre;
+                    this.apellidos = usuario.apellidos;
+                    this.correo_electronico = usuario.correo_electronico;
+                    this.rol = usuario.rol;
+                    this.contrasena = ""; 
+                    this.confirmar_contrasena = ""; 
+                },
+
+                reiniciar_campos(modalId) { //Reiniciar los campos al cerrarr el modal
                 this.nombres = ""
                 this.apellidos = ""
                 this.correo_electronico = ""
@@ -375,6 +389,8 @@
                 this.error_confirmar_contrasena = ""
                 this.error_rol = ""
                 this.error_fecha_registro = ""
+
+                console.log(`Campos reiniciados para el modal: ${modalId}`);
             },
 
             },
@@ -383,30 +399,30 @@
                 modal.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
-                const modal_editar = document.getElementById('editarUsuarioModal')
-                modal_editar.addEventListener('hidden.bs.modal', () => {
-                    this.reiniciar_campos()
-                })
+                this.usuarios.forEach((usuario) => {
+                    const modalId = `editarUsuarioModal${usuario.id}`;
+                    const modalElement = document.getElementById(modalId);
 
-                console.log(this.usuarios)
+                    if (modalElement) {
+                        modalElement.addEventListener('hidden.bs.modal', () => {
+                            this.reiniciar_campos(modalId);
+                        });
+                    }
+                });
 
             }
 
         }).mount('#app')
     </script>
 
-    <script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+       
         const nombres_input = document.getElementById("nombres");
         const apellidos_input = document.getElementById("apellidos");
         const contrasena_input = document.getElementById("contrasena");
         const confirmar_contrasena_input = document.getElementById("confirmar_contrasena");
 
-        const editar_nombres_input = document.getElementById("editar_nombres");
-        const editar_apellidos_input = document.getElementById("editar_apellidos");
-        const editar_contrasena_input = document.getElementById("editar_contrasena");
-        const editar_confirmar_contrasena_input = document.getElementById("editar_confirmar_contrasena");
-
-        //VALIDAR LONGITUD Y CARACTERES INGRESADOS A LOS CAMPOS
         function validar_nombres_apellidos(e) {
             const regex = /[^A-Za-zÑñ\s]/g;
             if (regex.test(e.key)) {
@@ -420,7 +436,6 @@
 
         function validar_contrasena(e) {
             const regex = /\s/;  
-
             if (regex.test(e.key)) {
                 e.preventDefault(); 
             }
@@ -428,31 +443,51 @@
             if (input.value.length >= 64 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
                 e.preventDefault();
             }
-            
         }
+
         nombres_input.addEventListener("keydown", validar_nombres_apellidos);
         apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
         contrasena_input.addEventListener("keydown", validar_contrasena);
 
-        editar_nombres_input.addEventListener("keydown", validar_nombres_apellidos);
-        editar_apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
-        editar_contrasena_input.addEventListener("keydown", validar_contrasena);
-        
-        //EVITAR PEGAR TEXTO EN LOS CAMPOS DE CONTRASEÑAS
         contrasena_input.addEventListener("paste", function(e) {
             e.preventDefault();
         });
+
         confirmar_contrasena_input.addEventListener("paste", function(e) {
             e.preventDefault();
         });
 
-        editar_contrasena_input.addEventListener("paste", function(e) {
-            e.preventDefault();
+        document.querySelectorAll("input[id^='editar_nombres']").forEach(input => {
+            input.addEventListener("keydown", validar_nombres_apellidos);
         });
-        editar_confirmar_contrasena_input.addEventListener("paste", function(e) {
-            e.preventDefault();
+
+        document.querySelectorAll("input[id^='editar_apellidos']").forEach(input => {
+            input.addEventListener("keydown", validar_nombres_apellidos);
         });
-    </script>
+
+        document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
+            input.addEventListener("keydown", validar_contrasena);
+        });
+
+        document.querySelectorAll("input[id^='editar_confirmar_contrasena']").forEach(input => {
+            input.addEventListener("keydown", validar_contrasena);
+        });
+
+        document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
+            input.addEventListener("paste", function(e) {
+                e.preventDefault();
+            });
+        });
+        
+        document.querySelectorAll("input[id^='editar_confirmar_contrasena']").forEach(input => {
+            input.addEventListener("paste", function(e) {
+                e.preventDefault();
+            });
+        });
+    });
+</script>
+
+
 
    
 </body>
