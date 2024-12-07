@@ -113,6 +113,8 @@
                                         Editar
                                     </button>
                                     <form action="POST" :id="'form_borrar_perfil' + usuario.id" class="d-inline">
+                                        @csrf
+                                        @method('POST')
                                         <input type="hidden" name="usuario_id" :value="usuario.id">
                                         <button type="button" @click="sweetAlert_eliminar(usuario.id)" class="btn btn-danger btn-sm">Eliminar</button>
 
