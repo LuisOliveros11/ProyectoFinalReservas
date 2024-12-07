@@ -11,12 +11,14 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA PANTALLA DE HOME
     Route::get('/home', [reservasController:: class, "index"])->name('index');
 
+    //RUTA PARA MANDAR DATOS LOGOUT
+    Route::post('/logout', [AuthController:: class, "logout"])->name('logout');
+
     //RUTA PARA TRAER TODOS LOS USUARIOS
     Route::get('/panelUsuarios', [UsuarioController::class, 'getUsers'])->name('panelUsuario');
 
-    
-    //RUTA PARA MANDAR DATOS LOGOUT
-    Route::post('/logout', [AuthController:: class, "logout"])->name('logout');
+    //RUTA PARA ELIMINAR USUARIO
+    Route::delete('/eliminarUsuario', [UsuarioController:: class, "deleteUser"])->name('eliminarUsuario');
 });
 
 //******** RUTAS QUE NO OCUPAN PROTECCION ****
