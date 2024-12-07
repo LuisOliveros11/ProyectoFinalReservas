@@ -102,11 +102,11 @@
                         </thead>
                         <tbody>
                             <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
-                                <td>1</td>
+                            <td v-text="usuario.id"></td>
                                 <td v-text="usuario.nombre"></td>
-                                <td>Aguilar</td>
-                                <td>oscar@gmail.com</td>
-                                <td>Administrador </td>
+                                <td v-text="usuario.apellidos"></td>
+                                <td v-text="usuario.correo_electronico"></td>
+                                <td v-text="usuario.rol"></td>
 
                                 <td>
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuarioModal">
