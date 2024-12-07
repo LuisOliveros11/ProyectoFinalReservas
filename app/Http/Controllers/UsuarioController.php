@@ -81,6 +81,10 @@ class UsuarioController extends Controller
 
     public function getUsers()
     {
+        if (!session()->has('user')) {
+            return redirect()->route('inicio')->with('error', 'Debe iniciar sesión para acceder a esta página.');
+        }
+    
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
