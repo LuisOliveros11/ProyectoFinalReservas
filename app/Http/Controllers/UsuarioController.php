@@ -78,4 +78,30 @@ class UsuarioController extends Controller
             echo "Error. Todos los campos deben ser llenados.";
         }
     }
+
+    public function getUsers()
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/usuarios',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer ' . session('user')->token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $users = json_decode($response, true); 
+
+        curl_close($curl);
+
+        return view('panelUsuario', compact('users'));
+    }
 }
