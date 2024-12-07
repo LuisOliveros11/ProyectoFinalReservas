@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        return view("login");
+    }
+
     public function login(Request $request)
     {
         if(strlen($request->correo_electronico) >= 1 &&
