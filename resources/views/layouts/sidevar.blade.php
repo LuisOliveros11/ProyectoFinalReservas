@@ -1,3 +1,4 @@
+
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="">
         <div class="sb-sidenav-menu">
@@ -36,8 +37,8 @@
             <div class="d-flex align-items-center">
                 <i class="fas fa-user-circle fa-2x text-muted circle-icon"></i>
                 <div class="ms-2">
-                    <div class="small text-truncate" title="Kevin Alberto">Nombre de Usuario</div>
-                    <div class="small text-truncate" title="Kevin@gmail.com">Ejemplo@gmail.com</div>
+                    <div class="small text-truncate" title="Kevin Alberto"><?php echo session('user')->user->nombre.' '.session('user')->user->apellidos ?></div>
+                    <div class="small text-truncate" title="Kevin@gmail.com"><?php echo session('user')->user->correo_electronico ?></div>
                 </div>
             </div>
         </div>
