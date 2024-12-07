@@ -8,12 +8,12 @@ class UsuarioController extends Controller
 {
     public function addUser(Request $request)
     {
+        $currentDate = now()->toDateString(); 
         if (
             strlen($request->nombres) >= 1 &&
             strlen($request->apellidos) >= 1 &&
             strlen($request->correo_electronico) >= 1 &&
             strlen($request->contrasena) >= 1 &&
-            strlen($request->fecha_registro) >= 1 &&
             strlen($request->rol) >= 1
         ) {
             if(preg_match("/^[a-zA-Z\s]+$/",$request->nombres)){
@@ -38,7 +38,7 @@ class UsuarioController extends Controller
                                         "apellidos" => $request->apellidos,
                                         "correo_electronico" => $request->correo_electronico,
                                         "contrasena" => $request->contrasena,
-                                        "fecha_registro" => $request->fecha_registro,
+                                        "fecha_registro" => $currentDate,
                                         "rol" => $request->rol
                                     ]),
                                     CURLOPT_HTTPHEADER => array(
