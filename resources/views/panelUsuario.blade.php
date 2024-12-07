@@ -112,7 +112,11 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarUsuarioModal' + usuario.id" @click="cargarUsuario(usuario)"                                    >
                                         Editar
                                     </button>
-                                    <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <form action="POST" :id="'form_borrar_perfil' + usuario.id" class="d-inline">
+                                        <input type="hidden" name="usuario_id" :value="usuario.id">
+                                        <button type="button" @click="sweetAlert_eliminar(usuario.id)" class="btn btn-danger btn-sm">Eliminar</button>
+
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
@@ -204,6 +208,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
+    
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -392,6 +397,31 @@
 
                 console.log(`Campos reiniciados para el modal: ${modalId}`);
             },
+            sweetAlert_eliminar(id) {
+                swal({
+                    title: "Seguro que quieres eliminar al usuario?",
+                    text: "Una vez eliminado, no podrás recuperarlo",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        console.log("id de formulario: " + id)
+                        if (willDelete) {
+                            swal("El usuario ha sido eliminado!", {
+                                icon: "success",
+                                
+
+                            }).then(() => {
+                                document.getElementById('form_borrar_perfil_' + id).submit();
+                            });
+
+                        } else {
+                            swal("El proceso se ha descartado");
+                        }
+                    });
+
+                },
 
             },
             mounted() {
