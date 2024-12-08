@@ -26,6 +26,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
 
     //RUTA PARA TRAER TODOS LOS CLIENTES
     Route::get('/panelClientes', [ClienteController::class, 'getClients'])->name('panelClientes');
+
+    //RUTA PARA ELIMINAR CLIENTE
+    Route::delete('/eliminarCliente', [ClienteController:: class, "deleteClient"])->name('eliminarCliente');
 });
 
 //******** RUTAS QUE NO OCUPAN PROTECCION ****
