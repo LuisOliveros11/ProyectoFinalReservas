@@ -127,15 +127,16 @@
                     <div v-for="(usuario, index) in obtener_usuarios" :key="usuario.id">
                         <div class="modal fade" :id="'editarUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form method="POST" action="" @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario'+usuario.id">
+                                <form method="POST" action="{{route(name: 'editarUsuario')}}" @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario'+usuario.id">
                                     @csrf
-                                    @method('POST')
+                                    @method('PUT')
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="editarUsuarioModalLabel">Editar un Usuario</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
+                                        <input type="hidden" name="usuario_id" :value="usuario.id">
                                             <div class="mb-3">
                                                 <label for="nombre" class="form-label">Nombre</label>
                                                 <input type="text" class="form-control" :id="'editar_nombres'+usuario.id" name="editar_nombres" v-model="nombres" >
@@ -287,7 +288,7 @@
                         this.title = "La cuenta ha sido editada!";
                         this.text = "Cuenta editada correctamente!";
                         const usuarioId = formId.replace('editar_usuario', '');
-                        this.validar_usuario('editar_usuario', usuarioId);
+                        this.validar_usuario('editar_usuario' + usuarioId);
                         console.log('editar id: ' + usuarioId)
                     }
                 },
@@ -321,8 +322,8 @@
 
                     const correo_existe = this.obtener_usuarios.some(
                         (usuario) =>
-                            usuario.correo_electronico === this.correo_electronico && // Comparar con otros usuarios
-                            this.correo_electronico !== this.correo_actual // Ignorar si es el correo original
+                            usuario.correo_electronico === this.correo_electronico &&
+                            this.correo_electronico !== this.correo_actual 
                     );
 
 
