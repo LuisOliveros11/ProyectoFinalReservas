@@ -17,6 +17,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA TRAER TODOS LOS USUARIOS
     Route::get('/panelUsuarios', [UsuarioController::class, 'getUsers'])->name('panelUsuario');
 
+    //RUTA PARA EDITAR USUARIO
+    Route::put('/editarUsuario', [UsuarioController:: class, "updateUser"])->name('editarUsuario');
+
     //RUTA PARA ELIMINAR USUARIO
     Route::delete('/eliminarUsuario', [UsuarioController:: class, "deleteUser"])->name('eliminarUsuario');
 });
