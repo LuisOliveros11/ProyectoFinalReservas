@@ -174,7 +174,7 @@
                 funcion_agregar_usuario() {
                     //VALIDAR FORMULARIO AGREGAR USUARIO
 
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    const emailRegex = /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9-]{1,63}(\.[a-zA-Z0-9-]{1,63})*\.[a-zA-Z]{2,63}$/;
                     const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
                     const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
                     const contrasenaRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
