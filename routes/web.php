@@ -24,8 +24,12 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA ELIMINAR USUARIO
     Route::delete('/eliminarUsuario', [UsuarioController:: class, "deleteUser"])->name('eliminarUsuario');
 
+    
     //RUTA PARA TRAER TODOS LOS CLIENTES
     Route::get('/panelClientes', [ClienteController::class, 'getClients'])->name('panelClientes');
+
+    //RUTA PARA TRAER DATOS ESPECIFICOS DE UN CLIENTE
+    Route::get('/panelClienteEspecifico', [ClienteController::class, 'getClientByID'])->name('panelClienteEspecifico');
 
     //RUTA PARA ELIMINAR CLIENTE
     Route::delete('/eliminarCliente', [ClienteController:: class, "deleteClient"])->name('eliminarCliente');
