@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
 
     //RUTA PARA ELIMINAR USUARIO
     Route::delete('/eliminarUsuario', [UsuarioController:: class, "deleteUser"])->name('eliminarUsuario');
+
+    //RUTA PARA TRAER TODOS LOS CLIENTES
+    Route::get('/panelClientes', [ClienteController::class, 'getClients'])->name('panelClientes');
 });
 
 //******** RUTAS QUE NO OCUPAN PROTECCION ****
