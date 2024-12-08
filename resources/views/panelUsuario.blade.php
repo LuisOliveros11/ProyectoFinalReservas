@@ -124,7 +124,7 @@
                         </tbody>
                     </table>
 
-                    <div v-for="(usuario, index) in usuarios" :key="usuario.id">
+                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario.id">
                         <div class="modal fade" :id="'editarUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <form method="POST" action="" @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario'+usuario.id">
@@ -248,6 +248,8 @@
                 let rol = ref("")
                 let fecha_registro = ref("")
 
+                let correo_actual = ref("")
+
                 let boolean_nombres = ref(false)
                 let boolean_apellidos = ref(false)
                 let boolean_correo_electronico = ref(false)
@@ -261,12 +263,13 @@
 
                 let title = ref("")
                 let text = ref("")
+                
 
                 return {
                     nombres, apellidos, correo_electronico, contrasena, confirmar_contrasena, rol, fecha_registro,
                     boolean_nombres, boolean_apellidos, boolean_correo_electronico, boolean_contrasena, boolean_confirmar_contrasena,
                     boolean_rol, boolean_fecha_registro, error_campos, error_correo_electronico, 
-                    title, text,usuarios,obtener_usuarios, variable_rango_usuarios, variable_usuarios,cantidad_paginas,pagina_actual
+                    title, text,usuarios,obtener_usuarios, variable_rango_usuarios, variable_usuarios,cantidad_paginas,pagina_actual, correo_actual
                 }
             },
             methods: {
@@ -316,12 +319,17 @@
                     let rol_valido = this.rol !== "";
                     let fecha_valida = this.fecha_registro !== "";
 
+                    const correo_existe = this.obtener_usuarios.some(
+                        (usuario) =>
+                            usuario.correo_electronico === this.correo_electronico && // Comparar con otros usuarios
+                            this.correo_electronico !== this.correo_actual // Ignorar si es el correo original
+                    );
 
 
 
 
 
-                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido) {
+                    if (!correo_existe && email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido) {
                         swal({
                             title: this.title,
                             text: this.text,
@@ -334,7 +342,7 @@
 
                     }
                     else {
-                        this.boolean_correo_electronico = !email_valido;
+                        this.boolean_correo_electronico = !email_valido || correo_existe;
                         this.boolean_nombres = !name_valido;
                         this.boolean_apellidos = !lastname_valido;
                         this.boolean_contrasena = !password_valido;
@@ -374,12 +382,19 @@
                         this.error_fecha_registro = "Debes seleccionar una fecha"
                     }
 
+                    if (correo_existe) {
+                        this.error_correo_electronico = "El correo ya está registrado.";
+                    } else if (!email_valido) {
+                        this.error_correo_electronico = "El correo debe tener una estructura válida.";
+                    }
+
                 },
 
                 cargarUsuario(usuario) {
                     this.nombres = usuario.nombre;
                     this.apellidos = usuario.apellidos;
                     this.correo_electronico = usuario.correo_electronico;
+                    this.correo_actual = usuario.correo_electronico;
                     this.rol = usuario.rol;
                     this.contrasena = ""; 
                     this.confirmar_contrasena = ""; 
@@ -439,6 +454,19 @@
 
                 //FUNCIONES PARA LA PAGINACIÓN
 
+                reiniciar_campos_modals() {
+                    this.usuarios.forEach((usuario) => {
+                        const modalId = `editarUsuarioModal${usuario.id}`;
+                        const modalElement = document.getElementById(modalId);
+
+                        if (modalElement) {
+                            modalElement.addEventListener('hidden.bs.modal', () => {
+                                this.reiniciar_campos(modalId);
+                            });
+                        }
+                    });
+                },
+
                 pagina_siguiente() {
                     let ultima_pagina = false;
                     if ((this.obtener_usuarios.length - this.variable_usuarios) <= 10) {
@@ -452,6 +480,8 @@
                         this.variable_rango_usuarios += 10;
                         this.usuarios = this.obtener_usuarios.slice(this.variable_usuarios, this.variable_rango_usuarios);
                         this.pagina_actual += 1;
+
+                        this.reiniciar_campos_modals();
                     }
                 },
                 pagina_anterior() {
@@ -470,6 +500,7 @@
                         this.usuarios = ref(this.obtener_usuarios.slice(this.variable_usuarios, this.variable_rango_usuarios));
                         ;
                         this.pagina_actual -= 1;
+                        this.reiniciar_campos_modals();
 
                     }
 
@@ -485,6 +516,7 @@
                     this.variable_rango_usuarios = fin;
 
                     this.usuarios = this.obtener_usuarios.slice(inicio, fin);
+                    this.reiniciar_campos_modals()
                 },
                 obtener_paginas() {
                     
@@ -514,16 +546,7 @@
                 modal.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
-                this.usuarios.forEach((usuario) => {
-                    const modalId = `editarUsuarioModal${usuario.id}`;
-                    const modalElement = document.getElementById(modalId);
-
-                    if (modalElement) {
-                        modalElement.addEventListener('hidden.bs.modal', () => {
-                            this.reiniciar_campos(modalId);
-                        });
-                    }
-                });
+                this.reiniciar_campos_modals();
 
                 this.obtener_paginas();
 
@@ -603,8 +626,6 @@
         });
     });
 </script>
-
-
 
    
 </body>
