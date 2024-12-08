@@ -441,7 +441,7 @@
 
                 pagina_siguiente() {
                     let ultima_pagina = false;
-                    if ((this.obtener_usuarios.length - this.variable_usuarios) < 10) {
+                    if ((this.obtener_usuarios.length - this.variable_usuarios) <= 10) {
                         ultima_pagina = true;
                         console.log("true")
                     }
@@ -499,6 +499,9 @@
                             console.log(this.obtener_usuarios.length)
                         }
 
+                    }
+                    if(this.obtener_usuarios.length > 1 && this.obtener_usuarios.length % 10 == 0){
+                        this.cantidad_paginas--
                     }
 
                 },
