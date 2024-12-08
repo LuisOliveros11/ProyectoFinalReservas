@@ -31,6 +31,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA TRAER DATOS ESPECIFICOS DE UN CLIENTE
     Route::get('/panelClienteEspecifico', [ClienteController::class, 'getClientByID'])->name('panelClienteEspecifico');
 
+    //RUTA PARA CREAR CLIENTE
+    Route::post('/añadirCliente', [ClienteController:: class, "addClient"])->name('añadirCliente');
+    
     //RUTA PARA ELIMINAR CLIENTE
     Route::delete('/eliminarCliente', [ClienteController:: class, "deleteClient"])->name('eliminarCliente');
 });
