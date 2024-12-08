@@ -112,9 +112,9 @@
                                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarUsuarioModal' + usuario.id" @click="cargarUsuario(usuario)"                                    >
                                         Editar
                                     </button>
-                                    <form action="POST" :id="'form_borrar_perfil' + usuario.id" class="d-inline">
+                                    <form method="POST" action="{{ route('eliminarUsuario') }}" :id="'form_borrar_perfil_' + usuario.id" class="d-inline">
                                         @csrf
-                                        @method('POST')
+                                        @method('delete')
                                         <input type="hidden" name="usuario_id" :value="usuario.id">
                                         <button type="button" @click="sweetAlert_eliminar(usuario.id)" class="btn btn-danger btn-sm">Eliminar</button>
 
