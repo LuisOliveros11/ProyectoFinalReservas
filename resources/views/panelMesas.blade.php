@@ -84,24 +84,26 @@
                 <table class="table table-striped mt-3">
                     <thead>
                         <tr>
-                            <th>Numero de mesa</th>
-                            <th>Cantidad de sillas</th>
-                            <th>categoria</th>
-                            <th>Ubicacion</th>
-                            <th>Disponibilidad</th>
-                            <th>Acciones</th>
+                            <th style="width: 17%;">Numero de mesa</th>
+                            <th style="width: 17%;">Cantidad de sillas</th>
+                            <th style="width: 17%;">categoria</th>
+                            <th style="width: 17%;">Ubicacion</th>
+                            <th style="width: 17%;">Disponibilidad</th>
+                            <th style="width: 25%;">Acciones</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>4</td>
-                            <td>Vip</td>
-                            <td>Interior</td>
-                            <td>Ocupado</td>
+                            <td class="small text-truncate">1</td>
+                            <td class="small text-truncate">4</td>
+                            <td class="small text-truncate">Vip</td>
+                            <td class="small text-truncate">Interior</td>
+                            <td class="small text-truncate">Ocupado</td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarMesaModal">
+                                <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verMesasModal">Detalles</button>
+
+                                <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editarMesaModal">
                                     Editar
                                 </button>
                                 <button href="" class="btn btn-danger btn-sm">Eliminar</button>
@@ -158,7 +160,139 @@
                     </div>
                 </div>
 
+                <div class="modal fade" id="verMesasModal" tabindex="-1" aria-labelledby="verMesasModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="Mesa" class="form-label">Número de Mesa</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+                                </div>
 
+                                <div class="mb-3">
+                                    <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                    <input type="number" class="form-control" id="" name="" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="categoria" class="form-label">Categoría</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ubicacion" class="form-label">Ubicación</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label for="disponibilidad" class="form-label">Disponibilidad</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+
+                                </div>
+
+                                <div class="col-mb-3">
+                                    <h5>Historial de reservaciones</h5>
+                                    <section>
+                                        <ul class="timeline">
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
                 <div class="d-flex justify-content-end">
                     <nav aria-label="Page navigation example">

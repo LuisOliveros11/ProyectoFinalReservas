@@ -80,27 +80,29 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 17%;">Nombre</th>
+                            <th style="width: 17%;">Apellidos</th>
+                            <th style="width: 17%;">Teléfono</th>
+                            <th style="width: 17%;">Email</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>1</td>
-                            <td>Oscar</td>
-                            <td>Aguilar</td>
-                            <td>6121001001</td>
-                            <td>oscar@gmail.com</td>
+                            <td class="small text-truncate">1</td>
+                            <td class="small text-truncate">Oscar</td>
+                            <td class="small text-truncate">Aguilar</td>
+                            <td class="small text-truncate">6121001001</td>
+                            <td class="small text-truncate">oscar@gmail.com</td>
                             <td>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#verClienteModal">Detalles</button>
+
                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarClienteModal">
                                     Editar
                                 </button>
 
-                                <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                                <button class="btn btn-danger btn-sm">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -147,6 +149,132 @@
                                 </div>
                             </div>
                         </form>
+
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="verClienteModal" tabindex="-1" aria-labelledby="verClienteLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellidos" class="form-label">Apellidos</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="numero_telefonico" class="form-label">Número Telefónico</label>
+                                    <input type="text" class="form-control" id="" name="" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                    <input type="email" class="form-control" id="" name="" disabled>
+                                </div>
+                                <div class="col-mb-3">
+                                    <h5>Historial de reservaciones</h5>
+                                    <section>
+                                        <ul class="timeline">
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="timeline-item mb-6">
+                                                <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>08:30:00</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <p>2</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
