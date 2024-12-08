@@ -33,6 +33,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
 
     //RUTA PARA CREAR CLIENTE
     Route::post('/añadirCliente', [ClienteController:: class, "addClient"])->name('añadirCliente');
+
+    //RUTA PARA EDITAR CLIENTE
+    Route::put('/editarCliente', [ClienteController:: class, "updateClient"])->name('editarCliente');
     
     //RUTA PARA ELIMINAR CLIENTE
     Route::delete('/eliminarCliente', [ClienteController:: class, "deleteClient"])->name('eliminarCliente');

@@ -184,7 +184,6 @@ class UsuarioController extends Controller
                                         $response = json_decode($response);
 
                                         curl_close($curl);
-                                        var_dump($response);
 
                                         if ($response->status === 201) {
                                             return redirect()->route('panelUsuario');
