@@ -188,11 +188,19 @@
                     <div class="d-flex justify-content-end">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Siguiente</a></li>
+                                <li @click="pagina_anterior()" class="page-item" style="cursor: pointer"><a class="page-link">Anterior</a></li>
+                                <div v-for="n in cantidad_paginas" :key="n">
+                                    <div v-if="n <= Math.min(3, pagina_actual + 1) || (n >= pagina_actual - 1 && n <= pagina_actual + 1)">
+                                        <li v-if="n === pagina_actual" class="page-item"> 
+                                        <a class="page-link active" style="cursor: pointer;" v-text="n"></a>
+                                        </li>
+                                        
+                                        <li @click="seleccionar_pagina(n)" v-else class="page-item">
+                                        <a class="page-link" style="cursor: pointer;" v-text="n"></a>
+                                        </li>
+                                    </div>
+                                    </div>
+                                <li @click="pagina_siguiente()" class="page-item" style="cursor: pointer"><a class="page-link">Siguiente</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -217,7 +225,6 @@
 
 
     <script>
-    const obtener_usuarios = @json($users);
     </script>
 
     <script>
@@ -225,7 +232,13 @@
 
         createApp({
             setup() {
-                let usuarios = ref(obtener_usuarios.usuarios);
+                const obtener_usuarios = ref(<?php echo json_encode($users['usuarios']); ?>);
+                let usuarios = ref(obtener_usuarios.value.slice(0,10));
+                let variable_usuarios = ref(0)
+                let variable_rango_usuarios = ref(10)
+                let cantidad_paginas = ref(1);
+                let pagina_actual = ref(1);
+
 
                 let nombres = ref("")
                 let apellidos = ref("")
@@ -253,7 +266,7 @@
                     nombres, apellidos, correo_electronico, contrasena, confirmar_contrasena, rol, fecha_registro,
                     boolean_nombres, boolean_apellidos, boolean_correo_electronico, boolean_contrasena, boolean_confirmar_contrasena,
                     boolean_rol, boolean_fecha_registro, error_campos, error_correo_electronico, 
-                    title, text,usuarios
+                    title, text,usuarios,obtener_usuarios, variable_rango_usuarios, variable_usuarios,cantidad_paginas,pagina_actual
                 }
             },
             methods: {
@@ -373,40 +386,40 @@
                 },
 
                 reiniciar_campos(modalId) { //Reiniciar los campos al cerrarr el modal
-                this.nombres = ""
-                this.apellidos = ""
-                this.correo_electronico = ""
-                this.contrasena = ""
-                this.confirmar_contrasena = ""
-                this.rol = ""
-                this.fecha_registro = ""
+                    this.nombres = ""
+                    this.apellidos = ""
+                    this.correo_electronico = ""
+                    this.contrasena = ""
+                    this.confirmar_contrasena = ""
+                    this.rol = ""
+                    this.fecha_registro = ""
 
-                this.boolean_nombres = false
-                this.boolean_apellidos = false
-                this.boolean_correo_electronico = false
-                this.boolean_contrasena = false
-                this.boolean_confirmar_contrasena = false
-                this.boolean_rol = false
-                this.boolean_fecha_registro = false
+                    this.boolean_nombres = false
+                    this.boolean_apellidos = false
+                    this.boolean_correo_electronico = false
+                    this.boolean_contrasena = false
+                    this.boolean_confirmar_contrasena = false
+                    this.boolean_rol = false
+                    this.boolean_fecha_registro = false
 
-                this.error_nombres = ""
-                this.error_apellidos = ""
-                this.error_correo_electronico = ""
-                this.error_contrasena = ""
-                this.error_confirmar_contrasena = ""
-                this.error_rol = ""
-                this.error_fecha_registro = ""
+                    this.error_nombres = ""
+                    this.error_apellidos = ""
+                    this.error_correo_electronico = ""
+                    this.error_contrasena = ""
+                    this.error_confirmar_contrasena = ""
+                    this.error_rol = ""
+                    this.error_fecha_registro = ""
 
-                console.log(`Campos reiniciados para el modal: ${modalId}`);
-            },
-            sweetAlert_eliminar(id) {
-                swal({
-                    title: "Seguro que quieres eliminar al usuario?",
-                    text: "Una vez eliminado, no podrás recuperarlo",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
+                    console.log(`Campos reiniciados para el modal: ${modalId}`);
+                },
+                sweetAlert_eliminar(id) {
+                    swal({
+                        title: "Seguro que quieres eliminar al usuario?",
+                        text: "Una vez eliminado, no podrás recuperarlo",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
                     .then((willDelete) => {
                         console.log("id de formulario: " + id)
                         if (willDelete) {
@@ -422,8 +435,75 @@
                             swal("El proceso se ha descartado");
                         }
                     });
+                },
+
+                //FUNCIONES PARA LA PAGINACIÓN
+
+                pagina_siguiente() {
+                    let ultima_pagina = false;
+                    if ((this.obtener_usuarios.length - this.variable_usuarios) < 10) {
+                        ultima_pagina = true;
+                        console.log("true")
+                    }
+
+                    if (this.variable_usuarios <= this.obtener_usuarios.length && !ultima_pagina) {
+                        this.usuarios = [];
+                        this.variable_usuarios += 10;
+                        this.variable_rango_usuarios += 10;
+                        this.usuarios = this.obtener_usuarios.slice(this.variable_usuarios, this.variable_rango_usuarios);
+                        this.pagina_actual += 1;
+                    }
+                },
+                pagina_anterior() {
+                    let primera_pagina = false;
+                    console.log(this.obtener_usuarios.length)
+                    if (this.pagina_actual == 1) {
+                        primera_pagina = true;
+                    } else {
+                        primera_pagina = false;
+                    }
+
+                    if (this.variable_usuarios <= this.obtener_usuarios.length && primera_pagina == false) {
+                        this.variable_usuarios -= 10;
+                        this.variable_rango_usuarios -= 10
+                        this.usuarios = [];
+                        this.usuarios = ref(this.obtener_usuarios.slice(this.variable_usuarios, this.variable_rango_usuarios));
+                        ;
+                        this.pagina_actual -= 1;
+
+                    }
+
 
                 },
+                seleccionar_pagina(numero) {
+                    this.pagina_actual = numero;
+
+                    const inicio = (numero - 1) * 10; 
+                    const fin = inicio + 10; 
+
+                    this.variable_usuarios = inicio;
+                    this.variable_rango_usuarios = fin;
+
+                    this.usuarios = this.obtener_usuarios.slice(inicio, fin);
+                },
+                obtener_paginas() {
+                    
+                    
+                    let contador = 0;
+                    for (let index = 0; index < this.obtener_usuarios.length; index++) {
+                        contador++
+                        if (contador % 10 == 0) {
+                            console.log(this.cantidad_paginas)
+                            this.cantidad_paginas++
+                            
+                            console.log(this.obtener_usuarios.length)
+                        }
+
+                    }
+
+                },
+
+
 
             },
             mounted() {
@@ -441,6 +521,8 @@
                         });
                     }
                 });
+
+                this.obtener_paginas();
 
             }
 
