@@ -51,7 +51,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="">¿Necesitas una cuenta? ¡Registrate!</a></div>
+                                        <div class="small"><a href="./crearCuenta">¿Necesitas una cuenta? ¡Registrate!</a></div>
                                     </div>
                                 </div>
                             </div>
