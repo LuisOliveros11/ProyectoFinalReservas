@@ -119,7 +119,14 @@
                                         Editar
                                     </button>
 
-                                    <button @click="sweetAlert_eliminar(cliente.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <form method="POST" action="{{ route('eliminarCliente') }}" :id="'form_borrar_perfil_' + cliente.id" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="hidden" name="usuario_id" :value="cliente.id">
+                                        <button type="button" @click="sweetAlert_eliminar(cliente.id)" class="btn btn-danger btn-sm">Eliminar</button>
+
+
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
@@ -515,16 +522,16 @@
                 },
                 sweetAlert_eliminar(id) {
                     swal({
-                        title: "Seguro que quieres eliminar al cliente?",
-                        text: "Una vez eliminado, no podrás recuperarlo",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
+                            title: "Seguro que quieres eliminar al usuario?",
+                            text: "Una vez eliminado, no podrás recuperarlo",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
                         .then((willDelete) => {
                             console.log("id de formulario: " + id)
                             if (willDelete) {
-                                swal("El cliente ha sido eliminado!", {
+                                swal("El usuario ha sido eliminado!", {
                                     icon: "success",
 
 
