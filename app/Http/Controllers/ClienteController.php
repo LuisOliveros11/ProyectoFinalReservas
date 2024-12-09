@@ -29,42 +29,7 @@ class ClienteController extends Controller
 
     curl_close($curl);
 
-    if (isset($clients['status']) && $clients['status'] === 200) {
-      return view('panelClientes', compact('clients'));
-    } else {
-      echo "Error al obtener clientes";
-    }
-  }
-
-  public function getClientByID(Request $request)
-  {
-    $id = $request->usuario_id;
-    $reservasCliente = [];
-
-    //OBTENER DETALLES DE CLIENTE
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes/' . $id,
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_HTTPHEADER => array(
-        'Authorization: Bearer ' . session('user')->token
-      ),
-    ));
-
-    $response = curl_exec($curl);
-    $response = json_decode($response, true);
-    $detalleCliente = $response['cliente'];
-
-    curl_close($curl);
-
-    //OBTENER RESERVAS DEL CLIENTE
+    // Obtener reservas
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
@@ -82,21 +47,21 @@ class ClienteController extends Controller
     ));
 
     $response = curl_exec($curl);
-    $response = json_decode($response, true);
-    $listaReservas = $response['reservaciones'];
+    $reservas = json_decode($response, true);
 
     curl_close($curl);
 
-    foreach ($listaReservas as $reserva) {
-      if ((int) $id === (int) $reserva['id_cliente']) {
-        $reservasCliente[] = $reserva;
-      }
+    // Relacionar reservas con clientes
+    foreach ($clients['clientes'] as &$client) {
+      $client['reservas'] = array_filter($reservas['reservaciones'], function ($reserva) use ($client) {
+        return $reserva['id_cliente'] == $client['id'];
+      });
     }
 
-    if (isset($response['status']) && $response['status'] === 200) {
-      return view('panelClientes', compact('detalleCliente', 'reservasCliente'));
+    if (isset($clients['status']) && $clients['status'] === 200) {
+      return view('panelClientes', compact('clients'));
     } else {
-      echo "Error al obtener detalles del cliente";
+      echo "Error al obtener clientes";
     }
   }
 
