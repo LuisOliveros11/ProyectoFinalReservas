@@ -112,7 +112,7 @@
                                 
                                 <td>
                                     <button class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#verClienteModal">Detalles</button>
+                                        data-bs-toggle="modal" :data-bs-target="'#verClienteModal' + cliente.id"  @click="cargarUsuario(cliente)">Detalles</button>
 
                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                         :data-bs-target="'#editarClienteModal' + cliente.id" @click="cargarUsuario(cliente)">
@@ -180,133 +180,91 @@
                     </div>
                     
 
+                    <div v-for="(cliente, index) in obtener_clientes" :key="cliente.id">
+                        <div class="modal fade" :id="'verClienteModal'+cliente.id" :data-modal-id="cliente.id" tabindex="-1" aria-labelledby="verClienteLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Cerrar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="nombre" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" v-model="nombres"  disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="apellidos" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" v-model="apellidos" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="numero_telefonico" class="form-label">Número Telefónico</label>
+                                            <input type="text" class="form-control" v-model="numero_telefonico" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                            <input type="email" class="form-control" v-model="correo_electronico" disabled>
+                                        </div>
+                                        <div class="col-mb-3">
+                                            <h5>Historial de reservaciones</h5>
+                                            <section>
+                                                <ul v-if="cliente.reservas" class="timeline">
+                                                    <li v-for="reserva in cliente.reservas" :key="reserva.id" class="timeline-item mb-6">
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="mb-2 fw-bold">Fecha de reservación: </h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                            <h6 class="mb-2 fw-bold" v-text="reserva.fecha_reservacion"></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.hora_inicio"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.hora_final"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.numero_mesa"></p>
+                                                            </div>
+                                                        </div>
+                                                    </li>                                                                      
+                                                </ul>
+                                                <div v-if="!clientes.reservas">
+                                                    <h6 class="mb-2">No hay reservaciones</h6>
+                                                </div>
+                                                  
+                                            </section>
+                                        </div>
 
-                    <div class="modal fade" id="verClienteModal" tabindex="-1" aria-labelledby="verClienteLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Cerrar"></button>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="apellidos" class="form-label">Apellidos</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="numero_telefonico" class="form-label">Número Telefónico</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                        <input type="email" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="col-mb-3">
-                                        <h5>Historial de reservaciones</h5>
-                                        <section>
-                                            <ul class="timeline">
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
 
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </section>
-                                    </div>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
                             </div>
-
                         </div>
+
                     </div>
+                  
 
                     <div class="d-flex justify-content-end">
                         <nav aria-label="Page navigation example">
@@ -350,6 +308,7 @@
         createApp({
             setup() {
                 const obtener_clientes = ref(<?php echo json_encode($clients['clientes']); ?>);
+                
                 let clientes = ref(obtener_clientes.value.slice(0, 10));
                 let variable_clientes = ref(0)
                 let variable_rango_clientes = ref(10)
