@@ -161,4 +161,35 @@ class MesaController extends Controller
             echo "Error al obtener mesas";
         }
     }
+
+    public function deleteMesa(Request $request){
+        $id = $request->usuario_id;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/mesas/'.$id,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'DELETE',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . session('user')->token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $response = json_decode($response);
+
+        curl_close($curl);
+
+        if ($response->status === 200) {
+        return redirect()->route('panelMesas');
+        } else {
+        echo "Error al eliminar mesa";
+        }
+    }
 }

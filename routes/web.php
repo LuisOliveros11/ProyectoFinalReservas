@@ -43,6 +43,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
 
     //RUTA PARA TRAER TODAS LAS MESAS
     Route::get('/panelMesas', [MesaController::class, 'getMesas'])->name('panelMesas');
+
+    //RUTA PARA ELIMINAR MESA
+    Route::delete('/eliminarMesa', [MesaController:: class, "deleteMesa"])->name('eliminarMesa');
 });
 
 //******** RUTAS QUE NO OCUPAN PROTECCION ****
