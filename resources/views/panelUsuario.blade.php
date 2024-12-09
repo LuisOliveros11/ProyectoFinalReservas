@@ -72,7 +72,7 @@
                                             <label for="rol" class="form-label">Rol</label>
                                             <select class="form-select" id="rol" name="rol" v-model="rol">
                                                 <option value="" disabled selected>Selecciona un Rol</option>
-                                                <option value="Administador">Administrador</option>
+                                                <option value="Administrador">Administrador</option>
                                                 <option value="Empleado">Empleado</option>
                                             </select>
                                             <label v-if="boolean_rol" class="form-label" style="color: red;" v-text="error_rol"></label>
@@ -109,7 +109,7 @@
                                 <td class="small text-truncate" v-text="usuario.rol"></td>
 
                                 <td>
-                                    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verUsuarioModal">Detalles</button>
+                                    <button type="button" class="btn btn-info btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#verUsuarioModal' + usuario.id"  @click="cargarUsuario(usuario)">Detalles</button>
 
                                     <button type="button" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" :data-bs-target="'#editarUsuarioModal' + usuario.id" @click="cargarUsuario(usuario)">
                                         Editar
@@ -185,42 +185,47 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="verUsuarioModal" tabindex="-1" aria-labelledby="verUsuarioModal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="nombre" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
+                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario.id">
+                        <div class="modal fade" :id="'verUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="verUsuarioModal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="apellidos" class="form-label">Apellidos</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                        <input type="email" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="rol" class="form-label">Rol</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="nombre" class="form-label">Nombre</label>
+                                            <input type="text" class="form-control" v-model="nombres" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="apellidos" class="form-label">Apellidos</label>
+                                            <input type="text" class="form-control" v-model="apellidos" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                            <input type="email" class="form-control" v-model="correo_electronico" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="rol" class="form-label">Rol</label>
+                                            <input type="text" class="form-control" v-model="rol" disabled>
+
+                                        </div>
+                                        
+
 
                                     </div>
-                                     
-
-
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
+
                             </div>
-
                         </div>
+
                     </div>
+
+                  
 
 
                     <div class="d-flex justify-content-end">
@@ -287,6 +292,7 @@
                 let fecha_registro = ref("")
 
                 let correo_actual = ref("")
+                let correo_cerrar_modal = ref("")
 
                 let boolean_nombres = ref(false)
                 let boolean_apellidos = ref(false)
@@ -328,7 +334,8 @@
                     variable_usuarios,
                     cantidad_paginas,
                     pagina_actual,
-                    correo_actual
+                    correo_actual,
+                    correo_cerrar_modal
                 }
             },
             methods: {
@@ -352,16 +359,11 @@
                 },
 
                 validar_usuario(form_id) {
-                    //VALIDAR FORMULARIO AGREGAR Y EDITAR USUARIO
+                    // VALIDAR FORMULARIO AGREGAR Y EDITAR USUARIO
 
                     const emailRegex = /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9-]{1,63}(\.[a-zA-Z0-9-]{1,63})*\.[a-zA-Z]{2,63}$/;
-
-
                     const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
-                    const apellidosRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
                     const contrasenaRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
-
-
 
                     this.boolean_nombres = false;
                     this.boolean_apellidos = false;
@@ -371,7 +373,6 @@
                     this.boolean_rol = false;
                     this.boolean_fecha_registro = false;
 
-
                     let email_valido = emailRegex.test(this.correo_electronico);
                     let name_valido = nameRegex.test(this.nombres);
                     let lastname_valido = nameRegex.test(this.apellidos);
@@ -380,17 +381,11 @@
                     let rol_valido = this.rol !== "";
                     let fecha_valida = this.fecha_registro !== "";
 
-                    const correo_existe = this.obtener_usuarios.some(
-                        (usuario) =>
-                        usuario.correo_electronico === this.correo_electronico &&
-                        this.correo_electronico !== this.correo_actual
+                    const correo_existe = this.obtener_usuarios.some(usuario => 
+                        usuario.correo_electronico === this.correo_electronico && usuario.correo_electronico !== this.correo_actual
                     );
 
-
-
-
-
-                    if (!correo_existe && email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido) {
+                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido && !correo_existe) {
                         swal({
                             title: this.title,
                             text: this.text,
@@ -399,8 +394,6 @@
                         }).then(() => {
                             document.getElementById(form_id).submit();
                         });
-
-
                     } else {
                         this.boolean_correo_electronico = !email_valido || correo_existe;
                         this.boolean_nombres = !name_valido;
@@ -408,47 +401,48 @@
                         this.boolean_contrasena = !password_valido;
                         this.boolean_confirmar_contrasena = !confirmar_contrasena;
                         this.boolean_rol = !rol_valido;
-                    }
-                    if (this.nombres.length == 0) {
-                        this.error_nombres = "El campo es obligatorio";
 
-                    } else {
-                        this.error_nombres = "Los nombres solo pueden contener letras"
-                    }
-                    if (this.apellidos.length == 0) {
-                        this.error_apellidos = "El campo es obligatorio";
+                        if (this.nombres.length == 0) {
+                            this.error_nombres = "El campo es obligatorio";
+                        } else {
+                            this.error_nombres = "Los nombres solo pueden contener letras";
+                        }
 
-                    } else {
-                        this.error_apellidos = "Los apellidos solo pueden contener letras"
-                    }
-                    if (this.correo_electronico.length == 0) {
-                        this.error_correo_electronico = "El campo es obligatorio";
+                        if (this.apellidos.length == 0) {
+                            this.error_apellidos = "El campo es obligatorio";
+                        } else {
+                            this.error_apellidos = "Los apellidos solo pueden contener letras";
+                        }
 
-                    } else {
-                        this.error_correo_electronico = "El correo debe tener una estructura válida"
-                    }
-                    if (this.contrasena.length < 8) {
-                        this.error_contrasena = "La contraseña debe contener al menos 8 carácteres"
-                    } else {
-                        this.error_contrasena = "La contrasena debe contener al menos una mayúscula y un simbolo"
-                    }
-                    if (this.confirmar_contrasena != this.contrasena) {
-                        this.error_confirmar_contrasena = "Las contraseñas no coinciden"
-                    }
-                    if (!rol_valido) {
-                        this.error_rol = "El usuario debe poseer un rol"
-                    }
-                    if (!fecha_valida) {
-                        this.error_fecha_registro = "Debes seleccionar una fecha"
-                    }
+                        if (this.correo_electronico.length == 0) {
+                            this.error_correo_electronico = "El campo es obligatorio";
+                        } else if (correo_existe) {
+                            this.error_correo_electronico = "El correo ya está registrado.";
+                        } else {
+                            this.error_correo_electronico = "El correo debe tener una estructura válida.";
+                        }
 
-                    if (correo_existe) {
-                        this.error_correo_electronico = "El correo ya está registrado.";
-                    } else if (!email_valido) {
-                        this.error_correo_electronico = "El correo debe tener una estructura válida.";
-                    }
+                        if (this.contrasena.length < 8) {
+                            this.error_contrasena = "La contraseña debe contener al menos 8 carácteres";
+                        } else {
+                            this.error_contrasena = "La contrasena debe contener al menos una mayúscula y un simbolo";
+                        }
 
+                        if (this.confirmar_contrasena != this.contrasena) {
+                            this.error_confirmar_contrasena = "Las contraseñas no coinciden";
+                        }
+
+                        if (!rol_valido) {
+                            this.error_rol = "El usuario debe poseer un rol";
+                        }
+
+                        if (!fecha_valida) {
+                            this.error_fecha_registro = "Debes seleccionar una fecha";
+                        }
+                    }
                 },
+
+                
 
                 cargarUsuario(usuario) {
                     this.nombres = usuario.nombre;
@@ -464,6 +458,7 @@
                     this.nombres = ""
                     this.apellidos = ""
                     this.correo_electronico = ""
+                    this.correo_actual = ""
                     this.contrasena = ""
                     this.confirmar_contrasena = ""
                     this.rol = ""
@@ -471,7 +466,6 @@
 
                     this.boolean_nombres = false
                     this.boolean_apellidos = false
-                    this.boolean_correo_electronico = false
                     this.boolean_contrasena = false
                     this.boolean_confirmar_contrasena = false
                     this.boolean_rol = false
@@ -526,6 +520,19 @@
                         }
                     });
                 },
+                reiniciar_campos_modals_detalles() {
+                    this.usuarios.forEach((usuario) => {
+                        const modalId = `verUsuarioModal${usuario.id}`;
+                        const modalElement = document.getElementById(modalId);
+
+                        if (modalElement) {
+                            modalElement.addEventListener('hidden.bs.modal', () => {
+                                this.reiniciar_campos(modalId);
+                            });
+                        }
+                    });
+                },
+              
 
                 pagina_siguiente() {
                     let ultima_pagina = false;
@@ -542,6 +549,7 @@
                         this.pagina_actual += 1;
 
                         this.reiniciar_campos_modals();
+                        this.reiniciar_campos_modals_detalles();
                     }
                 },
                 pagina_anterior() {
@@ -560,6 +568,7 @@
                         this.usuarios = ref(this.obtener_usuarios.slice(this.variable_usuarios, this.variable_rango_usuarios));;
                         this.pagina_actual -= 1;
                         this.reiniciar_campos_modals();
+                        this.reiniciar_campos_modals_detalles()
 
                     }
 
@@ -576,6 +585,7 @@
 
                     this.usuarios = this.obtener_usuarios.slice(inicio, fin);
                     this.reiniciar_campos_modals()
+                    this.reiniciar_campos_modals_detalles()
                 },
                 obtener_paginas() {
 
@@ -606,6 +616,7 @@
                     this.reiniciar_campos()
                 })
                 this.reiniciar_campos_modals();
+                this.reiniciar_campos_modals_detalles();
 
                 this.obtener_paginas();
 
