@@ -148,10 +148,17 @@ class MesaController extends Controller
 
         curl_close($curl);
 
+        // Relacionar reservas con mesas
+        foreach ($mesasActualizadas['mesas'] as &$mesa) {
+            $mesa['reservas'] = array_filter($listaReservas, function ($reserva) use ($mesa) {
+            return $reserva->numero_mesa == $mesa['numero'];
+            });
+        }
+
         if (isset($mesasActualizadas['status']) && $mesasActualizadas['status'] === 200) {
             return view('panelMesas', compact('mesasActualizadas'));
         } else {
-            echo "Error al obtener clientmesases";
+            echo "Error al obtener mesas";
         }
     }
 }
