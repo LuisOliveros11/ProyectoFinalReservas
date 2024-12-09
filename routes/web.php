@@ -47,6 +47,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA CREAR MESA
     Route::post('/añadirMesa', [MesaController:: class, "addMesa"])->name('añadirMesa');
 
+    //RUTA PARA EDITAR MESA
+    Route::put('/editarMesa', [MesaController:: class, "updateMesa"])->name('editarMesa');
+
     //RUTA PARA ELIMINAR MESA
     Route::delete('/eliminarMesa', [MesaController:: class, "deleteMesa"])->name('eliminarMesa');
 });
