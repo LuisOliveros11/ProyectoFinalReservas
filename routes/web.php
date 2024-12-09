@@ -44,6 +44,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA TRAER TODAS LAS MESAS
     Route::get('/panelMesas', [MesaController::class, 'getMesas'])->name('panelMesas');
 
+    //RUTA PARA CREAR MESA
+    Route::post('/añadirMesa', [MesaController:: class, "addMesa"])->name('añadirMesa');
+
     //RUTA PARA ELIMINAR MESA
     Route::delete('/eliminarMesa', [MesaController:: class, "deleteMesa"])->name('eliminarMesa');
 });
