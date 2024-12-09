@@ -34,7 +34,9 @@
 
                     <div class="modal fade" id="crearMesaModal" tabindex="-1" aria-labelledby="crearMesaModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <form action="" method="">
+                            <form action="{{route(name: 'añadirMesa')}}" method="POST" id="agregar_mesa" @submit.prevent="funcion_validar_usuario($event)">
+                                @csrf
+                                @method('POST')
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="crearMesaModalLabel">Crear una Nueva Mesa</h5>
@@ -43,29 +45,33 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="Mesa" class="form-label">Número de Mesa</label>
-                                            <input type="text" class="form-control" id="" name="" required>
+                                            <input type="text" class="form-control" id="numero_mesa" name="numero_mesa" v-model="numero_mesa">
+                                            <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="sillas" class="form-label">Cantidad de sillas</label>
-                                            <input type="number" class="form-control" id="" name="" required>
+                                            <input type="text" class="form-control" id="cantidad_sillas" name="cantidad_sillas" v-model="cantidad_sillas">
+                                            <label v-if="boolean_cantidad_sillas" class="form-label" style="color: red;" v-text="error_cantidad_sillas"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="categoria" class="form-label">Categoría</label>
-                                            <select class="form-select" id="" name="" required>
+                                            <select class="form-select" id="categoria" name="categoria" v-model="categoria">
                                                 <option value="">Selecciona una categoría</option>
                                                 <option value="Normal">Normal</option>
                                                 <option value="VIP">VIP</option>
                                             </select>
+                                            <label v-if="boolean_categoria" class="form-label" style="color: red;" v-text="error_categoria"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="ubicacion" class="form-label">Ubicación</label>
-                                            <select class="form-select" id="" name="" required>
+                                            <select class="form-select" id="ubicacion" name="ubicacion" v-model="ubicacion">
                                                 <option value="">Selecciona una ubicación</option>
                                                 <option value="Interior">Interior</option>
                                                 <option value="Exterior">Exterior</option>
                                                 <option value="Privada">Privada</option>
                                             </select>
+                                            <label v-if="boolean_ubicacion" class="form-label" style="color: red;" v-text="error_ubicacion"></label>
                                         </div>
 
                                     </div>
@@ -342,59 +348,44 @@
                 let pagina_actual = ref(1);
 
 
-                let nombres = ref("")
-                let apellidos = ref("")
-                let correo_electronico = ref("")
-                let contrasena = ref("")
-                let confirmar_contrasena = ref("")
-                let fecha_registro = ref("")
-                let numero_telefonico = ref("")
-
+                let numero_mesa = ref("")
+                let cantidad_sillas = ref("")
+                let categoria = ref("")
+                let ubicacion = ref("")
                 let correo_actual = ref("")
-                let correo_cerrar_modal = ref("")
+                let correo_electronico = ref("")
 
-                let boolean_nombres = ref(false)
-                let boolean_apellidos = ref(false)
-                let boolean_correo_electronico = ref(false)
-                let boolean_contrasena = ref(false)
-                let boolean_confirmar_contrasena = ref(false)
-                let boolean_fecha_registro = ref(false)
-                let boolean_numero_telefonico = ref(false)
-
-                let error_campos = ref("")
-                let error_correo_electronico = ref("")
+                let boolean_numero_mesa = ref(false)
+                let boolean_cantidad_sillas = ref(false)
+                let boolean_categoria = ref(false)
+                let boolean_ubicacion = ref(false)
 
                 let title = ref("")
                 let text = ref("")
 
 
                 return {
-                    nombres,
-                    apellidos,
+                    numero_mesa,
+                    cantidad_sillas,
+                    categoria,
+                    ubicacion,
+                    correo_actual,
                     correo_electronico,
-                    contrasena,
-                    confirmar_contrasena,
-                    fecha_registro,
-                    numero_telefonico,
-                    boolean_nombres,
-                    boolean_apellidos,
-                    boolean_correo_electronico,
-                    boolean_contrasena,
-                    boolean_confirmar_contrasena,
-                    boolean_fecha_registro,
-                    boolean_numero_telefonico,
-                    error_campos,
-                    error_correo_electronico,
+
+                    boolean_numero_mesa,
+                    boolean_cantidad_sillas,
+                    boolean_categoria,
+                    boolean_ubicacion,
+
                     title,
                     text,
+
                     mesas,
                     obtener_mesas,
                     variable_rango_mesas,
                     variable_mesas,
                     cantidad_paginas,
                     pagina_actual,
-                    correo_actual,
-                    correo_cerrar_modal
                 }
             },
             methods: {
@@ -402,10 +393,10 @@
                     const formId = event.target.id;
 
                     // Reutilizar el método para ambos formularios
-                    if (formId === 'agregar_usuario') {
-                        this.title = "Cuenta registrada!";
-                        this.text = "La cuenta ha sido creada correctamente!";
-                        this.validar_usuario('agregar_usuario');
+                    if (formId === 'agregar_mesa') {
+                        this.title = "Mesa registrada!";
+                        this.text = "La Mesa ha sido creada correctamente!";
+                        this.validar_usuario('agregar_mesa');
 
                         console.log('agregar');
                     } else if (formId.startsWith('editar_usuario')) {
@@ -419,32 +410,26 @@
 
                 validar_usuario(form_id) {
                     // VALIDAR FORMULARIO AGREGAR Y EDITAR USUARIO
-
+                    const numeroMesaRegex = /^[0-9]+$/;
                     const emailRegex = /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9-]{1,63}(\.[a-zA-Z0-9-]{1,63})*\.[a-zA-Z]{2,63}$/;
-                    const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/;
-                    const contrasenaRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
 
-                    this.boolean_nombres = false;
-                    this.boolean_apellidos = false;
-                    this.boolean_correo_electronico = false;
-                    this.boolean_contrasena = false;
-                    this.boolean_confirmar_contrasena = false;
-                    this.boolean_fecha_registro = false;
-                    this.boolean_numero_telefonico = false;
+                    this.boolean_numero_mesa = false
+                    this.boolean_cantidad_sillas = false
+                    this.boolean_categoria = false
+                    this.boolean_ubicacion = false
 
+                    let numero_mesa_valido = numeroMesaRegex.test(this.numero_mesa);
+                    let cantidad_sillas_valido =numeroMesaRegex.test(this.cantidad_sillas);
+                    let categoria_valida = this.categoria === "Normal" || this.categoria === "VIP";
+                    let ubicacion_valida = this.ubicacion != "";
                     let email_valido = emailRegex.test(this.correo_electronico);
-                    let name_valido = nameRegex.test(this.nombres);
-                    let lastname_valido = nameRegex.test(this.apellidos);
-                    let password_valido = contrasenaRegex.test(this.contrasena);
-                    let confirmar_contrasena = this.contrasena === this.confirmar_contrasena;
-                    let fecha_valida = this.fecha_registro !== "";
-                    let numero_telefonico_valido = this.numero_telefonico.length == 10;
 
-                    const correo_existe = this.obtener_mesas.some(usuario =>
-                        usuario.correo_electronico === this.correo_electronico && usuario.correo_electronico !== this.correo_actual
+
+                    const numero_mesa_existe = this.obtener_mesas.some(usuario =>
+                        String(usuario.numero) === String(this.numero_mesa) //&& usuario.numero_mesa !== this.correo_actual
                     );
 
-                    if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && numero_telefonico_valido && !correo_existe) {
+                    if (numero_mesa_valido && cantidad_sillas_valido && categoria_valida && ubicacion_valida) {
                         swal({
                             title: this.title,
                             text: this.text,
@@ -454,50 +439,36 @@
                             document.getElementById(form_id).submit();
                         });
                     } else {
-                        this.boolean_correo_electronico = !email_valido || correo_existe;
-                        this.boolean_nombres = !name_valido;
-                        this.boolean_apellidos = !lastname_valido;
-                        this.boolean_contrasena = !password_valido;
-                        this.boolean_confirmar_contrasena = !confirmar_contrasena;
-                        this.boolean_numero_telefonico = !numero_telefonico_valido;
+                        this.boolean_numero_mesa = !numero_mesa_valido || numero_mesa_existe;
+                        this.boolean_cantidad_sillas = !cantidad_sillas_valido
+                        this.boolean_categoria = !categoria_valida
+                        this.boolean_ubicacion = !ubicacion_valida
 
-                        if (this.nombres.length == 0) {
-                            this.error_nombres = "El campo es obligatorio";
+                        if (this.numero_mesa.length == 0) {
+                            this.error_numero_mesa = "El campo es obligatorio";
+                        }
+                        else if (numero_mesa_existe) {
+                            this.error_numero_mesa = "Este número de mesa ya está registrado.";
+                        }
+                        else {
+                            this.error_numero_mesa = "El campo solo puede contener numeros";
+                        }
+
+                        if (this.cantidad_sillas.length == 0) {
+                            this.error_cantidad_sillas = "El campo es obligatorio";
                         } else {
-                            this.error_nombres = "Los nombres solo pueden contener letras";
+                            this.error_cantidad_sillas = "Los apellidos solo pueden contener letras";
                         }
-
-                        if (this.apellidos.length == 0) {
-                            this.error_apellidos = "El campo es obligatorio";
-                        } else {
-                            this.error_apellidos = "Los apellidos solo pueden contener letras";
-                        }
-
-                        if (this.correo_electronico.length == 0) {
-                            this.error_correo_electronico = "El campo es obligatorio";
-                        } else if (correo_existe) {
-                            this.error_correo_electronico = "El correo ya está registrado.";
-                        } else {
-                            this.error_correo_electronico = "El correo debe tener una estructura válida.";
-                        }
-
-                        if (this.contrasena.length < 8) {
-                            this.error_contrasena = "La contraseña debe contener al menos 8 carácteres";
-                        } else {
-                            this.error_contrasena = "La contrasena debe contener al menos una mayúscula y un simbolo";
-                        }
-
-                        if (this.confirmar_contrasena != this.contrasena) {
-                            this.error_confirmar_contrasena = "Las contraseñas no coinciden";
-                        }
-
-                        if (this.numero_telefonico.length !== 10) {
-                            this.error_numero_telefonico = "El numero debe ser de 10 dígitos";
-                        }
-
-                        if (!fecha_valida) {
-                            this.error_fecha_registro = "Debes seleccionar una fecha";
-                        }
+                        if (this.categoria.length == 0) {
+                            this.error_categoria = "El campo es obligatorio";
+                        } 
+                        else if(!categoria_valida){
+                            this.error_categoria = "Esta categoría no existe"
+                        } 
+                        if (this.ubicacion.length == 0) {
+                            this.error_ubicacion = "El campo es obligatorio";
+                        } 
+                    
                     }
                 },
 
@@ -514,28 +485,21 @@
                 },
 
                 reiniciar_campos(modalId) { //Reiniciar los campos al cerrarr el modal
-                    this.nombres = ""
-                    this.apellidos = ""
-                    this.correo_electronico = ""
-                    this.correo_actual = ""
-                    this.contrasena = ""
-                    this.confirmar_contrasena = ""
-                    this.fecha_registro = ""
-                    this.numero_telefonico = ""
+                    this.numero_mesa = "";
+                    this.cantidad_sillas = ""
+                    this.categoria = ""
+                    this.ubicacion = ""
 
-                    this.boolean_nombres = false
-                    this.boolean_apellidos = false
-                    this.boolean_contrasena = false
-                    this.boolean_confirmar_contrasena = false
-                    this.boolean_fecha_registro = false
+                    this.boolean_numero_mesa = false
+                    this.boolean_cantidad_sillas = false
+                    this.boolean_categoria = false
+                    this.boolean_ubicacion = false
 
-                    this.error_nombres = ""
-                    this.error_apellidos = ""
-                    this.error_correo_electronico = ""
-                    this.error_contrasena = ""
-                    this.error_confirmar_contrasena = ""
-                    this.error_fecha_registro = ""
-                    this.error_numero_telefonico = ""
+                    this.error_numero_mesa = ""
+                    this.error_cantidad_sillas = ""
+                    this.error_categoria = ""
+                    this.error_ubicacion = ""
+              
 
                     console.log(`Campos reiniciados para el modal: ${modalId}`);
                 },
@@ -664,16 +628,16 @@
                     console.log(this.obtener_mesas)
 
                 },
-
+            
 
 
             },
             mounted() {
-                /*const modal = document.getElementById('crearClienteModal')
+                const modal = document.getElementById('crearMesaModal')
                 modal.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
-                this.reiniciar_campos_modals();
+                /*this.reiniciar_campos_modals();
                 this.reiniciar_campos_modals_detalles();*/
 
                 this.obtener_paginas();
@@ -686,11 +650,10 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            const nombres_input = document.getElementById("nombres");
-            const apellidos_input = document.getElementById("apellidos");
-            const contrasena_input = document.getElementById("contrasena");
-            const confirmar_contrasena_input = document.getElementById("confirmar_contrasena");
-            const numero_telefonico_input = document.getElementById("numero_telefonico");
+            const numero_mesa_input = document.getElementById("numero_mesa");
+            const cantidad_sillas_input = document.getElementById("cantidad_sillas");
+            const categoria_input = document.getElementById("categoria");
+            const ubicacion_input = document.getElementById("ubicacion");
 
             function validar_nombres_apellidos(e) {
                 const regex = /[^A-Za-zÑñ\s]/g;
@@ -703,17 +666,8 @@
                 }
             }
 
-            function validar_contrasena(e) {
-                const regex = /\s/;
-                if (regex.test(e.key)) {
-                    e.preventDefault();
-                }
-                const input = e.target;
-                if (input.value.length >= 64 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                    e.preventDefault();
-                }
-            }
-            function validar_numero_telefonico(e) {
+           
+            function validar_inputs_numeros(e) {
                 const regex = /^[0-9]$/;
                 const teclasPermitidas = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
 
@@ -727,25 +681,16 @@
                 }
             }
 
-            nombres_input.addEventListener("keydown", validar_nombres_apellidos);
-            apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
-            contrasena_input.addEventListener("keydown", validar_contrasena);
-            numero_telefonico_input.addEventListener("keydown", validar_numero_telefonico);
+            numero_mesa_input.addEventListener("keydown", validar_inputs_numeros);
+            cantidad_sillas_input.addEventListener("keydown", validar_inputs_numeros);
 
-            contrasena_input.addEventListener("paste", function (e) {
-                e.preventDefault();
+           
+            document.querySelectorAll("input[id^='editar_numero_mesa']").forEach(input => {
+                input.addEventListener("keydown", validar_inputs_numeros);
             });
 
-            confirmar_contrasena_input.addEventListener("paste", function (e) {
-                e.preventDefault();
-            });
-
-            document.querySelectorAll("input[id^='editar_nombres']").forEach(input => {
-                input.addEventListener("keydown", validar_nombres_apellidos);
-            });
-
-            document.querySelectorAll("input[id^='editar_apellidos']").forEach(input => {
-                input.addEventListener("keydown", validar_nombres_apellidos);
+            document.querySelectorAll("input[id^='editar_cantidad_sillas']").forEach(input => {
+                input.addEventListener("keydown", validar_inputs_numeros);
             });
 
             document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
