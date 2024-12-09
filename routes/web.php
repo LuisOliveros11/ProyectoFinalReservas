@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\MesaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     
     //RUTA PARA ELIMINAR CLIENTE
     Route::delete('/eliminarCliente', [ClienteController:: class, "deleteClient"])->name('eliminarCliente');
+
+    //RUTA PARA TRAER TODAS LAS MESAS
+    Route::get('/panelMesas', [MesaController::class, 'getMesas'])->name('panelMesas');
 });
 
 //******** RUTAS QUE NO OCUPAN PROTECCION ****
