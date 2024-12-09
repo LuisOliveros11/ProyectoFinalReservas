@@ -111,13 +111,9 @@
                                 <td class="small text-truncate" v-text="cliente.numero_telefonico"></td>
                                 
                                 <td>
-                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                        data-bs-toggle="modal" :data-bs-target="'#verClienteModal' + cliente.id"  @click="cargarUsuario(cliente)">Detalles</button>
+                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" :data-bs-target="'#verClienteModal' + cliente.id"  @click="cargarUsuario(cliente)">Detalles</button>
 
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                        :data-bs-target="'#editarClienteModal' + cliente.id" @click="cargarUsuario(cliente)">
-                                        Editar
-                                    </button>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarClienteModal' + cliente.id" @click="cargarUsuario(cliente)">Editar</button>
 
                                     <form method="POST" action="{{ route('eliminarCliente') }}" :id="'form_borrar_perfil_' + cliente.id" class="d-inline">
                                         @csrf
@@ -217,7 +213,7 @@
                                         <div class="col-mb-3">
                                             <h5>Historial de reservaciones</h5>
                                             <section>
-                                                <ul v-if="cliente.reservas" class="timeline">
+                                                <ul v-if="Object.keys(cliente.reservas).length > 0" class="timeline">
                                                     <li v-for="reserva in cliente.reservas" :key="reserva.id" class="timeline-item mb-6">
                                                         <div class="row">
                                                             <div class="col-4">
@@ -253,10 +249,9 @@
                                                         </div>
                                                     </li>                                                                      
                                                 </ul>
-                                                <div v-if="!clientes.reservas">
+                                                <div v-else>
                                                     <h6 class="mb-2">No hay reservaciones</h6>
-                                                </div>
-                                                  
+                                                </div>             
                                             </section>
                                         </div>
 
