@@ -33,7 +33,7 @@
                                             {{ session('error') }}
                                         </div>
                                     @endif
-                                        <form method="post" action="{{ route('login') }}" id="login" @submit.prevent="validar_login">
+                                        <form method="post" action="{{ route('login') }}" id="login">
                                             @csrf
                                             @method('POST')
                                             <div class="form-floating mb-3">
@@ -44,7 +44,7 @@
                                                 <input class="form-control" id="" type="password" placeholder="Contraseña" name="contrasena" v-model="ingresar_contrasena"/>
                                                 <label for="">Contraseña</label>
                                             </div>
-                                            <label v-if="validar_contrasena" class="form-label" style="color: red;">La contraseña debe tener al menos 8 carácteres</label>
+                                         
                                             <div class="d-flex align-items-center justify-content-between mt-6 mb-0">
                                                 <button class="btn btn-primary" href="">Acceder</button>
                                             </div>
@@ -82,18 +82,6 @@
             },
             methods: {
 
-                validar_login(){
-                    let password_valido = this.ingresar_contrasena.length >= 8;
-                 
-
-                    if (password_valido) {
-                        document.getElementById('login').submit();
-
-                    }
-                    else {
-                        this.validar_contrasena = !password_valido;
-                    }
-                },
             
 
             },
