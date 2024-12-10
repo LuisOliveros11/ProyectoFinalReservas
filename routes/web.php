@@ -56,6 +56,9 @@ Route::middleware([AuthMiddleware::class])->group(function(){
     //RUTA PARA TRAER TODAS LAS RESERVAS
     Route::get('/panelReservas', [reservasController::class, 'getReservas'])->name('panelReservas');
 
+    //RUTA PARA CREAR RESERVA
+    Route::post('/añadirReserva', [reservasController:: class, "addReserva"])->name('añadirReserva');
+
     //RUTA PARA ELIMINAR RESERVA
     Route::delete('/eliminarReserva', [reservasController:: class, "deleteReserva"])->name('eliminarReserva');
 });
