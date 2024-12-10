@@ -110,7 +110,12 @@
                                     <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarMesaModal' + mesa.id" @click="cargar_datos(mesa)">
                                         Editar
                                     </button>
-                                    <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                                    <form method="POST" action="{{ route('eliminarMesa') }}" :id="'form_borrar_perfil_' + mesa.id" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="hidden" name="usuario_id" :value="mesa.id">
+                                        <button type="button" @click="sweetAlert_eliminar(mesa.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
@@ -125,7 +130,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="editarMesaModal">Editar Mesa</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                            <button type="button" @click="sweetAlert_eliminar(cliente.id)" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                         </div>
                                         <div class="modal-body">
                                         <input type="hidden" name="mesa_id" :value="mesa.id">
