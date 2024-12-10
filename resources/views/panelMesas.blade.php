@@ -34,7 +34,7 @@
 
                     <div class="modal fade" id="crearMesaModal" tabindex="-1" aria-labelledby="crearMesaModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <form action="{{route(name: 'añadirMesa')}}" method="POST" id="agregar_mesa" @submit.prevent="funcion_validar_usuario($event)">
+                            <form action="{{route(name: 'añadirMesa')}}" method="POST" id="agregar_mesa" @submit.prevent="funcion_validar_formulario($event)">
                                 @csrf
                                 @method('POST')
                                 <div class="modal-content">
@@ -66,7 +66,7 @@
                                         <div class="mb-3">
                                             <label for="ubicacion" class="form-label">Ubicación</label>
                                             <select class="form-select" id="ubicacion" name="ubicacion" v-model="ubicacion">
-                                                <option value="">Selecciona una ubicación</option>
+                                                <option value="" disabled selected>Selecciona una ubicación</option>
                                                 <option value="Interior">Interior</option>
                                                 <option value="Exterior">Exterior</option>
                                                 <option value="Privada">Privada</option>
@@ -107,7 +107,7 @@
                                 <td>
                                     <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verMesasModal">Detalles</button>
 
-                                    <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editarMesaModal">
+                                    <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarMesaModal' + mesa.id" @click="cargar_datos(mesa)">
                                         Editar
                                     </button>
                                     <button href="" class="btn btn-danger btn-sm">Eliminar</button>
@@ -116,54 +116,60 @@
                         </tbody>
                     </table>
 
+                    <div v-for="(mesa, index) in obtener_mesas" :key="mesa.id">
+                        <div class="modal fade" :id="'editarMesaModal'+mesa.id" :data-modal-id="mesa.id" tabindex="-1" aria-labelledby="editarMesaLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form action="{{route(name: 'editarMesa')}}" method="POST" :id="'editar_mesa'+mesa.id" @submit.prevent="funcion_validar_formulario($event)">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editarMesaModal">Editar Mesa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <input type="hidden" name="mesa_id" :value="mesa.id">
+                                            <div class="mb-3">
+                                                <label for="Mesa" class="form-label">Número de Mesa</label>
+                                                <input type="text" class="form-control" :id="'editar_numero_mesa'+mesa.id" name="numero_mesa" v-model="numero_mesa">
+                                            </div>
 
-                    <div class="modal fade" id="editarMesaModal" tabindex="-1" aria-labelledby="editarMesaLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="" method="">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editarMesaModal">Editar Mesa</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                            <div class="mb-3">
+                                                <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                                <input type="text" class="form-control" :id="'editar_cantidad_sillas'+mesa.id" name="cantidad_sillas" v-model="cantidad_sillas">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="categoria" class="form-label">Categoría</label>
+                                                <select class="form-select" :id="'editar_categoria'+mesa.id" name="categoria" v-model="categoria">
+                                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                                    <option value="Normal">Normal</option>
+                                                    <option value="VIP">VIP</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ubicacion" class="form-label">Ubicación</label>
+                                                <select class="form-select" :id="'editar_ubicacion'+mesa.id" name="ubicacion" v-model="ubicacion">
+                                                    <option value="" disabled selected>Selecciona una ubicación</option>
+                                                    <option value="Interior">Interior</option>
+                                                    <option value="Exterior">Exterior</option>
+                                                    <option value="Privada">Privada</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="Mesa" class="form-label">Número de Mesa</label>
-                                            <input type="text" class="form-control" id="" name="" required>
-                                        </div>
+                                </form>
 
-                                        <div class="mb-3">
-                                            <label for="sillas" class="form-label">Cantidad de sillas</label>
-                                            <input type="number" class="form-control" id="" name="" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="categoria" class="form-label">Categoría</label>
-                                            <select class="form-select" id="" name="" required>
-                                                <option value="">Selecciona una categoría</option>
-                                                <option value="Normal">Normal</option>
-                                                <option value="VIP">VIP</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="ubicacion" class="form-label">Ubicación</label>
-                                            <select class="form-select" id="" name="" required>
-                                                <option value="">Selecciona una ubicación</option>
-                                                <option value="Interior">Interior</option>
-                                                <option value="Exterior">Exterior</option>
-                                                <option value="Privada">Privada</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                    </div>
-                                </div>
-                            </form>
-
+                            </div>
                         </div>
-                    </div>
 
+
+                    </div>
+                    
                     <div class="modal fade" id="verMesasModal" tabindex="-1" aria-labelledby="verMesasModal" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -389,7 +395,7 @@
                 }
             },
             methods: {
-                funcion_validar_usuario(event) {
+                funcion_validar_formulario(event) {
                     const formId = event.target.id;
 
                     // Reutilizar el método para ambos formularios
@@ -399,11 +405,11 @@
                         this.validar_usuario('agregar_mesa');
 
                         console.log('agregar');
-                    } else if (formId.startsWith('editar_usuario')) {
-                        this.title = "La cuenta ha sido editada!";
-                        this.text = "Cuenta editada correctamente!";
-                        const usuarioId = formId.replace('editar_usuario', '');
-                        this.validar_usuario('editar_usuario' + usuarioId);
+                    } else if (formId.startsWith('editar_mesa')) {
+                        this.title = "La mesa ha sido editada!";
+                        this.text = "Mesa editada correctamente!";
+                        const usuarioId = formId.replace('editar_mesa', '');
+                        this.validar_usuario('editar_mesa' + usuarioId);
                         console.log('editar id: ' + usuarioId)
                     }
                 },
@@ -474,14 +480,12 @@
 
 
 
-                cargarUsuario(usuario) {
-                    this.nombres = usuario.nombre;
-                    this.apellidos = usuario.apellidos;
-                    this.correo_electronico = usuario.correo_electronico;
-                    this.correo_actual = usuario.correo_electronico;
-                    this.numero_telefonico = usuario.numero_telefonico
-                    this.contrasena = "";
-                    this.confirmar_contrasena = "";
+                cargar_datos(mesa) {
+                    this.numero_mesa = mesa.numero;
+                    this.cantidad_sillas = mesa.cantidad_sillas;
+                    this.categoria = mesa.categoria;
+                    this.ubicacion = mesa.ubicacion;
+                  
                 },
 
                 reiniciar_campos(modalId) { //Reiniciar los campos al cerrarr el modal
@@ -532,7 +536,7 @@
 
                 reiniciar_campos_modals() {
                     this.mesas.forEach((usuario) => {
-                        const modalId = `editarClienteModal${usuario.id}`;
+                        const modalId = `editarMesaModal${usuario.id}`;
                         const modalElement = document.getElementById(modalId);
 
                         if (modalElement) {
@@ -544,7 +548,7 @@
                 },
                 reiniciar_campos_modals_detalles() {
                     this.mesas.forEach((usuario) => {
-                        const modalId = `verClienteModal${usuario.id}`;
+                        const modalId = `verMesaModal${usuario.id}`;
                         const modalElement = document.getElementById(modalId);
 
                         if (modalElement) {
@@ -637,8 +641,8 @@
                 modal.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
-                /*this.reiniciar_campos_modals();
-                this.reiniciar_campos_modals_detalles();*/
+                this.reiniciar_campos_modals();
+                this.reiniciar_campos_modals_detalles();
 
                 this.obtener_paginas();
 
