@@ -105,7 +105,7 @@
                                 <td class="small text-truncate" v-text="mesa.ubicacion"></td>
                                 <td class="small text-truncate" v-text="mesa.disponibilidad"></td>
                                 <td>
-                                    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verMesasModal">Detalles</button>
+                                    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#verMesaModal' + mesa.id"  @click="cargar_datos(mesa)">Detalles</button>
 
                                     <button class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarMesaModal' + mesa.id" @click="cargar_datos(mesa)">
                                         Editar
@@ -174,140 +174,97 @@
 
 
                     </div>
-                    
-                    <div class="modal fade" id="verMesasModal" tabindex="-1" aria-labelledby="verMesasModal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+
+                    <div v-for="(mesa, index) in obtener_mesas" :key="mesa.id">
+                        <div class="modal fade" :id="'verMesaModal'+mesa.id" :data-modal-id="mesa.id" tabindex="-1" aria-labelledby="verMesasModal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="Mesa" class="form-label">Número de Mesa</label>
+                                            <input type="text" class="form-control" v-model="numero_mesa" disabled>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                            <input type="number" class="form-control" v-model="cantidad_sillas" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="categoria" class="form-label">Categoría</label>
+                                            <input type="text" class="form-control" v-model="categoria" disabled>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="ubicacion" class="form-label">Ubicación</label>
+                                            <input type="text" class="form-control" v-model="ubicacion" disabled>
+
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="disponibilidad" class="form-label">Disponibilidad</label>
+                                            <input type="text" class="form-control" v-model="mesa.disponibilidad" disabled>
+
+                                        </div>
+
+                                        <div class="col-mb-3">
+                                            <h5>Historial de reservaciones</h5>
+                                            <section>
+                                                <ul v-if="Object.keys(mesa.reservas).length > 0"  class="timeline">
+                                                    <li v-for="reserva in mesa.reservas" :key="reserva.id" class="timeline-item mb-6">
+                                                    <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="mb-2 fw-bold">Fecha de reservación: </h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                            <h6 class="mb-2 fw-bold" v-text="reserva.fecha_reservacion"></h6>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.hora_inicio"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.hora_final"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-4">
+                                                                <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <p v-text="reserva.numero_mesa"></p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div v-else>
+                                                    <h6 class="mb-2">No hay reservaciones</h6>
+                                                </div>    
+                                            </section>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="Mesa" class="form-label">Número de Mesa</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-                                    </div>
 
-                                    <div class="mb-3">
-                                        <label for="sillas" class="form-label">Cantidad de sillas</label>
-                                        <input type="number" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="categoria" class="form-label">Categoría</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ubicacion" class="form-label">Ubicación</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="disponibilidad" class="form-label">Disponibilidad</label>
-                                        <input type="text" class="form-control" id="" name="" disabled>
-
-                                    </div>
-
-                                    <div class="col-mb-3">
-                                        <h5>Historial de reservaciones</h5>
-                                        <section>
-                                            <ul class="timeline">
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="timeline-item mb-6">
-                                                    <h6 class="mb-2 fw-bold">Fecha de reservacion: 2024-12-12</h6>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora de inicio:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Hora final:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>08:30:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <h6 class="text-muted fw-bold">Numero de mesa:</h6>
-                                                        </div>
-                                                        <div class="col-8">
-                                                            <p>2</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </section>
-                                    </div>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
                             </div>
-
                         </div>
-                    </div>
+
+                    </div>                  
 
                     <div class="d-flex justify-content-end">
                         <nav aria-label="Page navigation example">
@@ -514,8 +471,8 @@
                 },
                 sweetAlert_eliminar(id) {
                     swal({
-                            title: "Seguro que quieres eliminar al usuario?",
-                            text: "Una vez eliminado, no podrás recuperarlo",
+                            title: "Seguro que quieres eliminar esta mesa?",
+                            text: "Una vez eliminada, no podrás recuperarla",
                             icon: "warning",
                             buttons: true,
                             dangerMode: true,
@@ -523,7 +480,7 @@
                         .then((willDelete) => {
                             console.log("id de formulario: " + id)
                             if (willDelete) {
-                                swal("El usuario ha sido eliminado!", {
+                                swal("La mesa ha sido eliminada!", {
                                     icon: "success",
 
 
