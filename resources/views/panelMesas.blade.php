@@ -137,11 +137,13 @@
                                             <div class="mb-3">
                                                 <label for="Mesa" class="form-label">Número de Mesa</label>
                                                 <input type="text" class="form-control" :id="'editar_numero_mesa'+mesa.id" name="numero_mesa" v-model="numero_mesa">
+                                                <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="sillas" class="form-label">Cantidad de sillas</label>
                                                 <input type="text" class="form-control" :id="'editar_cantidad_sillas'+mesa.id" name="cantidad_sillas" v-model="cantidad_sillas">
+                                                <label v-if="boolean_cantidad_sillas" class="form-label" style="color: red;" v-text="error_cantidad_sillas"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="categoria" class="form-label">Categoría</label>
@@ -150,6 +152,8 @@
                                                     <option value="Normal">Normal</option>
                                                     <option value="VIP">VIP</option>
                                                 </select>
+                                                <label v-if="boolean_categoria" class="form-label" style="color: red;" v-text="error_categoria"></label>
+
                                             </div>
                                             <div class="mb-3">
                                                 <label for="ubicacion" class="form-label">Ubicación</label>
@@ -159,6 +163,7 @@
                                                     <option value="Exterior">Exterior</option>
                                                     <option value="Privada">Privada</option>
                                                 </select>
+                                                <label v-if="boolean_ubicacion" class="form-label" style="color: red;" v-text="error_ubicacion"></label>
                                             </div>
 
                                         </div>
@@ -321,6 +326,7 @@
                 let categoria = ref("")
                 let ubicacion = ref("")
                 let correo_actual = ref("")
+                let numero_mesa_actual = ref("")
                 let correo_electronico = ref("")
 
                 let boolean_numero_mesa = ref(false)
@@ -338,6 +344,7 @@
                     categoria,
                     ubicacion,
                     correo_actual,
+                    numero_mesa_actual,
                     correo_electronico,
 
                     boolean_numero_mesa,
@@ -394,10 +401,11 @@
 
 
                     const numero_mesa_existe = this.obtener_mesas.some(usuario =>
-                        String(usuario.numero) === String(this.numero_mesa) //&& usuario.numero_mesa !== this.correo_actual
+                        String(usuario.numero) === String(this.numero_mesa) && String(usuario.numero)!== String(this.numero_mesa_actual)
+                       
                     );
 
-                    if (numero_mesa_valido && cantidad_sillas_valido && categoria_valida && ubicacion_valida) {
+                    if (numero_mesa_valido && cantidad_sillas_valido && categoria_valida && ubicacion_valida && !numero_mesa_existe) {
                         swal({
                             title: this.title,
                             text: this.text,
@@ -447,6 +455,7 @@
                     this.cantidad_sillas = mesa.cantidad_sillas;
                     this.categoria = mesa.categoria;
                     this.ubicacion = mesa.ubicacion;
+                    this.numero_mesa_actual = mesa.numero;
                   
                 },
 
@@ -455,6 +464,7 @@
                     this.cantidad_sillas = ""
                     this.categoria = ""
                     this.ubicacion = ""
+                    this.numero_mesa_actual = ""
 
                     this.boolean_numero_mesa = false
                     this.boolean_cantidad_sillas = false
