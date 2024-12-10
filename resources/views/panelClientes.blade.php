@@ -142,10 +142,12 @@
                                             <div class="mb-3">
                                                 <label for="nombre" class="form-label">Nombre</label>
                                                 <input type="text" class="form-control" :id="'editar_nombres'+cliente.id" name="nombres" v-model="nombres">
+                                                <label v-if="boolean_nombres" class="form-label" style="color: red;" v-text="error_nombres"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="apellidos" class="form-label">Apellidos</label>
                                                 <input type="text" class="form-control" :id="'editar_apellidos'+cliente.id" name="apellidos" v-model="apellidos">
+                                                <label v-if="boolean_apellidos" class="form-label" style="color: red;" v-text="error_apellidos"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="correo_electronico" class="form-label">Correo Electrónico</label>
@@ -160,11 +162,13 @@
                                             <div class="mb-3">
                                                 <label for="contrasena" class="form-label">Contraseña</label>
                                                 <input type="password" class="form-control" :id="'editar_contrasena'+cliente.id" name="contrasena" v-model="contrasena">
+                                                <label v-if="boolean_contrasena" class="form-label" style="color: red;" v-text="error_contrasena"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="confirmar_contrasena" class="form-label">Confirmar
                                                     Contraseña</label>
                                                 <input type="password" class="form-control" :id="'editar_confirmar_contrasena'+cliente.id" name="confirmar_contrasena" v-model="confirmar_contrasena">
+                                                <label v-if="boolean_confirmar_contrasena" class="form-label" style="color: red;" v-text="error_confirmar_contrasena"></label>
                                             </div>
 
                                         </div>
