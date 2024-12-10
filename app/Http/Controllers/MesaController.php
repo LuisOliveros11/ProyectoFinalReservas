@@ -264,7 +264,7 @@ class MesaController extends Controller
                     if ($request->categoria !== "Selecciona una categoría") {
                         if ($request->categoria !== "Selecciona una ubicación") {
                             foreach ($mesas as $mesa) {
-                                if ((int) $request->numero_mesa === (int) $mesa->numero) {
+                                if ($request->numero_mesa === $mesa->numero) {
                                     if ((int) $id !== (int) $mesa->id) {
                                         $mesaExistente = true;
                                     }
