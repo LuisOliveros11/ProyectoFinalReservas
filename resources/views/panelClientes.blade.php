@@ -92,41 +92,37 @@
                     </div>
 
                     <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th style="width: 10%;">#</th>
-                                <th style="width: 17%;">Nombre</th>
-                                <th style="width: 17%;">Apellidos</th>
-                                <th style="width: 17%;">Teléfono</th>
-                                <th style="width: 17%;">Email</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(cliente, index) in clientes" :key="cliente.id">
-                                <td class="small text-truncate" v-text="cliente.id"></td>
-                                <td class="small text-truncate" v-text="cliente.nombre"></td>
-                                <td class="small text-truncate" v-text="cliente.apellidos"></td>
-                                <td class="small text-truncate" v-text="cliente.correo_electronico"></td>
-                                <td class="small text-truncate" v-text="cliente.numero_telefonico"></td>
-                                
-                                <td>
-                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal" :data-bs-target="'#verClienteModal' + cliente.id"  @click="cargarUsuario(cliente)">Detalles</button>
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 17%;">Nombre</th>
+                            <th style="width: 17%;">Apellidos</th>
+                            <th style="width: 17%;">Email</th>
+                            <th style="width: 17%;">Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(cliente, index) in clientes" :key="cliente.id">
+                            <td class="small text-truncate" v-text="cliente.id"></td>
+                            <td class="small text-truncate" v-text="cliente.nombre"></td>
+                            <td class="small text-truncate" v-text="cliente.apellidos"></td>
+                            <td class="small text-truncate" v-text="cliente.correo_electronico"></td>
+                            <td class="small text-truncate" v-text="cliente.numero_telefonico"></td> 
+                            <td>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" :data-bs-target="'#verClienteModal' + cliente.id" @click="cargarUsuario(cliente)">Detalles</button>
+                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarClienteModal' + cliente.id" @click="cargarUsuario(cliente)">Editar</button>
+                                <form method="POST" action="{{ route('eliminarCliente') }}" :id="'form_borrar_perfil_' + cliente.id" class="d-inline">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="usuario_id" :value="cliente.id">
+                                    <button type="button" @click="sweetAlert_eliminar(cliente.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" :data-bs-target="'#editarClienteModal' + cliente.id" @click="cargarUsuario(cliente)">Editar</button>
-
-                                    <form method="POST" action="{{ route('eliminarCliente') }}" :id="'form_borrar_perfil_' + cliente.id" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <input type="hidden" name="usuario_id" :value="cliente.id">
-                                        <button type="button" @click="sweetAlert_eliminar(cliente.id)" class="btn btn-danger btn-sm">Eliminar</button>
-
-
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
 
                     <div  v-for="(cliente, index) in obtener_clientes" :key="cliente.id">
                         <div class="modal fade" :id="'editarClienteModal'+cliente.id" :data-modal-id="cliente.id" tabindex="-1" aria-labelledby="editarClienteLabel"
@@ -152,12 +148,14 @@
                                                 <input type="text" class="form-control" :id="'editar_apellidos'+cliente.id" name="apellidos" v-model="apellidos">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="numero_telefonico" class="form-label">Número Telefónico</label>
-                                                <input type="text" class="form-control" :id="'editar_numero_telefonico'+cliente.id" name="numero_telefonico" v-model="numero_telefonico">
-                                            </div>
-                                            <div class="mb-3">
                                                 <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                                 <input type="email" class="form-control" :id="'editar_correo_electronico'+cliente.id" name="correo_electronico" v-model="correo_electronico">
+                                                <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="numero_telefonico" class="form-label">Número Telefónico</label>
+                                                <input type="text" class="form-control" :id="'editar_numero_telefonico'+cliente.id" name="numero_telefonico" v-model="numero_telefonico">
+                                                <label v-if="boolean_numero_telefonico" class="form-label" style="color: red;" v-text="error_numero_telefonico"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="contrasena" class="form-label">Contraseña</label>
