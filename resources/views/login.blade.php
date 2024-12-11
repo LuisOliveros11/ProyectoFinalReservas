@@ -28,26 +28,27 @@
                                         <h3 class="text-center font-weight-light my-4">Acceder</h3>
                                     </div>
                                     <div class="card-body">
-                                    @if (session('error'))
+                                        @if (session('error'))
                                         <div class="alert alert-danger" role="alert">
                                             {{ session('error') }}
                                         </div>
-                                    @endif
+                                        @endif
                                         <form method="post" action="{{ route('login') }}" id="login">
                                             @csrf
                                             @method('POST')
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="" type="email" placeholder="name@example.com" name="correo_electronico" v-model="correo"/>
+                                                <input class="form-control" id="" type="email" placeholder="name@example.com" name="correo_electronico" v-model="correo" />
                                                 <label for="">Correo electronico</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="" type="password" placeholder="Contraseña" name="contrasena" v-model="ingresar_contrasena"/>
+                                                <input class="form-control" id="" type="password" placeholder="Contraseña" name="contrasena" v-model="ingresar_contrasena" />
                                                 <label for="">Contraseña</label>
                                             </div>
-                                         
-                                            <div class="d-flex align-items-center justify-content-between mt-6 mb-0">
+
+                                            <div class="d-flex align-items-center justify-content-end mt-6 mb-0">
                                                 <button class="btn btn-primary" href="">Acceder</button>
                                             </div>
+
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
@@ -57,9 +58,9 @@
                             </div>
                         </div>
                     </div>
-                </div>       
+                </div>
             </main>
-        </div>   
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
@@ -67,7 +68,10 @@
 
 
     <script>
-        const { createApp, ref } = Vue
+        const {
+            createApp,
+            ref
+        } = Vue
 
         createApp({
             setup() {
@@ -82,7 +86,7 @@
             },
             methods: {
 
-            
+
 
             },
             mounted() {

@@ -84,11 +84,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 10%;">#</th>
-                                <th style="width: 15%;">Cliente</th>
-                                <th style="width: 15%;">Número de Personas</th>
-                                <th style="width: 15%;">Fecha</th>
-                                <th style="width: 15%;">Hora</th>
-                                <th style="width: 15%;">Mesa</th>
+                                <th style="width: 18%;">ID del Cliente</th>
+                                <th style="width: 18%;">Fecha de Reserva</th>
+                                <th style="width: 18%;">Hora de Inicio</th>
+                                <th style="width: 18%;">Mesa</th>
                                 <th style="width: 25%;">Acciones</th>
 
                             </tr>
@@ -97,7 +96,6 @@
                             <tr v-for="(reserva, index) in reservas" :key="reserva.id">
                                 <td class="small text-truncate" v-text="reserva.id"></td>
                                 <td class="small text-truncate" v-text="reserva.id_cliente"></td>
-                                <td class="small text-truncate">Numero de personas</td>
                                 <td class="small text-truncate" v-text="reserva.fecha_reservacion"></td>
                                 <td class="small text-truncate" v-text="reserva.hora_inicio"></td>
                                 <td class="small text-truncate" v-text="reserva.numero_mesa"></td>
