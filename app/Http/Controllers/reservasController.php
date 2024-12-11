@@ -33,13 +33,12 @@ class reservasController extends Controller
         ));
 
         $response = curl_exec($curl);
-        $response = json_decode($response);
-
+        $reservaciones = json_decode($response, true);
+        
         curl_close($curl);
 
-
-        if (isset($response->status) && $response->status === 200) {
-            return view('panelReservas');
+        if (isset($reservaciones['status']) && $reservaciones['status'] === 200) {
+            return view('panelReservas', compact('reservaciones'));
         } else {
             echo "Error al obtener reservas";
         }
