@@ -106,7 +106,14 @@
 
                                     <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarReservaModal' + reserva.id" @click="cargar_datos(reserva)">
                                         Editar
-                                    </button> <button href="" class="btn btn-danger btn-sm">Eliminar</button>
+                                    
+                                    <form method="POST" action="{{ route('eliminarReserva') }}" :id="'form_borrar_perfil_' + reserva.id" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <input type="hidden" name="usuario_id" :value="reserva.id">
+                                        <button type="button" @click="sweetAlert_eliminar(reserva.id)" class="btn btn-danger btn-sm">Eliminar</button>
+
+                                    </form>
                                 </td>
                             </tr>
                         </tbody>
@@ -532,7 +539,7 @@
                 },
                 sweetAlert_eliminar(id) {
                     swal({
-                            title: "Seguro que quieres eliminar esta mesa?",
+                            title: "Seguro que quieres eliminar esta reservación?",
                             text: "Una vez eliminada, no podrás recuperarla",
                             icon: "warning",
                             buttons: true,
@@ -541,7 +548,7 @@
                         .then((willDelete) => {
                             console.log("id de formulario: " + id)
                             if (willDelete) {
-                                swal("La mesa ha sido eliminada!", {
+                                swal("La reservación ha sido eliminada!", {
                                     icon: "success",
 
 
