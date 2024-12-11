@@ -102,7 +102,7 @@
 
 
                                 <td>
-                                    <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verReservasModal">Detalles</button>
+                                    <button type="button" class="btn btn-info btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#verReservaModal' + reserva.id"  @click="cargar_datos(reserva)">Detalles</button>
 
                                     <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarReservaModal' + reserva.id" @click="cargar_datos(reserva)">
                                         Editar
@@ -162,45 +162,49 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="verReservasModal" tabindex="-1" aria-labelledby="verReservasModal" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                                </div>
-                                <div class="modal-body">
+                    <div v-for="(reserva, index) in obtener_reservas" :key="reserva.id">
+                        <div class="modal fade" :id="'verReservaModal'+reserva.id" :data-modal-id="reserva.id" tabindex="-1" aria-labelledby="verReservasModal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                    </div>
+                                    <div class="modal-body">
 
 
-                                    <div class="mb-3">
-                                        <label for="fecha" class="form-label">Fecha de la Reserva</label>
-                                        <input type="date" class="form-control" id="" name="" disabled>
+                                        <div class="mb-3">
+                                            <label for="fecha" class="form-label">Fecha de la Reserva</label>
+                                            <input type="date" class="form-control" v-model="fecha_reserva" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                            <input type="email" class="form-control" v-model="correo_electronico" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="inicio" class="form-label">Hora de inicio</label>
+                                            <input type="time" class="form-control" v-model="hora_inicio" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="final" class="form-label">Hora final</label>
+                                            <input type="time" class="form-control" v-model="hora_final" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="mesa" class="form-label">Número de mesa</label>
+                                            <input type="number" class="form-control" v-model="numero_mesa" disabled>
+                                        </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                        <input type="email" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="inicio" class="form-label">Hora de inicio</label>
-                                        <input type="time" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="final" class="form-label">Hora final</label>
-                                        <input type="time" class="form-control" id="" name="" disabled>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="mesa" class="form-label">Número de mesa</label>
-                                        <input type="number" class="form-control" id="" name="" disabled>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                </div>
+
                             </div>
-
                         </div>
-                    </div>
 
+
+                    </div>
+                  
 
                     <div class="d-flex justify-content-end">
                         <nav aria-label="Page navigation example">
@@ -567,7 +571,7 @@
                 },
                 reiniciar_campos_modals_detalles() {
                     this.reservas.forEach((usuario) => {
-                        const modalId = `verMesaModal${usuario.id}`;
+                        const modalId = `verReservaModal${usuario.id}`;
                         const modalElement = document.getElementById(modalId);
 
                         if (modalElement) {
@@ -661,7 +665,7 @@
                     this.reiniciar_campos()
                 })
                 this.reiniciar_campos_modals();
-                //this.reiniciar_campos_modals_detalles();
+                this.reiniciar_campos_modals_detalles();
 
                 this.obtener_paginas();
 
