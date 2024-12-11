@@ -248,6 +248,23 @@
         createApp({
             setup() {
                 const obtener_reservas = ref(<?php echo json_encode($reservaciones['reservaciones']); ?>);
+                const obtener_clientes = ref(<?php echo json_encode($clientes['clientes']); ?>);
+                obtener_reservas.value = obtener_reservas.value.map(reserva => {
+                    //Encontrar el cliente por id_cliente
+                    const cliente = obtener_clientes.value.find(c => c.id === reserva.id_cliente);
+
+                    return {
+                        ...reserva,
+                        cliente: cliente ? {
+                            id: cliente.id,
+                            nombre: cliente.nombre,
+                            apellidos: cliente.apellidos,
+                            correo_electronico: cliente.correo_electronico,
+                            numero_telefonico: cliente.numero_telefonico,
+                        } : null
+                    };
+                });
+
                 
                 let reservas = ref(obtener_reservas.value.slice(0, 10));
                 let variable_reservas = ref(0)
@@ -478,7 +495,7 @@
                     this.fecha_reserva = mesa.fecha_reservacion;
                     this.hora_inicio = mesa.hora_inicio;
                     this.hora_final = mesa.hora_final;
-                    this.correo_electronico = mesa.correo_electronico;
+                    this.correo_electronico = mesa.cliente.correo_electronico;
                     this.numero_mesa_actual = mesa.numero_mesa;
                   
                 },
@@ -491,6 +508,7 @@
                     this.numero_mesa_actual = ""
                     this.hora_inicio = ""
                     this.hora_final = ""
+                    this.correo_electronico = ""
 
                     this.boolean_numero_mesa = false;
                     this.boolean_fecha_reserva = false;
