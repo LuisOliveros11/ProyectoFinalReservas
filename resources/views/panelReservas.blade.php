@@ -46,27 +46,27 @@
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label for="fecha" class="form-label">Fecha de la Reserva</label>
-                                            <input type="date" class="form-control" id="" name="fecha_reserva" v-model="fecha_reserva">
+                                            <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" v-model="fecha_reserva">
                                             <label v-if="boolean_fecha_reserva" class="form-label" style="color: red;" v-text="error_fecha_reserva"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="text" class="form-control" id="" name="correo_electronico" v-model="correo_electronico">
+                                            <input type="text" class="form-control" id="correo_electronico" name="correo_electronico" v-model="correo_electronico">
                                             <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="inicio" class="form-label">Hora de inicio</label>
-                                            <input type="time" class="form-control" id="" name="hora_inicio" v-model="hora_inicio">
+                                            <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" v-model="hora_inicio">
                                             <label v-if="boolean_hora_inicio" class="form-label" style="color: red;" v-text="error_hora_inicio"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="final" class="form-label">Hora final</label>
-                                            <input type="time" class="form-control" id="" name="hora_final" v-model="hora_final">
+                                            <input type="time" class="form-control" id="hora_final" name="hora_final" v-model="hora_final">
                                             <label v-if="boolean_hora_final" class="form-label" style="color: red;" v-text="error_hora_final"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="mesa" class="form-label">Número de mesa</label>
-                                            <input type="text" class="form-control" id="" name="numero_mesa" v-model="numero_mesa">
+                                            <input type="text" class="form-control" id="numero_mesa" name="numero_mesa" v-model="numero_mesa">
                                             <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                         </div>
                                     </div>
@@ -100,10 +100,11 @@
                                 <td class="small text-truncate" v-text="reserva.hora_inicio"></td>
                                 <td class="small text-truncate" v-text="reserva.numero_mesa"></td>
 
+
                                 <td>
                                     <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verReservasModal">Detalles</button>
 
-                                    <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editarReservaModal">
+                                    <button type="button" class="btn btn-warning btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#editarReservaModal' + reserva.id" @click="cargar_datos(reserva)">
                                         Editar
                                     </button> <button href="" class="btn btn-danger btn-sm">Eliminar</button>
                                 </td>
@@ -111,43 +112,53 @@
                         </tbody>
                     </table>
 
-                    <div class="modal fade" id="editarReservaModal" tabindex="-1" aria-labelledby="editarReservaModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form action="" method="">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="editarReservaModalLabel">Editar una Reserva</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div v-for="(reserva, index) in obtener_reservas" :key="reserva.id">
+                        <div class="modal fade" :id="'editarReservaModal'+reserva.id" :data-modal-id="reserva.id"tabindex="-1" aria-labelledby="editarReservaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form action="{{route(name: 'editarReserva')}}" method="POST" :id="'editar_reserva'+reserva.id" @submit.prevent="funcion_validar_formulario($event)">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="editarReservaModalLabel">Editar una Reserva</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="usuario_id" :value="reserva.id">
+                                            <div class="mb-3">
+                                                <label for="fecha" class="form-label">Fecha de la Reserva</label>
+                                                <input type="date" class="form-control" :id="'editar_fecha_reserva'+reserva.id" name="fecha_reserva" v-model="fecha_reserva">
+                                                <label v-if="boolean_fecha_reserva" class="form-label" style="color: red;" v-text="error_fecha_reserva"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="correo_electronico" class="form-label">Correo Electrónico</label>
+                                                <input type="email" class="form-control" :id="'editar_correo_electronico'+reserva.id" name="correo_electronico" v-model="correo_electronico">
+                                                <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="inicio" class="form-label">Hora de inicio</label>
+                                                <input type="time" class="form-control" :id="'editar_hora_inicio'+reserva.id" name="hora_inicio" v-model="hora_inicio">
+                                                <label v-if="boolean_hora_inicio" class="form-label" style="color: red;" v-text="error_hora_inicio"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="final" class="form-label">Hora final</label>
+                                                <input type="time" class="form-control" :id="'editar_hora_final'+reserva.id" name="hora_final" v-model="hora_final">
+                                                <label v-if="boolean_hora_final" class="form-label" style="color: red;" v-text="error_hora_final"></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="mesa" class="form-label">Número de mesa</label>
+                                                <input type="text" class="form-control" :id="'editar_numero_mesa'+reserva.id" name="numero_mesa" v-model="numero_mesa">
+                                                <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="fecha" class="form-label">Fecha de la Reserva</label>
-                                            <input type="date" class="form-control" id="" name="" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="email" class="form-control" id="" name="" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="inicio" class="form-label">Hora de inicio</label>
-                                            <input type="time" class="form-control" id="" name="" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="final" class="form-label">Hora final</label>
-                                            <input type="time" class="form-control" id="" name="" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="mesa" class="form-label">Número de mesa</label>
-                                            <input type="number" class="form-control" id="" name="" required>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                    </div>
-                                </div>
-                            </form>
+                                </form>
 
+                            </div>
                         </div>
                     </div>
 
@@ -294,6 +305,7 @@
             methods: {
                 funcion_validar_formulario(event) {
                     const formId = event.target.id;
+                    
 
                     // Reutilizar el método para ambos formularios
                     if (formId === 'agregar_reserva') {
@@ -302,11 +314,11 @@
                         this.validar_usuario('agregar_reserva');
 
                         console.log('agregar');
-                    } else if (formId.startsWith('editar_mesa')) {
-                        this.title = "La mesa ha sido editada!";
-                        this.text = "Mesa editada correctamente!";
-                        const usuarioId = formId.replace('editar_mesa', '');
-                        this.validar_usuario('editar_mesa' + usuarioId);
+                    } else if (formId.startsWith('editar_reserva')) {
+                        this.title = "La reservación ha sido editada!";
+                        this.text = "Reservación editada correctamente!";
+                        const usuarioId = formId.replace('editar_reserva', '');
+                        this.validar_usuario('editar_reserva' + usuarioId);
                         console.log('editar id: ' + usuarioId)
                     }
                 },
@@ -316,6 +328,9 @@
                     const emailRegex = /^[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9-]{1,63}(\.[a-zA-Z0-9-]{1,63})*\.[a-zA-Z]{2,63}$/;
                     const fechaRegex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
                     const horaRegex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+                    const horaCompletaRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+                    const esEdicion = form_id.startsWith('editar_reserva');
+                    
 
                     this.boolean_numero_mesa = false;
                     this.boolean_fecha_reserva = false;
@@ -328,10 +343,10 @@
                     let numero_mesa_valido = numeroMesaRegex.test(this.numero_mesa);
                     let email_valido = emailRegex.test(this.correo_electronico);
                     let fecha_reserva_valida = this.fecha_reserva != "" && fechaRegex.test(this.fecha_reserva)
-                    let hora_final_valida = this.hora_final != "" && horaRegex.test(this.hora_final)
-                    let hora_inicio_valida = this.hora_inicio != "" &&horaRegex.test(this.hora_inicio)
+                    let hora_final_valida = this.hora_final != "" && (horaRegex.test(this.hora_final) || horaCompletaRegex.test(this.hora_final))
+                    let hora_inicio_valida = this.hora_inicio != "" && (horaRegex.test(this.hora_inicio) || horaCompletaRegex.test(this.hora_inicio))
                     let duracion_valida = false;
-                    if (this.hora_inicio && this.hora_final) {
+                    if (this.hora_inicio && this.hora_final) { //Valida si la duración entre la hora de inicio y hora final es menor a dos horas
                         const fechaInicio = new Date(`1970-01-01T${this.hora_inicio}`);
                         const fechaFinal = new Date(`1970-01-01T${this.hora_final}`);
                         const diferenciaMilisegundos = fechaFinal - fechaInicio;
@@ -339,7 +354,7 @@
                         duracion_valida = diferenciaMilisegundos > 0 && diferenciaMilisegundos <= 7200000; 
                     }
 
-                    let horario_valido = true;
+                    let horario_valido = true; //Valida si la hora de inicio es despues de la hora final
                     if (this.hora_inicio && this.hora_final) {
                         const fechaInicio = new Date(`1970-01-01T${this.hora_inicio}`);
                         const fechaFinal = new Date(`1970-01-01T${this.hora_final}`);
@@ -349,20 +364,29 @@
                         }
                     }
 
+                    this.hora_inicio = this.hora_inicio.split(':').slice(0, 2).join(':');
+                    this.hora_final = this.hora_final.split(':').slice(0, 2).join(':');
+
+           
                     const numero_mesa_existe = this.obtener_reservas.some(reserva => {
                         const mismaMesa = String(reserva.numero_mesa) === String(this.numero_mesa);
                         const mismaFecha = reserva.fecha_reservacion === this.fecha_reserva;
 
-                        //Convertir las horas a formato Date para comparar
                         const horaInicioExistente = new Date(`1970-01-01T${reserva.hora_inicio}`);
                         const horaFinalExistente = new Date(`1970-01-01T${reserva.hora_final}`);
                         const horaInicioUsuario = new Date(`1970-01-01T${this.hora_inicio}`);
                         const horaFinalUsuario = new Date(`1970-01-01T${this.hora_final}`);
 
-                        const horarioSolapado = 
-                            (horaInicioUsuario < horaFinalExistente && horaFinalUsuario > horaInicioExistente);
+                        const horarioSolapado =
+                            horaInicioUsuario < horaFinalExistente && horaFinalUsuario > horaInicioExistente;
 
-                        return mismaMesa && mismaFecha && horarioSolapado;
+                        const horasIguales =
+                            horaInicioUsuario.getTime() === horaInicioExistente.getTime() &&
+                            horaFinalUsuario.getTime() === horaFinalExistente.getTime();
+
+                        const esMismoNumeroMesa = esEdicion && String(this.numero_mesa) === String(this.numero_mesa_actual);
+
+                        return mismaMesa && mismaFecha && horarioSolapado && !(esMismoNumeroMesa && horasIguales);
                     });
 
 
@@ -376,7 +400,7 @@
                             document.getElementById(form_id).submit();
                         });
                     } else {
-                        this.boolean_numero_mesa = !numero_mesa_valido || numero_mesa_existe;
+                        this.boolean_numero_mesa = !numero_mesa_valido ||  numero_mesa_existe;
                         this.boolean_correo_electronico = !email_valido
                         this.boolean_fecha_reserva = !fecha_reserva_valida
                         this.boolean_hora_final = !duracion_valida || !hora_final_valida
@@ -438,11 +462,12 @@
 
 
                 cargar_datos(mesa) {
-                    this.numero_mesa = mesa.numero;
-                    this.cantidad_sillas = mesa.cantidad_sillas;
-                    this.categoria = mesa.categoria;
-                    this.ubicacion = mesa.ubicacion;
-                    this.numero_mesa_actual = mesa.numero;
+                    this.numero_mesa = mesa.numero_mesa;
+                    this.fecha_reserva = mesa.fecha_reservacion;
+                    this.hora_inicio = mesa.hora_inicio;
+                    this.hora_final = mesa.hora_final;
+                    this.correo_electronico = mesa.correo_electronico;
+                    this.numero_mesa_actual = mesa.numero_mesa;
                   
                 },
 
@@ -495,7 +520,7 @@
 
                 reiniciar_campos_modals() {
                     this.reservas.forEach((usuario) => {
-                        const modalId = `editarMesaModal${usuario.id}`;
+                        const modalId = `editarReservaModal${usuario.id}`;
                         const modalElement = document.getElementById(modalId);
 
                         if (modalElement) {
@@ -596,12 +621,12 @@
 
             },
             mounted() {
-                /*const modal = document.getElementById('crearMesaModal')
+                const modal = document.getElementById('reservarModal')
                 modal.addEventListener('hidden.bs.modal', () => {
                     this.reiniciar_campos()
                 })
                 this.reiniciar_campos_modals();
-                this.reiniciar_campos_modals_detalles();*/
+                //this.reiniciar_campos_modals_detalles();
 
                 this.obtener_paginas();
 
@@ -614,22 +639,6 @@
         document.addEventListener("DOMContentLoaded", function () {
 
             const numero_mesa_input = document.getElementById("numero_mesa");
-            const cantidad_sillas_input = document.getElementById("cantidad_sillas");
-            const categoria_input = document.getElementById("categoria");
-            const ubicacion_input = document.getElementById("ubicacion");
-
-            function validar_nombres_apellidos(e) {
-                const regex = /[^A-Za-zÑñ\s]/g;
-                if (regex.test(e.key)) {
-                    e.preventDefault();
-                }
-                const input = e.target;
-                if (input.value.length >= 60 && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-                    e.preventDefault();
-                }
-            }
-
-           
             function validar_inputs_numeros(e) {
                 const regex = /^[0-9]$/;
                 const teclasPermitidas = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
@@ -645,39 +654,12 @@
             }
 
             numero_mesa_input.addEventListener("keydown", validar_inputs_numeros);
-            cantidad_sillas_input.addEventListener("keydown", validar_inputs_numeros);
 
            
             document.querySelectorAll("input[id^='editar_numero_mesa']").forEach(input => {
                 input.addEventListener("keydown", validar_inputs_numeros);
             });
 
-            document.querySelectorAll("input[id^='editar_cantidad_sillas']").forEach(input => {
-                input.addEventListener("keydown", validar_inputs_numeros);
-            });
-
-            document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
-                input.addEventListener("keydown", validar_contrasena);
-            });
-            document.querySelectorAll("input[id^='editar_numero_telefonico']").forEach(input => {
-                input.addEventListener("keydown", validar_numero_telefonico);
-            });
-
-            document.querySelectorAll("input[id^='editar_confirmar_contrasena']").forEach(input => {
-                input.addEventListener("keydown", validar_contrasena);
-            });
-
-            document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
-                input.addEventListener("paste", function (e) {
-                    e.preventDefault();
-                });
-            });
-
-            document.querySelectorAll("input[id^='editar_confirmar_contrasena']").forEach(input => {
-                input.addEventListener("paste", function (e) {
-                    e.preventDefault();
-                });
-            });
         });
     </script>
 </body>
