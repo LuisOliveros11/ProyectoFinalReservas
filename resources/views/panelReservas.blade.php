@@ -91,9 +91,9 @@
                                 <td class="small text-truncate" v-text="reserva.id"></td>
                                 <td class="small text-truncate" v-text="reserva.id_cliente"></td>
                                 <td class="small text-truncate">Numero de personas</td>
+                                <td class="small text-truncate" v-text="reserva.fecha_reservacion"></td>
                                 <td class="small text-truncate" v-text="reserva.hora_inicio"></td>
-                                <td class="small text-truncate" v-text="reserva.hora_final"></td>
-                                <td class="small text-truncate" v-text="reserva.mesa"></td>
+                                <td class="small text-truncate" v-text="reserva.numero_mesa"></td>
 
                                 <td>
                                     <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#verReservasModal">Detalles</button>
