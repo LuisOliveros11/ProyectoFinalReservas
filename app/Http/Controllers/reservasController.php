@@ -139,14 +139,18 @@ class reservasController extends Controller
                                     foreach ($listaReservas as $reserva) {
                                         $fechaReservaFormato = $fechaReserva->format('Y-m-d');
                                         if ($fechaReservaFormato == $reserva->fecha_reservacion) {
-                                            if (
-                                                ($horaInicio->eq($reserva->hora_inicio)) || //RESERVAS QUE INICIAN A LA MISMA HORA
-                                                ($horaInicio->isAfter($reserva->hora_inicio) && //RESERVAS QUE INICIA A UNA HORA EN QUE ESTA OCUPADA LA MESA
-                                                    $horaInicio->isBefore($reserva->hora_final)) ||
-                                                ($horaFinal->isAfter($reserva->hora_inicio) && //RESERVA QUE INICIA ANTES DE OTRA RESERVACION PERO ACABA EN MEDIO DE ESTA
-                                                    $horaFinal->isBefore($reserva->hora_final))
-                                            ) {
-                                                $reservaExistente = true;
+                                            if((int)$request->numero_mesa === $reserva->numero_mesa){
+                                                if (
+                                                    ($horaInicio->eq($reserva->hora_inicio)) || //RESERVAS QUE INICIAN A LA MISMA HORA
+                                                    ($horaInicio->isAfter($reserva->hora_inicio) && //RESERVAS QUE INICIA A UNA HORA EN QUE ESTA OCUPADA LA MESA
+                                                        $horaInicio->isBefore($reserva->hora_final)) ||
+                                                    ($horaFinal->isAfter($reserva->hora_inicio) && //RESERVA QUE INICIA ANTES DE OTRA RESERVACION PERO ACABA EN MEDIO DE ESTA
+                                                        $horaFinal->isBefore($reserva->hora_final)) ||
+                                                    ($horaInicio->isBefore($reserva->hora_inicio) && //RESERVA QUE INICIA ANTES DE OTRA RESERVACION PERO ACABA DESPUES DE ESTA
+                                                    $horaFinal->isafter($reserva->hora_final))
+                                                ) {
+                                                    $reservaExistente = true;
+                                                }
                                             }
                                         }
                                     }
