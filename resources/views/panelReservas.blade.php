@@ -330,6 +330,7 @@
                     const horaRegex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
                     const horaCompletaRegex = /^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
                     const esEdicion = form_id.startsWith('editar_reserva');
+                    let fechaActual = new Date().toISOString().split('T')[0];
                     
 
                     this.boolean_numero_mesa = false;
@@ -342,7 +343,7 @@
 
                     let numero_mesa_valido = numeroMesaRegex.test(this.numero_mesa);
                     let email_valido = emailRegex.test(this.correo_electronico);
-                    let fecha_reserva_valida = this.fecha_reserva != "" && fechaRegex.test(this.fecha_reserva)
+                    let fecha_reserva_valida = this.fecha_reserva != "" && fechaRegex.test(this.fecha_reserva) && this.fecha_reserva >= fechaActual;
                     let hora_final_valida = this.hora_final != "" && (horaRegex.test(this.hora_final) || horaCompletaRegex.test(this.hora_final))
                     let hora_inicio_valida = this.hora_inicio != "" && (horaRegex.test(this.hora_inicio) || horaCompletaRegex.test(this.hora_inicio))
                     let duracion_valida = false;
@@ -363,6 +364,12 @@
                             horario_valido = false;
                         }
                     }
+
+                    const buscar_numero_mesa_existe = this.obtener_reservas.some(reserva => {
+                        return String(reserva.numero_mesa) === String(this.numero_mesa);
+                    });
+
+                    console.log(buscar_numero_mesa_existe)
 
                     this.hora_inicio = this.hora_inicio.split(':').slice(0, 2).join(':');
                     this.hora_final = this.hora_final.split(':').slice(0, 2).join(':');
@@ -390,7 +397,7 @@
                     });
 
 
-                    if (numero_mesa_valido && !numero_mesa_existe && email_valido && fecha_reserva_valida && duracion_valida && hora_final_valida && hora_inicio_valida && horario_valido) {
+                    if (numero_mesa_valido && !numero_mesa_existe && email_valido && fecha_reserva_valida && duracion_valida && hora_final_valida && hora_inicio_valida && horario_valido && buscar_numero_mesa_existe) {
                         swal({
                             title: this.title,
                             text: this.text,
@@ -400,7 +407,7 @@
                             document.getElementById(form_id).submit();
                         });
                     } else {
-                        this.boolean_numero_mesa = !numero_mesa_valido ||  numero_mesa_existe;
+                        this.boolean_numero_mesa = !numero_mesa_valido ||  numero_mesa_existe || !buscar_numero_mesa_existe;
                         this.boolean_correo_electronico = !email_valido
                         this.boolean_fecha_reserva = !fecha_reserva_valida
                         this.boolean_hora_final = !duracion_valida || !hora_final_valida
@@ -410,6 +417,8 @@
                             this.error_numero_mesa = "El campo es obligatorio";
                         } else if (numero_mesa_existe) {
                             this.error_numero_mesa = "Ya hay un número de mesa reservado a esa hora.";
+                        } else if (!buscar_numero_mesa_existe) {
+                        this.error_numero_mesa = "El número de mesa no existe.";
                         } else {
                             this.error_numero_mesa = "El campo solo puede contener números.";
                         }
@@ -451,9 +460,12 @@
                         if(this.fecha_reserva.length <= 0){
                             this.error_fecha_reserva = "Campo obligatorio"
                         }else if(!fechaRegex.test(this.fecha_reserva)){
-                            
                             this.error_fecha_reserva = "Debes ingresar un formato de fecha yyyy-mm-dd"
+                        }else if(this.fecha_reserva <= fechaActual) {
+                            this.error_fecha_reserva = "La fecha no puede ser anterior a la actual"
                         }
+
+                       
                         
                        
                     }
@@ -473,15 +485,20 @@
 
                 reiniciar_campos(modalId) { //Reiniciar los campos al cerrarr el modal
                     this.numero_mesa = "";
-                    this.cantidad_sillas = ""
+                    this.fecha_reserva = ""
                     this.categoria = ""
                     this.ubicacion = ""
                     this.numero_mesa_actual = ""
+                    this.hora_inicio = ""
+                    this.hora_final = ""
 
-                    this.boolean_numero_mesa = false
-                    this.boolean_cantidad_sillas = false
-                    this.boolean_categoria = false
-                    this.boolean_ubicacion = false
+                    this.boolean_numero_mesa = false;
+                    this.boolean_fecha_reserva = false;
+                    this.boolean_categoria = false;
+                    this.boolean_ubicacion = false;
+                    this.boolean_correo_electronico = false;
+                    this.boolean_hora_inicio = false;
+                    this.boolean_hora_final = false
 
                     this.error_numero_mesa = ""
                     this.error_cantidad_sillas = ""
