@@ -199,6 +199,7 @@
                                         <div class="mb-3">
                                             <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                             <input type="email" class="form-control" v-model="correo_electronico" disabled>
+                                            <label v-if="correo_electronico.length == 0" class="form-label" style="color: red;">El cliente no ha sido encontrado en la lista de clientes</label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="inicio" class="form-label">Hora de inicio</label>
@@ -208,9 +209,12 @@
                                             <label for="final" class="form-label">Hora final</label>
                                             <input type="time" class="form-control" v-model="hora_final" disabled>
                                         </div>
+                                        
                                         <div class="mb-3">
                                             <label for="mesa" class="form-label">Número de mesa</label>
                                             <input type="number" class="form-control" v-model="numero_mesa" disabled>
+                                            <label v-if="numero_mesa.length == 0" class="form-label" style="color: red;">El número de mesa no ha sido encontrado en la lista de mesas</label>
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -435,8 +439,9 @@
                             horaFinalUsuario.getTime() === horaFinalExistente.getTime();
 
                         const esMismoNumeroMesa = esEdicion && String(this.numero_mesa) === String(this.numero_mesa_actual);
+                        const existe_cliente = reserva.cliente != null;
 
-                        return mismaMesa && mismaFecha && horarioSolapado && !(esMismoNumeroMesa && horasIguales);
+                        return mismaMesa && mismaFecha && existe_cliente && horarioSolapado && !(esMismoNumeroMesa && horasIguales);
                     });
 
 
@@ -517,11 +522,19 @@
 
 
                 cargar_datos(mesa) {
-                    this.numero_mesa = mesa.numero_mesa;
+                    const mesa_encontrada = this.obtener_mesas.find(
+                        (m) => m.numero === mesa.numero_mesa
+                    );
+                    if(mesa_encontrada) {
+                        this.numero_mesa = mesa.numero_mesa;
+
+                    }
                     this.fecha_reserva = mesa.fecha_reservacion;
                     this.hora_inicio = mesa.hora_inicio;
                     this.hora_final = mesa.hora_final;
-                    this.correo_electronico = mesa.cliente.correo_electronico;
+                    if(mesa.cliente != null){
+                        this.correo_electronico = mesa.cliente.correo_electronico;
+                    }
                     this.numero_mesa_actual = mesa.numero_mesa;
                   
                 },
