@@ -80,7 +80,7 @@ class UsuarioController extends Controller
                                     if (isset($response->usuario) && $response->status == 201) {
                                         return redirect()->route('inicio');
                                     } else {
-                                        echo "Error al crear usuario. Este correo ya ha sido registrado";
+                                        return redirect()->back()->with('error', 'Error al crear usuario. Este correo ya ha sido registrado');
                                     }
                                 } else {
                                     echo "Error. Selecciona un rol.";
