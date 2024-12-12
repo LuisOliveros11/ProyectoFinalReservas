@@ -348,13 +348,11 @@
                         this.text = "La cuenta ha sido creada correctamente!";
                         this.validar_usuario('agregar_usuario');
 
-                        console.log('agregar');
                     } else if (formId.startsWith('editar_usuario')) {
                         this.title = "La cuenta ha sido editada!";
                         this.text = "Cuenta editada correctamente!";
                         const usuarioId = formId.replace('editar_usuario', '');
                         this.validar_usuario('editar_usuario' + usuarioId);
-                        console.log('editar id: ' + usuarioId)
                     }
                 },
 
@@ -479,7 +477,6 @@
                     this.error_rol = ""
                     this.error_fecha_registro = ""
 
-                    console.log(`Campos reiniciados para el modal: ${modalId}`);
                 },
                 sweetAlert_eliminar(id) {
                     swal({
@@ -490,7 +487,6 @@
                             dangerMode: true,
                         })
                         .then((willDelete) => {
-                            console.log("id de formulario: " + id)
                             if (willDelete) {
                                 swal("El usuario ha sido eliminado!", {
                                     icon: "success",
@@ -538,7 +534,6 @@
                     let ultima_pagina = false;
                     if ((this.obtener_usuarios.length - this.variable_usuarios) <= 10) {
                         ultima_pagina = true;
-                        console.log("true")
                     }
 
                     if (this.variable_usuarios <= this.obtener_usuarios.length && !ultima_pagina) {
@@ -554,7 +549,6 @@
                 },
                 pagina_anterior() {
                     let primera_pagina = false;
-                    console.log(this.obtener_usuarios.length)
                     if (this.pagina_actual == 1) {
                         primera_pagina = true;
                     } else {
@@ -594,10 +588,8 @@
                     for (let index = 0; index < this.obtener_usuarios.length; index++) {
                         contador++
                         if (contador % 10 == 0) {
-                            console.log(this.cantidad_paginas)
                             this.cantidad_paginas++
 
-                            console.log(this.obtener_usuarios.length)
                         }
 
                     }

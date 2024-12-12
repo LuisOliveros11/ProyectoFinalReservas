@@ -360,13 +360,11 @@
                         this.text = "La reserva ha sido creada correctamente!";
                         this.validar_usuario('agregar_reserva');
 
-                        console.log('agregar');
                     } else if (formId.startsWith('editar_reserva')) {
                         this.title = "La reservación ha sido editada!";
                         this.text = "Reservación editada correctamente!";
                         const usuarioId = formId.replace('editar_reserva', '');
                         this.validar_usuario('editar_reserva' + usuarioId);
-                        console.log('editar id: ' + usuarioId)
                     }
                 },
 
@@ -416,7 +414,6 @@
                         return String(mesa.numero) === String(this.numero_mesa);
                     });
 
-                    console.log(buscar_numero_mesa_existe)
 
                     this.hora_inicio = this.hora_inicio.split(':').slice(0, 2).join(':');
                     this.hora_final = this.hora_final.split(':').slice(0, 2).join(':');
@@ -563,7 +560,6 @@
                     this.error_ubicacion = ""
               
 
-                    console.log(`Campos reiniciados para el modal: ${modalId}`);
                 },
                 sweetAlert_eliminar(id) {
                     swal({
@@ -574,7 +570,6 @@
                             dangerMode: true,
                         })
                         .then((willDelete) => {
-                            console.log("id de formulario: " + id)
                             if (willDelete) {
                                 swal("La reservación ha sido eliminada!", {
                                     icon: "success",
@@ -622,7 +617,6 @@
                     let ultima_pagina = false;
                     if ((this.obtener_reservas.length - this.variable_reservas) <= 10) {
                         ultima_pagina = true;
-                        console.log("true")
                     }
 
                     if (this.variable_reservas <= this.obtener_reservas.length && !ultima_pagina) {
@@ -638,7 +632,6 @@
                 },
                 pagina_anterior() {
                     let primera_pagina = false;
-                    console.log(this.obtener_reservas.length)
                     if (this.pagina_actual == 1) {
                         primera_pagina = true;
                     } else {
@@ -676,10 +669,8 @@
                     for (let index = 0; index < this.obtener_reservas.length; index++) {
                         contador++
                         if (contador % 10 == 0) {
-                            console.log(this.cantidad_paginas)
                             this.cantidad_paginas++
 
-                            console.log(this.obtener_reservas.length)
                         }
 
                     }
@@ -687,7 +678,6 @@
                         this.cantidad_paginas--
                     }
 
-                    console.log(this.obtener_reservas)
 
                 },
             

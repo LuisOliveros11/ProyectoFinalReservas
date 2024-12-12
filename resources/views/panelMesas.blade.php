@@ -373,13 +373,11 @@
                         this.text = "La Mesa ha sido creada correctamente!";
                         this.validar_usuario('agregar_mesa');
 
-                        console.log('agregar');
                     } else if (formId.startsWith('editar_mesa')) {
                         this.title = "La mesa ha sido editada!";
                         this.text = "Mesa editada correctamente!";
                         const usuarioId = formId.replace('editar_mesa', '');
                         this.validar_usuario('editar_mesa' + usuarioId);
-                        console.log('editar id: ' + usuarioId)
                     }
                 },
 
@@ -477,7 +475,6 @@
                     this.error_ubicacion = ""
               
 
-                    console.log(`Campos reiniciados para el modal: ${modalId}`);
                 },
                 sweetAlert_eliminar(id) {
                     swal({
@@ -488,7 +485,6 @@
                             dangerMode: true,
                         })
                         .then((willDelete) => {
-                            console.log("id de formulario: " + id)
                             if (willDelete) {
                                 swal("La mesa ha sido eliminada!", {
                                     icon: "success",
@@ -536,7 +532,6 @@
                     let ultima_pagina = false;
                     if ((this.obtener_mesas.length - this.variable_mesas) <= 10) {
                         ultima_pagina = true;
-                        console.log("true")
                     }
 
                     if (this.variable_mesas <= this.obtener_mesas.length && !ultima_pagina) {
@@ -552,7 +547,6 @@
                 },
                 pagina_anterior() {
                     let primera_pagina = false;
-                    console.log(this.obtener_mesas.length)
                     if (this.pagina_actual == 1) {
                         primera_pagina = true;
                     } else {
@@ -590,10 +584,8 @@
                     for (let index = 0; index < this.obtener_mesas.length; index++) {
                         contador++
                         if (contador % 10 == 0) {
-                            console.log(this.cantidad_paginas)
                             this.cantidad_paginas++
 
-                            console.log(this.obtener_mesas.length)
                         }
 
                     }
@@ -601,7 +593,6 @@
                         this.cantidad_paginas--
                     }
 
-                    console.log(this.obtener_mesas)
 
                 },
             
