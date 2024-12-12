@@ -51,7 +51,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="text" class="form-control" id="correo_electronico" name="correo_electronico" v-model="correo_electronico">
+                                            <select class="form-select">
+                                                <option value="" disabled selected>Selecciona un correo</option>
+                                                <option></option>
+                                            </select>
                                             <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                         </div>
                                         <div class="mb-3">
@@ -66,7 +69,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="mesa" class="form-label">Número de mesa</label>
-                                            <input type="text" class="form-control" id="numero_mesa" name="numero_mesa" v-model="numero_mesa">
+                                            <select class="form-select">
+                                                <option value="" disabled selected>Selecciona un número de mesa</option>
+                                                <option></option>
+                                            </select>
                                             <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                         </div>
                                     </div>
@@ -139,7 +145,10 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                                <input type="email" class="form-control" :id="'editar_correo_electronico'+reserva.id" name="correo_electronico" v-model="correo_electronico">
+                                                <select class="form-select">
+                                                    <option value="" disabled selected>Selecciona un correo electrónico</option>
+                                                    <option></option>
+                                                </select>
                                                 <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                             </div>
                                             <div class="mb-3">
@@ -154,7 +163,10 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="mesa" class="form-label">Número de mesa</label>
-                                                <input type="text" class="form-control" :id="'editar_numero_mesa'+reserva.id" name="numero_mesa" v-model="numero_mesa">
+                                                <select class="form-select">
+                                                    <option value="" disabled selected>Selecciona un número de mesa</option>
+                                                    <option></option>
+                                                </select> 
                                                 <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                             </div>
                                         </div>
@@ -174,7 +186,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver Reserva</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
                                     <div class="modal-body">
