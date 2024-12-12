@@ -51,9 +51,9 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <select class="form-select">
-                                                <option value="" disabled selected>Selecciona un correo</option>
-                                                <option></option>
+                                            <select class="form-select" id="correo_electronico" name="correo_electronico" v-model="correo_electronico">
+                                                <option value="" disabled selected>Selecciona un correo electrónico</option>
+                                                <option v-for="(correo_electronico, index) in [...new Set(obtener_clientes.map(r => r.correo_electronico))]" :key="index" :value="correo_electronico" v-text="correo_electronico"></option>
                                             </select>
                                             <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                         </div>
@@ -69,9 +69,9 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="mesa" class="form-label">Número de mesa</label>
-                                            <select class="form-select">
+                                            <select class="form-select" id="numero_mesa" name="numero_mesa" v-model="numero_mesa">
                                                 <option value="" disabled selected>Selecciona un número de mesa</option>
-                                                <option></option>
+                                                <option v-for="(mesa, index) in [...new Set(obtener_mesas.map(r => r.numero))]" :key="index" :value="mesa" v-text="mesa"></option>
                                             </select>
                                             <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                         </div>
@@ -145,9 +145,9 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                                <select class="form-select">
+                                                <select class="form-select" :id="'correo_electronico'+reserva.id" name="correo_electronico" v-model="correo_electronico">
                                                     <option value="" disabled selected>Selecciona un correo electrónico</option>
-                                                    <option></option>
+                                                    <option v-for="(correo_electronico, index) in [...new Set(obtener_clientes.map(r => r.correo_electronico))]" :key="index" :value="correo_electronico" v-text="correo_electronico"></option>
                                                 </select>
                                                 <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                             </div>
@@ -163,10 +163,10 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="mesa" class="form-label">Número de mesa</label>
-                                                <select class="form-select">
+                                                <select class="form-select" :id="'numero_mesa'+reserva.id" name="numero_mesa" v-model="numero_mesa">
                                                     <option value="" disabled selected>Selecciona un número de mesa</option>
-                                                    <option></option>
-                                                </select> 
+                                                    <option v-for="(mesa, index) in [...new Set(obtener_mesas.map(r => r.numero))]" :key="index" :value="mesa" v-text="mesa"></option>
+                                                </select>
                                                 <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
                                             </div>
                                         </div>
@@ -272,6 +272,7 @@
             setup() {
                 const obtener_reservas = ref(<?php echo json_encode($reservaciones['reservaciones']); ?>);
                 const obtener_clientes = ref(<?php echo json_encode($clientes['clientes']); ?>);
+                const obtener_mesas = ref(<?php echo json_encode($mesas['mesas']); ?>);
                 obtener_reservas.value = obtener_reservas.value.map(reserva => {
                     //Encontrar el cliente por id_cliente
                     const cliente = obtener_clientes.value.find(c => c.id === reserva.id_cliente);
@@ -336,6 +337,8 @@
 
                     reservas,
                     obtener_reservas,
+                    obtener_clientes,
+                    obtener_mesas,
                     variable_rango_reservas,
                     variable_reservas,
                     cantidad_paginas,
@@ -405,8 +408,8 @@
                         }
                     }
 
-                    const buscar_numero_mesa_existe = this.obtener_reservas.some(reserva => {
-                        return String(reserva.numero_mesa) === String(this.numero_mesa);
+                    const buscar_numero_mesa_existe = this.obtener_mesas.some(mesa => {
+                        return String(mesa.numero) === String(this.numero_mesa);
                     });
 
                     console.log(buscar_numero_mesa_existe)
