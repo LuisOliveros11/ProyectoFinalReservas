@@ -25,6 +25,11 @@
                                         <h3 class="text-center font-weight-light my-4">Crear una cuenta</h3>
                                     </div>
                                     <div class="card-body">
+                                         @if (session('error'))
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
                                         <form method="POST" action="{{route(name: 'añadirUsuario')}}"
                                             @submit.prevent="funcion_agregar_usuario" id="agregar_usuario">
                                             @csrf
@@ -204,16 +209,7 @@
 
 
                     if (email_valido && name_valido && lastname_valido && password_valido && confirmar_contrasena && rol_valido) {
-                        swal({
-                            title: "Cuenta registrada!",
-                            text: "La cuenta ha sido creada correctamente!",
-                            icon: "success",
-                            button: "Aceptar",
-                        }).then(() => {
-                            document.getElementById('agregar_usuario').submit();
-                        });
-
-
+                        document.getElementById('agregar_usuario').submit();
                     }
                     else {
                         this.boolean_correo_electronico = !email_valido;
