@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Reserva en Restaurante</title>
+    <title>Panel de Clientes</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -191,7 +191,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver Cliente</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Cerrar"></button>
                                     </div>
@@ -213,13 +213,13 @@
                                             <input type="email" class="form-control" v-model="correo_electronico" disabled>
                                         </div>
                                         <div class="col-mb-3">
-                                            <h5>Historial de reservaciones</h5>
+                                            <h5>Historial de Reservaciones</h5>
                                             <section>
                                                 <ul v-if="Object.keys(cliente.reservas).length > 0" class="timeline">
                                                     <li v-for="reserva in cliente.reservas" :key="reserva.id" class="timeline-item mb-6">
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="mb-2 fw-bold">Fecha de reservación: </h6>
+                                                                <h6 class="mb-2 fw-bold">Fecha de Reservación: </h6>
                                                             </div>
                                                             <div class="col-8">
                                                             <h6 class="mb-2 fw-bold" v-text="reserva.fecha_reservacion"></h6>
@@ -227,7 +227,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                                <h6 class="text-muted fw-bold">Hora de Inicio:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.hora_inicio"></p>
@@ -235,7 +235,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                                <h6 class="text-muted fw-bold">Hora Final:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.hora_final"></p>
@@ -243,7 +243,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                                <h6 class="text-muted fw-bold">Numero de Mesa:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.numero_mesa"></p>
@@ -252,7 +252,7 @@
                                                     </li>                                                                      
                                                 </ul>
                                                 <div v-else>
-                                                    <h6 class="mb-2">No hay reservaciones</h6>
+                                                    <h6 class="mb-2">No hay Reservaciones</h6>
                                                 </div>             
                                             </section>
                                         </div>

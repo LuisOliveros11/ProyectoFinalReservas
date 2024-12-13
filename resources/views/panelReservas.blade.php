@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Reserva en Restaurante</title>
+    <title>Panel de Reservas</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -52,25 +52,25 @@
                                         <div class="mb-3">
                                             <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                             <select class="form-select" id="correo_electronico" name="correo_electronico" v-model="correo_electronico">
-                                                <option value="" disabled selected>Selecciona un correo electrónico</option>
+                                                <option value="" disabled selected>Selecciona un Correo Electrónico</option>
                                                 <option v-for="(correo_electronico, index) in [...new Set(obtener_clientes.map(r => r.correo_electronico))]" :key="index" :value="correo_electronico" v-text="correo_electronico"></option>
                                             </select>
                                             <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="inicio" class="form-label">Hora de inicio</label>
+                                            <label for="inicio" class="form-label">Hora de Inicio</label>
                                             <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" v-model="hora_inicio">
                                             <label v-if="boolean_hora_inicio" class="form-label" style="color: red;" v-text="error_hora_inicio"></label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="final" class="form-label">Hora final</label>
+                                            <label for="final" class="form-label">Hora Final</label>
                                             <input type="time" class="form-control" id="hora_final" name="hora_final" v-model="hora_final">
                                             <label v-if="boolean_hora_final" class="form-label" style="color: red;" v-text="error_hora_final"></label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="mesa" class="form-label">Número de mesa</label>
+                                            <label for="mesa" class="form-label">Número de Mesa</label>
                                             <select class="form-select" id="numero_mesa" name="numero_mesa" v-model="numero_mesa">
-                                                <option value="" disabled selected>Selecciona un número de mesa</option>
+                                                <option value="" disabled selected>Selecciona un Número de Mesa</option>
                                                 <option v-for="(mesa, index) in [...new Set(obtener_mesas.map(r => r.numero))]" :key="index" :value="mesa" v-text="mesa"></option>
                                             </select>
                                             <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
@@ -146,25 +146,25 @@
                                             <div class="mb-3">
                                                 <label for="correo_electronico" class="form-label">Correo Electrónico</label>
                                                 <select class="form-select" :id="'correo_electronico'+reserva.id" name="correo_electronico" v-model="correo_electronico">
-                                                    <option value="" disabled selected>Selecciona un correo electrónico</option>
+                                                    <option value="" disabled selected>Selecciona un Correo Electrónico</option>
                                                     <option v-for="(correo_electronico, index) in [...new Set(obtener_clientes.map(r => r.correo_electronico))]" :key="index" :value="correo_electronico" v-text="correo_electronico"></option>
                                                 </select>
                                                 <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="inicio" class="form-label">Hora de inicio</label>
+                                                <label for="inicio" class="form-label">Hora de Inicio</label>
                                                 <input type="time" class="form-control" :id="'editar_hora_inicio'+reserva.id" name="hora_inicio" v-model="hora_inicio">
                                                 <label v-if="boolean_hora_inicio" class="form-label" style="color: red;" v-text="error_hora_inicio"></label>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="final" class="form-label">Hora final</label>
+                                                <label for="final" class="form-label">Hora Final</label>
                                                 <input type="time" class="form-control" :id="'editar_hora_final'+reserva.id" name="hora_final" v-model="hora_final">
                                                 <label v-if="boolean_hora_final" class="form-label" style="color: red;" v-text="error_hora_final"></label>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="mesa" class="form-label">Número de mesa</label>
+                                                <label for="mesa" class="form-label">Número de Mesa</label>
                                                 <select class="form-select" :id="'numero_mesa'+reserva.id" name="numero_mesa" v-model="numero_mesa">
-                                                    <option value="" disabled selected>Selecciona un número de mesa</option>
+                                                    <option value="" disabled selected>Selecciona un Número de Mesa</option>
                                                     <option v-for="(mesa, index) in [...new Set(obtener_mesas.map(r => r.numero))]" :key="index" :value="mesa" v-text="mesa"></option>
                                                 </select>
                                                 <label v-if="boolean_numero_mesa" class="form-label" style="color: red;" v-text="error_numero_mesa"></label>
@@ -202,16 +202,16 @@
                                             <label v-if="correo_electronico.length == 0" class="form-label" style="color: red;">El cliente no ha sido encontrado en la lista de clientes</label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="inicio" class="form-label">Hora de inicio</label>
+                                            <label for="inicio" class="form-label">Hora de Inicio</label>
                                             <input type="time" class="form-control" v-model="hora_inicio" disabled>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="final" class="form-label">Hora final</label>
+                                            <label for="final" class="form-label">Hora Final</label>
                                             <input type="time" class="form-control" v-model="hora_final" disabled>
                                         </div>
                                         
                                         <div class="mb-3">
-                                            <label for="mesa" class="form-label">Número de mesa</label>
+                                            <label for="mesa" class="form-label">Número de Mesa</label>
                                             <input type="number" class="form-control" v-model="numero_mesa" disabled>
                                             <label v-if="numero_mesa.length == 0" class="form-label" style="color: red;">El número de mesa no ha sido encontrado en la lista de mesas</label>
 

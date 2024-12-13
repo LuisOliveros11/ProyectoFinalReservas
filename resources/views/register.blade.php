@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Reserva en Restaurante</title>
+    <title>Registrar</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -22,7 +22,7 @@
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header">
-                                        <h3 class="text-center font-weight-light my-4">Crear una cuenta</h3>
+                                        <h3 class="text-center font-weight-light my-4">Crear una Cuenta</h3>
                                     </div>
                                     <div class="card-body">
                                          @if (session('error'))
@@ -111,13 +111,13 @@
 
                                             <div class="mt-4 mb-0">
                                                 <div class="d-grid"><button class="btn btn-primary btn-block"
-                                                        type="submit">Crear una cuenta</>
+                                                        type="submit">Crear una Cuenta</>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="{{route(name: 'inicio')}}">¿Tienes una cuenta?
+                                        <div class="small"><a href="{{route(name: 'inicio')}}">¿Tienes una Cuenta?
                                                 inicia sesión</a></div>
                                     </div>
                                 </div>

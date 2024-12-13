@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Reserva en Restaurante</title>
+    <title>Panel de Mesas</title>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div id="layoutSidenav_content">
             <div id="app">
                 <main class="container mt-4">
-                    <h2 class="text-center">Lista de mesa</h2>
+                    <h2 class="text-center">Lista de Mesa</h2>
                     <div class="text-end">
                         <button type="button" class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#crearMesaModal">
                             Crear Mesa
@@ -50,14 +50,14 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                            <label for="sillas" class="form-label">Cantidad de Sillas</label>
                                             <input type="text" class="form-control" id="cantidad_sillas" name="cantidad_sillas" v-model="cantidad_sillas">
                                             <label v-if="boolean_cantidad_sillas" class="form-label" style="color: red;" v-text="error_cantidad_sillas"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="categoria" class="form-label">Categoría</label>
                                             <select class="form-select" id="categoria" name="categoria" v-model="categoria">
-                                                <option value="">Selecciona una categoría</option>
+                                                <option value="">Selecciona una Categoría</option>
                                                 <option value="Normal">Normal</option>
                                                 <option value="VIP">VIP</option>
                                             </select>
@@ -66,7 +66,7 @@
                                         <div class="mb-3">
                                             <label for="ubicacion" class="form-label">Ubicación</label>
                                             <select class="form-select" id="ubicacion" name="ubicacion" v-model="ubicacion">
-                                                <option value="" disabled selected>Selecciona una ubicación</option>
+                                                <option value="" disabled selected>Selecciona una Ubicación</option>
                                                 <option value="Interior">Interior</option>
                                                 <option value="Exterior">Exterior</option>
                                                 <option value="Privada">Privada</option>
@@ -88,8 +88,8 @@
                     <table class="table table-striped mt-3">
                         <thead>
                             <tr>
-                                <th style="width: 17%;">Numero de mesa</th>
-                                <th style="width: 17%;">Cantidad de sillas</th>
+                                <th style="width: 17%;">Numero de Mesa</th>
+                                <th style="width: 17%;">Cantidad de Sillas</th>
                                 <th style="width: 17%;">categoria</th>
                                 <th style="width: 17%;">Ubicacion</th>
                                 <th style="width: 17%;">Disponibilidad</th>
@@ -141,14 +141,14 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                                <label for="sillas" class="form-label">Cantidad de Sillas</label>
                                                 <input type="text" class="form-control" :id="'editar_cantidad_sillas'+mesa.id" name="cantidad_sillas" v-model="cantidad_sillas">
                                                 <label v-if="boolean_cantidad_sillas" class="form-label" style="color: red;" v-text="error_cantidad_sillas"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="categoria" class="form-label">Categoría</label>
                                                 <select class="form-select" :id="'editar_categoria'+mesa.id" name="categoria" v-model="categoria">
-                                                    <option value="" disabled selected>Selecciona una categoría</option>
+                                                    <option value="" disabled selected>Selecciona una Categoría</option>
                                                     <option value="Normal">Normal</option>
                                                     <option value="VIP">VIP</option>
                                                 </select>
@@ -158,7 +158,7 @@
                                             <div class="mb-3">
                                                 <label for="ubicacion" class="form-label">Ubicación</label>
                                                 <select class="form-select" :id="'editar_ubicacion'+mesa.id" name="ubicacion" v-model="ubicacion">
-                                                    <option value="" disabled selected>Selecciona una ubicación</option>
+                                                    <option value="" disabled selected>Selecciona una Ubicación</option>
                                                     <option value="Interior">Interior</option>
                                                     <option value="Exterior">Exterior</option>
                                                     <option value="Privada">Privada</option>
@@ -185,7 +185,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="editarClienteLabel">Ver cliente</h5>
+                                        <h5 class="modal-title" id="editarClienteLabel">Ver Cliente</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                                     </div>
                                     <div class="modal-body">
@@ -195,7 +195,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="sillas" class="form-label">Cantidad de sillas</label>
+                                            <label for="sillas" class="form-label">Cantidad de Sillas</label>
                                             <input type="number" class="form-control" v-model="cantidad_sillas" disabled>
                                         </div>
                                         <div class="mb-3">
@@ -215,13 +215,13 @@
                                         </div>
 
                                         <div class="col-mb-3">
-                                            <h5>Historial de reservaciones</h5>
+                                            <h5>Historial de Reservaciones</h5>
                                             <section>
                                                 <ul v-if="Object.keys(mesa.reservas).length > 0"  class="timeline">
                                                     <li v-for="reserva in mesa.reservas" :key="reserva.id" class="timeline-item mb-6">
                                                     <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="mb-2 fw-bold">Fecha de reservación: </h6>
+                                                                <h6 class="mb-2 fw-bold">Fecha de Reservación: </h6>
                                                             </div>
                                                             <div class="col-8">
                                                             <h6 class="mb-2 fw-bold" v-text="reserva.fecha_reservacion"></h6>
@@ -229,7 +229,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Hora de inicio:</h6>
+                                                                <h6 class="text-muted fw-bold">Hora de Inicio:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.hora_inicio"></p>
@@ -237,7 +237,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Hora final:</h6>
+                                                                <h6 class="text-muted fw-bold">Hora Final:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.hora_final"></p>
@@ -245,7 +245,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-4">
-                                                                <h6 class="text-muted fw-bold">Numero de mesa:</h6>
+                                                                <h6 class="text-muted fw-bold">Numero de Mesa:</h6>
                                                             </div>
                                                             <div class="col-8">
                                                                 <p v-text="reserva.numero_mesa"></p>
@@ -254,7 +254,7 @@
                                                     </li>
                                                 </ul>
                                                 <div v-else>
-                                                    <h6 class="mb-2">No hay reservaciones</h6>
+                                                    <h6 class="mb-2">No hay Reservaciones</h6>
                                                 </div>    
                                             </section>
                                         </div>
