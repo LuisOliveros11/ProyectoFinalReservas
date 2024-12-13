@@ -250,7 +250,11 @@ class reservasController extends Controller
 
         $response = curl_exec($curl);
         $response = json_decode($response);
-        $listaReservas = $response->reservaciones;
+        if (property_exists($response, 'reservaciones') && !empty($response->reservaciones)) {
+            $listaReservas = $response->reservaciones;
+        } else {
+            $listaReservas = [];
+        }
         curl_close($curl);
 
         if (
