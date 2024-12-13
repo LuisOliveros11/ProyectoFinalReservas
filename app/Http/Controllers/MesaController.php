@@ -32,7 +32,11 @@ class MesaController extends Controller
 
         $response = curl_exec($curl);
         $response = json_decode($response);
-        $mesasSinActualizar = $response->mesas;
+        if (property_exists($response, 'mesas') && !empty($response->mesas)) {
+            $mesasSinActualizar = $response->mesas;
+        } else {
+            $mesasSinActualizar = [];
+        }
 
         curl_close($curl);
 
@@ -55,7 +59,11 @@ class MesaController extends Controller
 
         $response = curl_exec($curl);
         $response = json_decode($response);
-        $listaReservas = $response->reservaciones;
+        if (property_exists($response, 'reservaciones') && !empty($response->reservaciones)) {
+            $listaReservas = $response->reservaciones;
+        } else {
+            $listaReservas = [];
+        }
 
         curl_close($curl);
 
@@ -145,15 +153,20 @@ class MesaController extends Controller
 
         $response = curl_exec($curl);
         $mesasActualizadas = json_decode($response, true);
+        
 
         curl_close($curl);
 
         // Relacionar reservas con mesas
-        foreach ($mesasActualizadas['mesas'] as &$mesa) {
-            $mesa['reservas'] = array_filter($listaReservas, function ($reserva) use ($mesa) {
-                return $reserva->numero_mesa == $mesa['numero'];
-            });
+        if(isset($mesasActualizadas['mesas']) && !empty($mesasActualizadas['mesas']) && isset($reservas['reservaciones'])){
+            foreach ($mesasActualizadas['mesas'] as &$mesa) {
+                $mesa['reservas'] = array_filter($listaReservas, function ($reserva) use ($mesa) {
+                    return $reserva->numero_mesa == $mesa['numero'];
+                });
+            }
+
         }
+       
 
         if (isset($mesasActualizadas['status']) && $mesasActualizadas['status'] === 200) {
             return view('panelMesas', compact('mesasActualizadas'));
