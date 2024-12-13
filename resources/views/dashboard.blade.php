@@ -106,7 +106,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(cliente, index) in obtener_clientes" :key="cliente.id">
+                                        <tr v-for="(cliente, index) in obtener_clientes_nuevos" :key="cliente.id">
                                             <td v-text="cliente.nombre"></td>
                                             <td v-text="cliente.apellidos"></td>
                                             <td v-text="cliente.fecha_registro"></td>
@@ -151,12 +151,14 @@
                 const obtener_reservas = ref(<?php echo json_encode($reservas['reservaciones']); ?>)
                 const obtener_mesas = ref(<?php echo json_encode($mesas['mesas']); ?>)
                 const obtener_clientes = ref(<?php echo json_encode($clientes['clientes']); ?>)
+                const obtener_clientes_nuevos = ref([...obtener_clientes.value].reverse().slice(0, 15))
                 const obtener_usuarios = ref(<?php echo json_encode($usuarios['usuarios']); ?>)
                 return {
                     obtener_reservas,
                     obtener_mesas,
                     obtener_usuarios,
-                    obtener_clientes
+                    obtener_clientes,
+                    obtener_clientes_nuevos
                 }
             },
             methods: {
