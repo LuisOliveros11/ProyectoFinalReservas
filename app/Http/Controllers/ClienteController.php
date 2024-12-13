@@ -58,10 +58,13 @@ class ClienteController extends Controller
     // Validar que las reservas y la clave existen
     $reservas = isset($reservas['reservaciones']) ? $reservas['reservaciones'] : [];
 
-    foreach ($clients['clientes'] as &$client) {
-      $client['reservas'] = array_filter($reservas['reservaciones'], function ($reserva) use ($client) {
-        return $reserva['id_cliente'] == $client['id'];
-      });
+
+    if (isset($clients['clientes']) && $clients['status'] === 200) {
+      foreach ($clients['clientes'] as &$client) {
+        $client['reservas'] = array_filter($reservas, function ($reserva) use ($client) {
+            return isset($reserva['id_cliente']) && $reserva['id_cliente'] == $client['id'];
+        });
+    }
     }
 
     if (isset($clients['status']) && $clients['status'] === 200) {

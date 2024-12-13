@@ -86,7 +86,11 @@ class UsuarioController extends Controller
                                     curl_close($curl);
 
                                     if (isset($response->usuario) && $response->status == 201) {
-                                        return redirect()->route('inicio');
+                                        if ($request->origen === 'login') {
+                                            return redirect()->route('inicio'); 
+                                        } elseif ($request->origen === 'panel') {
+                                            return redirect()->route('panelUsuario');
+                                        }
                                     } else {
                                         return redirect()->back()->with('error', 'Error al crear usuario. Este correo ya ha sido registrado');
                                     }
