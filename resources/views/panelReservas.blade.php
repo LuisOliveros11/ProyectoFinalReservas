@@ -275,8 +275,8 @@
         createApp({
             setup() {
                 const obtener_reservas = ref(<?php echo json_encode($reservaciones['reservaciones']); ?>);
-                const obtener_clientes = ref(<?php echo json_encode($clientes['clientes']); ?>);
-                const obtener_mesas = ref(<?php echo json_encode($mesas['mesas']); ?>);
+                const obtener_clientes = ref(<?php echo json_encode($clientes['clientes'] ?? []); ?>);
+                const obtener_mesas = ref(<?php echo json_encode($mesas['mesas'] ?? []); ?>);
                 obtener_reservas.value = obtener_reservas.value.map(reserva => {
                     //Encontrar el cliente por id_cliente
                     const cliente = obtener_clientes.value.find(c => c.id === reserva.id_cliente);

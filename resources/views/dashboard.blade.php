@@ -148,11 +148,10 @@
 
         createApp({
             setup() {
-                const obtener_reservas = ref(<?php echo json_encode($reservas['reservaciones']); ?>)
-                const obtener_mesas = ref(<?php echo json_encode($mesas['mesas']); ?>)
-                const obtener_clientes = ref(<?php echo json_encode($clientes['clientes']); ?>)
-                const obtener_clientes_nuevos = ref([...obtener_clientes.value].reverse().slice(0, 15))
-                const obtener_usuarios = ref(<?php echo json_encode($usuarios['usuarios']); ?>)
+                const obtener_reservas = ref(<?php echo json_encode($reservas['reservaciones'] ?? []); ?>)
+                const obtener_mesas = ref(<?php echo json_encode($mesas['mesas'] ?? []); ?>)
+                const obtener_clientes = ref(<?php echo json_encode($clientes['clientes'] ?? []); ?>)
+                const obtener_usuarios = ref(<?php echo json_encode($usuarios['usuarios'] ?? []); ?>)
                 return {
                     obtener_reservas,
                     obtener_mesas,

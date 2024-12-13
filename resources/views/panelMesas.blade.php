@@ -217,7 +217,7 @@
                                         <div class="col-mb-3">
                                             <h5>Historial de Reservaciones</h5>
                                             <section>
-                                                <ul v-if="Object.keys(mesa.reservas).length > 0"  class="timeline">
+                                                <ul v-if="mesa.reservas && Object.keys(mesa.reservas).length > 0"  class="timeline">
                                                     <li v-for="reserva in mesa.reservas" :key="reserva.id" class="timeline-item mb-6">
                                                     <div class="row">
                                                             <div class="col-4">
@@ -312,7 +312,7 @@
 
         createApp({
             setup() {
-                const obtener_mesas = ref(<?php echo json_encode($mesasActualizadas['mesas']); ?>);
+                const obtener_mesas = ref(<?php echo json_encode($mesasActualizadas['mesas'] ?? []); ?>);
                 
                 let mesas = ref(obtener_mesas.value.slice(0, 10));
                 let variable_mesas = ref(0)
