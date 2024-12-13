@@ -25,7 +25,7 @@
                                         <h3 class="text-center font-weight-light my-4">Crear una Cuenta</h3>
                                     </div>
                                     <div class="card-body">
-                                         @if (session('error'))
+                                        @if (session('error'))
                                             <div class="alert alert-danger" role="alert">
                                                 {{ session('error') }}
                                             </div>
@@ -36,6 +36,7 @@
                                             @method('POST')
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
+                                                    <input type="hidden" name="origen" value="login">
                                                     <div class="form-floating mb-3 mb-md-0">
                                                         <input class="form-control" id="nombres" type="text"
                                                             placeholder="Nombres" v-model="nombres" name="nombres" />
@@ -98,8 +99,8 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="confirmar_contrasena" type="password"
-                                                            placeholder="confirmar Contraseña"
+                                                        <input class="form-control" id="confirmar_contrasena"
+                                                            type="password" placeholder="confirmar Contraseña"
                                                             name="confirmar_contrasena"
                                                             v-model="confirmar_contrasena" />
                                                         <label for="">confirmar Contraseña</label>
@@ -297,10 +298,10 @@
         contrasena_input.addEventListener("keydown", validar_contrasena);
 
         //EVITAR PEGAR TEXTO EN LOS CAMPOS DE CONTRASEÑAS
-        contrasena_input.addEventListener("paste", function(e) {
+        contrasena_input.addEventListener("paste", function (e) {
             e.preventDefault();
         });
-        confirmar_contrasena_input.addEventListener("paste", function(e) {
+        confirmar_contrasena_input.addEventListener("paste", function (e) {
             e.preventDefault();
         });
     </script>

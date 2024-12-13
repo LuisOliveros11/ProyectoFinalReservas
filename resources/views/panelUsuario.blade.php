@@ -28,45 +28,63 @@
 
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#crearUsuarioModal">
                             Crear Usuario
                         </button>
                     </div>
-                    <div class="modal fade" id="crearUsuarioModal" tabindex="-1" aria-labelledby="crearUsuarioModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="crearUsuarioModal" tabindex="-1"
+                        aria-labelledby="crearUsuarioModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <form method="POST" action="{{route(name: 'añadirUsuario')}}" @submit.prevent="funcion_validar_usuario($event)" id="agregar_usuario">
+                            <form method="POST" action="{{route(name: 'añadirUsuario')}}"
+                                @submit.prevent="funcion_validar_usuario($event)" id="agregar_usuario">
                                 @csrf
                                 @method('POST')
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="crearUsuarioModalLabel">Crear un Nuevo Usuario</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <h1 class="modal-title fs-5" id="crearUsuarioModalLabel">Crear un Nuevo Usuario
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="mb-3">
+                                            <input type="hidden" name="origen" value="panel">
                                             <label for="nombre" class="form-label">Nombre</label>
-                                            <input type="text" class="form-control" id="nombres" name="nombres" v-model="nombres">
-                                            <label v-if="boolean_nombres" class="form-label" style="color: red;" v-text="error_nombres"></label>
+                                            <input type="text" class="form-control" id="nombres" name="nombres"
+                                                v-model="nombres">
+                                            <label v-if="boolean_nombres" class="form-label" style="color: red;"
+                                                v-text="error_nombres"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="apellidos" class="form-label">Apellidos</label>
-                                            <input type="text" class="form-control" id="apellidos" name="apellidos" v-model="apellidos">
-                                            <label v-if="boolean_apellidos" class="form-label" style="color: red;" v-text="error_apellidos"></label>
+                                            <input type="text" class="form-control" id="apellidos" name="apellidos"
+                                                v-model="apellidos">
+                                            <label v-if="boolean_apellidos" class="form-label" style="color: red;"
+                                                v-text="error_apellidos"></label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="text" class="form-control" id="correo_electronico" name="correo_electronico" v-model="correo_electronico">
-                                            <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
+                                            <label for="correo_electronico" class="form-label">Correo
+                                                Electrónico</label>
+                                            <input type="text" class="form-control" id="correo_electronico"
+                                                name="correo_electronico" v-model="correo_electronico">
+                                            <label v-if="boolean_correo_electronico" class="form-label"
+                                                style="color: red;" v-text="error_correo_electronico"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" class="form-control" id="contrasena" name="contrasena" v-model="contrasena">
-                                            <label v-if="boolean_contrasena" class="form-label" style="color: red;" v-text="error_contrasena"></label>
+                                            <input type="password" class="form-control" id="contrasena"
+                                                name="contrasena" v-model="contrasena">
+                                            <label v-if="boolean_contrasena" class="form-label" style="color: red;"
+                                                v-text="error_contrasena"></label>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="contrasena_confirmada" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password" class="form-control" id="confirmar_contrasena" name="confirmar_contrasena" v-model="confirmar_contrasena">
-                                            <label v-if="boolean_confirmar_contrasena" class="form-label" style="color: red;" v-text="error_confirmar_contrasena"></label>
+                                            <label for="contrasena_confirmada" class="form-label">Confirmar
+                                                Contraseña</label>
+                                            <input type="password" class="form-control" id="confirmar_contrasena"
+                                                name="confirmar_contrasena" v-model="confirmar_contrasena">
+                                            <label v-if="boolean_confirmar_contrasena" class="form-label"
+                                                style="color: red;" v-text="error_confirmar_contrasena"></label>
                                         </div>
                                         <div class="mb-3">
                                             <label for="rol" class="form-label">Rol</label>
@@ -75,11 +93,13 @@
                                                 <option value="Administrador">Administrador</option>
                                                 <option value="Empleado">Empleado</option>
                                             </select>
-                                            <label v-if="boolean_rol" class="form-label" style="color: red;" v-text="error_rol"></label>
+                                            <label v-if="boolean_rol" class="form-label" style="color: red;"
+                                                v-text="error_rol"></label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-primary">Crear Usuario</button>
                                     </div>
                                 </div>
@@ -101,7 +121,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(usuario, index) in usuarios" :key="usuario.id">
+                            <tr v-for="(usuario, index) in usuarios" :key="usuario . id">
                                 <td class="small text-truncate" v-text="usuario.id"></td>
                                 <td class="small text-truncate" v-text="usuario.nombre"></td>
                                 <td class="small text-truncate" v-text="usuario.apellidos"></td>
@@ -109,16 +129,22 @@
                                 <td class="small text-truncate" v-text="usuario.rol"></td>
 
                                 <td>
-                                    <button type="button" class="btn btn-info btn-sm me-2" data-bs-toggle="modal" :data-bs-target="'#verUsuarioModal' + usuario.id"  @click="cargarUsuario(usuario)">Detalles</button>
+                                    <button type="button" class="btn btn-info btn-sm me-2" data-bs-toggle="modal"
+                                        :data-bs-target="'#verUsuarioModal' + usuario.id"
+                                        @click="cargarUsuario(usuario)">Detalles</button>
 
-                                    <button type="button" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" :data-bs-target="'#editarUsuarioModal' + usuario.id" @click="cargarUsuario(usuario)">
+                                    <button type="button" class="btn btn-warning btn-sm me-1" data-bs-toggle="modal"
+                                        :data-bs-target="'#editarUsuarioModal' + usuario.id"
+                                        @click="cargarUsuario(usuario)">
                                         Editar
                                     </button>
-                                    <form method="POST" action="{{ route('eliminarUsuario') }}" :id="'form_borrar_perfil_' + usuario.id" class="d-inline">
+                                    <form method="POST" action="{{ route('eliminarUsuario') }}"
+                                        :id="'form_borrar_perfil_' + usuario . id" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <input type="hidden" name="usuario_id" :value="usuario.id">
-                                        <button type="button" @click="sweetAlert_eliminar(usuario.id)" class="btn btn-danger btn-sm">Eliminar</button>
+                                        <input type="hidden" name="usuario_id" :value="usuario . id">
+                                        <button type="button" @click="sweetAlert_eliminar(usuario.id)"
+                                            class="btn btn-danger btn-sm">Eliminar</button>
 
                                     </form>
                                 </td>
@@ -126,56 +152,82 @@
                         </tbody>
                     </table>
 
-                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario.id">
-                        <div class="modal fade" :id="'editarUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
+                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario . id">
+                        <div class="modal fade" :id="'editarUsuarioModal' + usuario . id" :data-modal-id="usuario.id"
+                            tabindex="-1" aria-labelledby="editarUsuarioModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form method="POST" action="{{route(name: 'editarUsuario')}}" @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario'+usuario.id">
+                                <form method="POST" action="{{route(name: 'editarUsuario')}}"
+                                    @submit.prevent="funcion_validar_usuario($event)" :id="'editar_usuario' + usuario . id">
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="editarUsuarioModalLabel">Editar un Usuario</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h1 class="modal-title fs-5" id="editarUsuarioModalLabel">Editar un Usuario
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" name="usuario_id" :value="usuario.id">
+                                            <input type="hidden" name="usuario_id" :value="usuario . id">
                                             <div class="mb-3">
                                                 <label for="nombre" class="form-label">Nombre</label>
-                                                <input type="text" class="form-control" :id="'editar_nombres'+usuario.id" name="editar_nombres" v-model="nombres">
-                                                <label v-if="boolean_nombres" class="form-label" style="color: red;" v-text="error_nombres"></label>
+                                                <input type="text" class="form-control"
+                                                    :id="'editar_nombres' + usuario . id" name="editar_nombres"
+                                                    v-model="nombres">
+                                                <label v-if="boolean_nombres" class="form-label" style="color: red;"
+                                                    v-text="error_nombres"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="apellidos" class="form-label">Apellidos</label>
-                                                <input type="text" class="form-control" :id="'editar_apellidos'+usuario.id" name="editar_apellidos" v-model="apellidos">
-                                                <label v-if="boolean_apellidos" class="form-label" style="color: red;" v-text="error_apellidos"></label>
+                                                <input type="text" class="form-control"
+                                                    :id="'editar_apellidos' + usuario . id" name="editar_apellidos"
+                                                    v-model="apellidos">
+                                                <label v-if="boolean_apellidos" class="form-label" style="color: red;"
+                                                    v-text="error_apellidos"></label>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                                <input type="text" class="form-control" :id="'editar_correo_electronico'+usuario.id" name="editar_correo_electronico" v-model="correo_electronico">
-                                                <label v-if="boolean_correo_electronico" class="form-label" style="color: red;" v-text="error_correo_electronico"></label>
+                                                <label for="correo_electronico" class="form-label">Correo
+                                                    Electrónico</label>
+                                                <input type="text" class="form-control"
+                                                    :id="'editar_correo_electronico' + usuario . id"
+                                                    name="editar_correo_electronico" v-model="correo_electronico">
+                                                <label v-if="boolean_correo_electronico" class="form-label"
+                                                    style="color: red;" v-text="error_correo_electronico"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="contrasena" class="form-label">Contraseña</label>
-                                                <input type="password" class="form-control" :id="'editar_contrasena'+usuario.id" name="editar_contrasena" v-model="contrasena">
-                                                <label v-if="boolean_contrasena" class="form-label" style="color: red;" v-text="error_contrasena"></label>
+                                                <input type="password" class="form-control"
+                                                    :id="'editar_contrasena' + usuario . id" name="editar_contrasena"
+                                                    v-model="contrasena">
+                                                <label v-if="boolean_contrasena" class="form-label" style="color: red;"
+                                                    v-text="error_contrasena"></label>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="contrasena_confirmada" class="form-label">Confirmar Contraseña</label>
-                                                <input type="password" class="form-control" :id="'editar_confirmar_contrasena'+usuario.id" name="editar_confirmar_contrasena" v-model="confirmar_contrasena">
-                                                <label v-if="boolean_confirmar_contrasena" class="form-label" style="color: red;" v-text="error_confirmar_contrasena"></label>
+                                                <label for="contrasena_confirmada" class="form-label">Confirmar
+                                                    Contraseña</label>
+                                                <input type="password" class="form-control"
+                                                    :id="'editar_confirmar_contrasena' + usuario . id"
+                                                    name="editar_confirmar_contrasena" v-model="confirmar_contrasena">
+                                                <label v-if="boolean_confirmar_contrasena" class="form-label"
+                                                    style="color: red;" v-text="error_confirmar_contrasena"></label>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="rol" class="form-label">Rol</label>
 
-                                                <select class="form-select" :id="'editar_rol'+usuario.id" name="editar_rol" v-model="rol">
-                                                    <option value="Administrador" :selected="rol === 'Administrador'">Administrador</option>
-                                                    <option value="Empleado" :selected="rol === 'Empleado'">Empleado</option>
+                                                <select class="form-select" :id="'editar_rol' + usuario . id"
+                                                    name="editar_rol" v-model="rol">
+                                                    <option value="Administrador" :selected="rol === 'Administrador'">
+                                                        Administrador</option>
+                                                    <option value="Empleado" :selected="rol === 'Empleado'">Empleado
+                                                    </option>
                                                 </select>
-                                                <label v-if="boolean_rol" class="form-label" style="color: red;" v-text="error_rol"></label>
+                                                <label v-if="boolean_rol" class="form-label" style="color: red;"
+                                                    v-text="error_rol"></label>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
                                             <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                         </div>
                                     </div>
@@ -185,13 +237,15 @@
                         </div>
                     </div>
 
-                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario.id">
-                        <div class="modal fade" :id="'verUsuarioModal'+usuario.id" :data-modal-id="usuario.id" tabindex="-1" aria-labelledby="verUsuarioModal" aria-hidden="true">
+                    <div v-for="(usuario, index) in obtener_usuarios" :key="usuario . id">
+                        <div class="modal fade" :id="'verUsuarioModal' + usuario . id" :data-modal-id="usuario.id"
+                            tabindex="-1" aria-labelledby="verUsuarioModal" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="editarClienteLabel">Ver Usuario</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Cerrar"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="mb-3">
@@ -203,20 +257,23 @@
                                             <input type="text" class="form-control" v-model="apellidos" disabled>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                                            <input type="email" class="form-control" v-model="correo_electronico" disabled>
+                                            <label for="correo_electronico" class="form-label">Correo
+                                                Electrónico</label>
+                                            <input type="email" class="form-control" v-model="correo_electronico"
+                                                disabled>
                                         </div>
                                         <div class="mb-3">
                                             <label for="rol" class="form-label">Rol</label>
                                             <input type="text" class="form-control" v-model="rol" disabled>
 
                                         </div>
-                                        
+
 
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
 
@@ -225,15 +282,17 @@
 
                     </div>
 
-                  
+
 
 
                     <div class="d-flex justify-content-end">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
-                                <li @click="pagina_anterior()" class="page-item" style="cursor: pointer"><a class="page-link">Anterior</a></li>
+                                <li @click="pagina_anterior()" class="page-item" style="cursor: pointer"><a
+                                        class="page-link">Anterior</a></li>
                                 <div v-for="n in cantidad_paginas" :key="n">
-                                    <div v-if="n <= Math.min(3, pagina_actual + 1) || (n >= pagina_actual - 1 && n <= pagina_actual + 1)">
+                                    <div
+                                        v-if="n <= Math.min(3, pagina_actual + 1) || (n >= pagina_actual - 1 && n <= pagina_actual + 1)">
                                         <li v-if="n === pagina_actual" class="page-item">
                                             <a class="page-link active" style="cursor: pointer;" v-text="n"></a>
                                         </li>
@@ -243,7 +302,8 @@
                                         </li>
                                     </div>
                                 </div>
-                                <li @click="pagina_siguiente()" class="page-item" style="cursor: pointer"><a class="page-link">Siguiente</a></li>
+                                <li @click="pagina_siguiente()" class="page-item" style="cursor: pointer"><a
+                                        class="page-link">Siguiente</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -255,7 +315,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
 
 
@@ -379,7 +440,7 @@
                     let rol_valido = this.rol !== "";
                     let fecha_valida = this.fecha_registro !== "";
 
-                    const correo_existe = this.obtener_usuarios.some(usuario => 
+                    const correo_existe = this.obtener_usuarios.some(usuario =>
                         usuario.correo_electronico === this.correo_electronico && usuario.correo_electronico !== this.correo_actual
                     );
 
@@ -440,7 +501,7 @@
                     }
                 },
 
-                
+
 
                 cargarUsuario(usuario) {
                     this.nombres = usuario.nombre;
@@ -480,12 +541,12 @@
                 },
                 sweetAlert_eliminar(id) {
                     swal({
-                            title: "Seguro que quieres eliminar al usuario?",
-                            text: "Una vez eliminado, no podrás recuperarlo",
-                            icon: "warning",
-                            buttons: true,
-                            dangerMode: true,
-                        })
+                        title: "Seguro que quieres eliminar al usuario?",
+                        text: "Una vez eliminado, no podrás recuperarlo",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
                         .then((willDelete) => {
                             if (willDelete) {
                                 swal("El usuario ha sido eliminado!", {
@@ -528,7 +589,7 @@
                         }
                     });
                 },
-              
+
 
                 pagina_siguiente() {
                     let ultima_pagina = false;
@@ -618,7 +679,7 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
 
             const nombres_input = document.getElementById("nombres");
             const apellidos_input = document.getElementById("apellidos");
@@ -651,11 +712,11 @@
             apellidos_input.addEventListener("keydown", validar_nombres_apellidos);
             contrasena_input.addEventListener("keydown", validar_contrasena);
 
-            contrasena_input.addEventListener("paste", function(e) {
+            contrasena_input.addEventListener("paste", function (e) {
                 e.preventDefault();
             });
 
-            confirmar_contrasena_input.addEventListener("paste", function(e) {
+            confirmar_contrasena_input.addEventListener("paste", function (e) {
                 e.preventDefault();
             });
 
@@ -676,13 +737,13 @@
             });
 
             document.querySelectorAll("input[id^='editar_contrasena']").forEach(input => {
-                input.addEventListener("paste", function(e) {
+                input.addEventListener("paste", function (e) {
                     e.preventDefault();
                 });
             });
 
             document.querySelectorAll("input[id^='editar_confirmar_contrasena']").forEach(input => {
-                input.addEventListener("paste", function(e) {
+                input.addEventListener("paste", function (e) {
                     e.preventDefault();
                 });
             });
