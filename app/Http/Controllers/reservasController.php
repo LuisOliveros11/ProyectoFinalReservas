@@ -11,7 +11,91 @@ class reservasController extends Controller
 {
     public function index()
     {
-        return view("dashboard");
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . session('user')->token
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        $clientes = json_decode($response, true);
+        
+        curl_close($curl);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/mesas',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . session('user')->token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $mesas = json_decode($response, true);
+
+        curl_close($curl);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/usuarios',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . session('user')->token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $usuarios = json_decode($response, true);
+
+        curl_close($curl);
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/reservaciones',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'GET',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer ' . session('user')->token
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $reservas = json_decode($response, true);
+
+        curl_close($curl);
+        
+        return view("dashboard", compact('clientes', 'mesas', 'usuarios', 'reservas'));
     }
 
     public function getReservas()
