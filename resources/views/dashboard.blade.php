@@ -106,12 +106,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(cliente, index) in obtener_clientes_nuevos.reverse()" :key="cliente.id">
+                                    <tbody>
+                                        <tr v-if="obtener_clientes.length === 0">
+                                            <td colspan="4" style="text-align: center;">No se encontraron clientes</td>
+                                        </tr>
+                                        <tr v-for="(cliente, index) in obtener_clientes" :key="cliente.id">
                                             <td v-text="cliente.nombre"></td>
                                             <td v-text="cliente.apellidos"></td>
                                             <td v-text="cliente.fecha_registro"></td>
                                             <td v-text="cliente.correo_electronico"></td>
                                         </tr>
+                                    </tbody>
                                     </tbody>
                                 </table>
                             </div>
@@ -152,14 +157,12 @@
                 const obtener_mesas = ref(<?php echo json_encode($mesas['mesas'] ?? []); ?>)
                 const obtener_clientes = ref(<?php echo json_encode(array_slice($clientes['clientes'] ?? [], 0, 15)); ?>);
 
-const obtener_clientes_nuevos = ref(<?php echo json_encode(array_slice($clientes['clientes'] ?? [], 0, 15)); ?>);
                 const obtener_usuarios = ref(<?php echo json_encode($usuarios['usuarios'] ?? []); ?>)
                 return {
                     obtener_reservas,
                     obtener_mesas,
                     obtener_usuarios,
                     obtener_clientes,
-                    obtener_clientes_nuevos
                 }
             },
             methods: {
