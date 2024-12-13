@@ -8,66 +8,67 @@ class ClienteController extends Controller
 {
   public function getClients()
   {
-      $curl = curl_init();
-  
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes',
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . session('user')->token
-          ),
-      ));
-  
-      $response = curl_exec($curl);
-      $clients = json_decode($response, true);
-  
-      curl_close($curl);
-  
-      // Obtener reservas
-      $curl = curl_init();
-  
-      curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/reservaciones',
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_ENCODING => '',
-          CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 0,
-          CURLOPT_FOLLOWLOCATION => true,
-          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-          CURLOPT_CUSTOMREQUEST => 'GET',
-          CURLOPT_HTTPHEADER => array(
-              'Authorization: Bearer ' . session('user')->token
-          ),
-      ));
-  
-      $response = curl_exec($curl);
-      $reservas = json_decode($response, true);
-  
-      curl_close($curl);
-  
-      // Validar que las reservas y la clave existen
-      $reservas = isset($reservas['reservaciones']) ? $reservas['reservaciones'] : [];
-      
-      
-      if (isset($clients['clientes']) && !empty($clients['clientes']) && isset($reservas['reservaciones'])) {
-          foreach ($clients['clientes'] as &$client) {
-              $client['reservas'] = array_filter($reservas['reservaciones'], function ($reserva) use ($client) {
-                  return $reserva['id_cliente'] == $client['id'];
-              });
-          }
-      }
-  
-      if (isset($clients['status']) && $clients['status'] === 200) {
-          return view('panelClientes', compact('clients'));
-      } else {
-          echo "Error al obtener clientes";
-      }
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . session('user')->token
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $clients = json_decode($response, true);
+    
+    if(!isset($clients['clientes']) || !is_array($clients['clientes'])){
+      $client['clientes'] = [];
+    }
+    
+    curl_close($curl);
+
+    // Obtener reservas
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/reservaciones',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'GET',
+      CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . session('user')->token
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $reservas = json_decode($response, true);
+
+    curl_close($curl);
+
+    // Validar que las reservas y la clave existen
+    $reservas = isset($reservas['reservaciones']) ? $reservas['reservaciones'] : [];
+
+    foreach ($clients['clientes'] as &$client) {
+      $client['reservas'] = array_filter($reservas['reservaciones'], function ($reserva) use ($client) {
+        return $reserva['id_cliente'] == $client['id'];
+      });
+    }
+
+    if (isset($clients['status']) && $clients['status'] === 200) {
+      return view('panelClientes', compact('clients'));
+    } else {
+      echo "Error al obtener clientes";
+    }
   }
   public function addClient(Request $request)
   {
@@ -195,7 +196,7 @@ class ClienteController extends Controller
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                      CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes/'.$id,
+                      CURLOPT_URL => 'https://apisistemadereservacion-production.up.railway.app/api/clientes/' . $id,
                       CURLOPT_RETURNTRANSFER => true,
                       CURLOPT_ENCODING => '',
                       CURLOPT_MAXREDIRS => 10,

@@ -27,6 +27,14 @@ class UsuarioController extends Controller
         $response = curl_exec($curl);
         $users = json_decode($response, true);
 
+        $usuario_actual_id = session('user')->user->id;
+
+        $usuarios_filtrados = array_filter($users['usuarios'], function ($user) use ($usuario_actual_id) {
+            return $user['id'] !== $usuario_actual_id;
+        });
+    
+        $users['usuarios'] = array_values($usuarios_filtrados);
+
         curl_close($curl);
 
         return view('panelUsuario', compact('users'));

@@ -158,7 +158,7 @@ class MesaController extends Controller
         curl_close($curl);
 
         // Relacionar reservas con mesas
-        if(isset($mesasActualizadas['mesas']) && !empty($mesasActualizadas['mesas']) && isset($reservas['reservaciones'])){
+        if(isset($mesasActualizadas['mesas']) && !empty($mesasActualizadas['mesas'])){
             foreach ($mesasActualizadas['mesas'] as &$mesa) {
                 $mesa['reservas'] = array_filter($listaReservas, function ($reserva) use ($mesa) {
                     return $reserva->numero_mesa == $mesa['numero'];
