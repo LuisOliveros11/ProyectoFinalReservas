@@ -307,6 +307,7 @@
                 let numero_mesa = ref("")
                 let numero_mesa_actual = ref("")
                 let correo_actual = ref("")
+                let id_reserva_actual = ref(0)
 
                 let boolean_fecha_reserva = ref(false)
                 let boolean_correo_electronico = ref(false)
@@ -431,14 +432,9 @@
                         const horarioSolapado =
                             horaInicioUsuario < horaFinalExistente && horaFinalUsuario > horaInicioExistente;
 
-                        const horasIguales =
-                            horaInicioUsuario.getTime() === horaInicioExistente.getTime() &&
-                            horaFinalUsuario.getTime() === horaFinalExistente.getTime();
+                        const esEdicionYEsMismaReserva = esEdicion && String(reserva.id) === String(this.id_reserva_actual);
 
-                        const esMismoNumeroMesa = esEdicion && String(this.numero_mesa) === String(this.numero_mesa_actual);
-                        const existe_cliente = reserva.cliente != null;
-
-                        return mismaMesa && mismaFecha && existe_cliente && horarioSolapado && !(esMismoNumeroMesa && horasIguales);
+                        return mismaMesa && mismaFecha && horarioSolapado && !esEdicionYEsMismaReserva;
                     });
 
 
@@ -533,6 +529,7 @@
                         this.correo_electronico = mesa.cliente.correo_electronico;
                     }
                     this.numero_mesa_actual = mesa.numero_mesa;
+                    this.id_reserva_actual = mesa.id
                   
                 },
 
